@@ -1,0 +1,19 @@
+title: Percentes
+description: >-
+  Reliability measurement for LLM inference — coordinated-omission-correct,
+  censoring-aware, and honest about the requests that never finish.
+url: "https://percentes.ai"
+baseurl: ""
+
+markdown: kramdown
+permalink: /writing/:year/:title/
+plugins:
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+
+# Keep Jekyll out of files it should not touch.
+exclude:
+  - README.md
+  - SITE-DEPLOY.md
