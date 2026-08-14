@@ -4,22 +4,25 @@ layout: default
 
 # Reliability measurement for LLM inference
 
-When your application depends on a hosted model API, that provider's
-reliability under load is a production dependency. Percentes measures it
-the hard way: open-loop load with coordinated-omission-correct timing,
-every scheduled request accounted for as **completed, errored, or
-censored**, Kaplan–Meier completion curves for the requests that never
-finish, and a client that must prove *it* wasn't the bottleneck before
-any number counts.
+Hosted model APIs stall and time out under load, and the request that
+never returns is the one your own metrics are worst at counting.
 
-The instrument is open source and the methodology is pre-registered —
-every published number cites the exact commit and configuration that
-produced it, so you can re-run it rather than trust it.
+Percentes is built to measure exactly those. Load is dispatched on a
+schedule fixed before the run, and latency is measured from each
+request's intended send time rather than its actual one, so a stalling
+provider cannot slow the load generator into hiding its own worst moments
+(the *coordinated omission* correction). Every scheduled request is
+accounted for as **completed**, **errored**, or **censored** — still
+running when the pinned timeout expired, so known only to have taken *at
+least* that long. Kaplan–Meier completion curves are computed over every
+scheduled request, so the ones that never finish still count. And the
+client must prove it wasn't the bottleneck before any number counts.
 
-- **[Writing](/writing/)** — measurement notes and teardowns, published as they happen
+Percentes is built and run by Varun Mahadkar. The instrument is open
+source, and I pre-registered the methodology before running anything:
+every published number cites the exact instrument commit and the full
+configuration that produced it, so the run can be repeated.
+
+- **[Writing](/writing/)** — measurement notes and teardowns
 - **[Methodology](/methodology/)** — what the numbers mean and what would invalidate them
 - **[The instrument](https://github.com/percentes/percentes)** — Go, Apache-2.0
-
-<p class="meta">Percentes <span class="pron">(per-SEN-teez)</span>, from
-<em>percentile</em>: the tail is where reliability lives. The measure,
-not the metric.</p>

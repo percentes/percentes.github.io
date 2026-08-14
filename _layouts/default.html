@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="/feed.xml">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta name="author" content="Varun Mahadkar">
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  <meta property="og:site_name" content="Percentes">
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta name="twitter:card" content="summary">
 </head>
 <body>
   <header>
@@ -22,7 +29,7 @@
     {{ content }}
   </main>
   <footer>
-    <p>Percentes <span class="pron">(per-SEN-teez)</span> — the measure, not the metric.
+    <p>Percentes <span class="pron">(per-SEN-teez)</span> — written and run by Varun Mahadkar. No vendor funding.
     <a href="/feed.xml">RSS</a></p>
   </footer>
 </body>

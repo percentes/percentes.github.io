@@ -6,9 +6,10 @@ permalink: /writing/
 
 # Writing
 
-Measurement notes and teardowns. Every piece that publishes a number
-links the exact instrument commit and configuration that produced it.
+Measurement notes and teardowns. Irregular — a piece goes up when a run
+turns up something worth writing down, not on a schedule.
 
+{% if site.posts.size > 0 %}
 <ul class="postlist">
 {% for post in site.posts %}
   <li>
@@ -17,3 +18,7 @@ links the exact instrument commit and configuration that produced it.
   </li>
 {% endfor %}
 </ul>
+{% else %}
+<p>Nothing published yet. The first teardown is in progress;
+<a href="/feed.xml">the feed</a> will carry it.</p>
+{% endif %}
