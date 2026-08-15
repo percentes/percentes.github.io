@@ -29,18 +29,24 @@ Every scheduled request terminates as exactly one of **completed**,
 the observation is a lower bound, not a duration). Only completions enter
 latency histograms, and they are labelled *conditional on completion*.
 Errors are excluded from the latency histograms and reported as a failure
-rate over all scheduled requests. In the completion curve both errors and
-censored requests enter as censored observations at their observed times:
-neither is a completion, and neither is discarded. The curve itself is a
-**Kaplan–Meier completion curve** computed over all scheduled requests —
-Kaplan–Meier is the
-survival-analysis estimator that treats a request cut off at the timeout
-as a lower bound on its duration rather than as missing data, which is
-why the curve is defined over every request that was scheduled and not
-only the ones that came back. A quantile the curve never crosses inside
+rate over all scheduled requests. The completion curve is the
+**Aalen–Johansen cumulative incidence of completion**, computed over all
+scheduled requests: the estimated probability that a scheduled request
+has completed by time t. A request cut off at the timeout is *censored*:
+its outcome is still unknown, so it stays in the denominator carrying a
+lower bound on its duration. An errored request is different. It can
+never complete, so it enters as a *competing terminal event* that
+permanently consumes probability mass. Treating errors as censored is
+the standard competing-risks mistake: it assumes the errored requests
+would have completed at the same rate as the survivors, which biases the
+completion estimate upward. An earlier version of this specification made
+that mistake, and the correction is recorded in
+[SPEC §0, amendment A1](https://github.com/percentes/percentes/blob/main/SPEC.md).
+When a window has no errors the curve is exactly one minus the familiar
+Kaplan–Meier survival curve. A quantile the curve never crosses inside
 the timeout is reported as *beyond the horizon*: the curve is published
 truncated at the timeout, with the fraction still outstanding stated
-alongside it.
+alongside it. In a window with errors the curve can plateau below one.
 
 ## The client must prove its own innocence
 
@@ -53,7 +59,7 @@ machine cannot show it was clear of the bottleneck, the harness fails the
 run and I publish nothing from it. The same refusal applies to the
 statistics: tail confidence intervals are computed from order statistics
 only where the sample budget supports them, and refused otherwise. A
-refused interval prints as `p99-CI omitted (sample budget insufficient)` —
+refused interval prints as `p99-CI omitted (sample budget insufficient, §7)` —
 never as a blank, and never as a bare point estimate.
 
 ## Pinned parameters

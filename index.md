@@ -14,9 +14,11 @@ provider cannot slow the load generator into hiding its own worst moments
 (the *coordinated omission* correction). Every scheduled request is
 accounted for as **completed**, **errored**, or **censored** — still
 running when the pinned timeout expired, so known only to have taken *at
-least* that long. Kaplan–Meier completion curves are computed over every
-scheduled request, so the ones that never finish still count. And the
-client must prove it wasn't the bottleneck before any number counts.
+least* that long. Completion-incidence curves (Aalen–Johansen: errors
+are competing terminal events, only timeouts are censored) are computed
+over every scheduled request, so the ones that never finish still count.
+And the client must prove it wasn't the bottleneck before any number
+counts.
 
 Percentes is built and run by Varun Mahadkar. The instrument is open
 source, and I pre-registered the methodology before running anything:
