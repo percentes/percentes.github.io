@@ -1,14 +1,17 @@
 title: Percentes
 description: >-
-  Reliability measurement for LLM inference — coordinated-omission-correct,
-  censoring-aware, and honest about the requests that never finish.
+  Reliability measurement for LLM inference under load and failure.
+  Every scheduled request is accounted for, and the measuring client
+  must pass its own gates before any number counts.
 url: "https://percentes.ai"
 baseurl: ""
+author: Varun Mahadkar
 
 markdown: kramdown
 permalink: /writing/:year/:title/
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 feed:
   path: feed.xml

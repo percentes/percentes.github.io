@@ -19,6 +19,5 @@ turns up something worth writing down, not on a schedule.
 {% endfor %}
 </ul>
 {% else %}
-<p>Nothing published yet. The first teardown is in progress;
-<a href="/feed.xml">the feed</a> will carry it.</p>
+<p>Nothing published yet. <a href="/feed.xml">RSS</a>.</p>
 {% endif %}
