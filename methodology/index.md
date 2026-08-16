@@ -40,8 +40,9 @@ permanently consumes probability mass. Treating errors as censored is
 the standard competing-risks mistake: it assumes the errored requests
 would have completed at the same rate as the survivors, which biases the
 completion estimate upward.
-When a window has no errors the curve is exactly one minus the familiar
-Kaplan–Meier survival curve. A quantile the curve never crosses inside
+When a window has no errors the curve is exactly one minus the
+Kaplan–Meier survival curve, the standard estimator for data where some
+observations are cut off before the outcome is known. A quantile the curve never crosses inside
 the timeout is reported as *beyond the horizon*: quantiles are claimed
 only inside the timeout, the curve carries every observed step, and the
 fraction still outstanding is stated alongside it. In a window with
