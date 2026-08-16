@@ -25,6 +25,6 @@ source, and I pre-registered the methodology before running anything:
 every published number cites the exact instrument commit and the full
 configuration that produced it, so the run can be repeated.
 
-- **[Writing](/writing/)** — measurement notes and teardowns
-- **[Methodology](/methodology/)** — what the numbers mean and what would invalidate them
-- **[The instrument](https://github.com/percentes/percentes)** — Go, Apache-2.0
+- **[Writing](/writing/)**: measurement notes and teardowns
+- **[Methodology](/methodology/)**: what the numbers mean and what would invalidate them
+- **[The instrument](https://github.com/percentes/percentes)**: Go, Apache-2.0

@@ -69,5 +69,5 @@ in the specification and enforced at configuration load — a config that
 weakens one refuses to load. Published pieces cite the exact instrument
 commit and full configuration, so the procedure can be repeated by anyone
 with provider credentials and the API budget. Against a live third-party
-endpoint a repeat is a fresh measurement, not a replay: what is
-reproducible is the method and the refusal rules, not the day.
+endpoint a repeat is a fresh measurement, not a replay: the method and
+the refusal rules are what carry over.
