@@ -1,0 +1,44 @@
+#!/bin/sh
+# Subject-line rules: one line, 55 characters or fewer, lowercase
+# conventional prefix, plain ASCII, no body.
+# Bypass once with `git commit --no-verify`.
+set -u
+
+die() { printf '\ncommit-msg: %s\n\n' "$1" >&2; exit 1; }
+
+clean=$(grep -v '^#' "$1" | grep -v '^[[:space:]]*$')
+subject=$(printf '%s\n' "$clean" | head -1)
+body=$(printf '%s\n' "$clean" | tail -n +2)
+
+case "$subject" in
+Merge\ * | Revert\ * | fixup!\ * | squash!\ *) exit 0 ;;
+esac
+
+[ -n "$subject" ] || die "empty commit message"
+
+# Machine-local checks, when present.
+local_hook="$(git rev-parse --git-dir)/hooks-local/commit-msg"
+if [ -x "$local_hook" ]; then
+	"$local_hook" "$1" || die "local checks failed"
+fi
+
+len=${#subject}
+[ "$len" -le 55 ] || die "subject is $len characters, limit 55:
+  $subject"
+
+[ -z "$body" ] || die "subject only, no body. Found:
+$body"
+
+# Subjects stay ASCII: smart punctuation renders inconsistently across
+# terminals and breaks naive changelog and grep tooling.
+if printf '%s' "$subject" | LC_ALL=C grep -q '[^ -~]'; then
+	die "subject must be plain ASCII:
+  $subject"
+fi
+
+printf '%s\n' "$subject" |
+	grep -Eq '^(site|docs|chore|fix|style|ci)(\([a-z0-9,/_-]+\))?: .+' ||
+	die "expected '<type>(<scope>): <change>', type one of
+  site docs chore fix style ci
+got:
+  $subject"

@@ -1,0 +1,24 @@
+#!/bin/sh
+# Fast gates for the site. Install with `sh hooks/install`; bypass once with
+# `git commit --no-verify`.
+set -u
+
+die() { printf '\npre-commit: %s\n\n' "$1" >&2; exit 1; }
+
+# Front matter must open the file, or Jekyll renders the page as raw text.
+staged_md=$(git diff --cached --name-only --diff-filter=ACMR -- '*.md')
+if [ -n "$staged_md" ]; then
+	IFS='
+'
+	for f in $staged_md; do
+		case "$f" in README.md | _drafts/*) continue ;; esac
+		[ "$(head -1 "$f")" = "---" ] || die "$f is missing its opening front matter"
+	done
+	unset IFS
+fi
+
+# Machine-local checks, when present.
+local_hook="$(git rev-parse --git-dir)/hooks-local/pre-commit"
+if [ -x "$local_hook" ]; then
+	"$local_hook" || die "local checks failed"
+fi

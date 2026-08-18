@@ -1,0 +1,5 @@
+#!/bin/sh
+# Point git at this directory. Run once per clone.
+set -u
+git config core.hooksPath hooks
+echo "hooks installed (core.hooksPath=hooks)"
