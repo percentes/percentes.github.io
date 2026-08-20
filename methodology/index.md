@@ -55,7 +55,8 @@ the specification: send-skew against the intended schedule at p99 ≤ 5 ms
 and max ≤ 50 ms, zero scheduled-but-never-dispatched requests, host CPU
 at most 70% sustained over any 5-second window, and Go garbage-collection
 pauses at p99 under 1 ms during the measurement windows. If any check
-fails, the harness fails the run and I publish nothing from it. The
+fails, the harness fails the run and nothing from a failed run is
+published. The
 four checks bound the send path. The same refusal applies to the
 statistics: tail confidence intervals are computed from order statistics
 only where the sample budget supports them, and refused otherwise. A
@@ -72,5 +73,5 @@ pinned environment; for the replica-loss study that is a two-GPU
 Kubernetes cluster and the pinned serving stack. Measurement against
 hosted provider endpoints gets its own pre-registered protocol before
 any such data is collected. Against a live third-party endpoint a repeat
-is a fresh measurement, not a replay: the method and the refusal rules
-are what carry over.
+is a fresh measurement: the method and the refusal rules are what carry
+over.

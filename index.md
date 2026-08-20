@@ -6,7 +6,7 @@ layout: default
 
 Served LLM inference fails under load in ways dashboards are worst at
 counting: the request that never returns, the stream that dies
-mid-answer, the 200 with nothing in it.
+mid-answer, and the 200 with nothing in it.
 
 Percentes is built to measure exactly those. Load is dispatched on a
 schedule fixed before the run, and latency is measured from each
@@ -26,9 +26,8 @@ serving stack; no provider or real-GPU measurements are published yet.
 
 Percentes is built and run by Varun Mahadkar. The instrument is open
 source, and the methodology was pre-registered before any measurement
-data was collected. A number is published only with the exact instrument
-commit and the full configuration that produced it, so the procedure can
-be repeated.
+data was collected. A number is published only with the commit and
+configuration that produced it.
 
 - **[Writing](/writing/)**: measurement notes and teardowns
 - **[Methodology](/methodology/)**: what the numbers mean and what would invalidate them

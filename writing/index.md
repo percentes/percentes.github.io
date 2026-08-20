@@ -6,8 +6,8 @@ permalink: /writing/
 
 # Writing
 
-Measurement notes and teardowns. Irregular — a piece goes up when a run
-turns up something worth writing down, not on a schedule.
+Measurement notes and teardowns. Irregular: a piece goes up when a run
+turns up something worth writing down.
 
 {% if site.posts.size > 0 %}
 <ul class="postlist">
