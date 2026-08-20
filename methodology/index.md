@@ -38,15 +38,55 @@ carrying a lower bound on its duration. An errored request is different. It can
 never complete, so it enters as a *competing terminal event* that
 permanently consumes probability mass. Treating errors as censored is
 the standard competing-risks mistake: it assumes the errored requests
-would have completed at the same rate as the survivors, which biases the
-completion estimate upward.
+would have completed at the same rate as the survivors, so it can only
+overestimate completion, and the overestimate is greater than zero
+whenever any completion occurs after an error.
 When a window has no errors the curve is exactly one minus the
 Kaplan–Meier survival curve, the standard estimator for data where some
-observations are cut off before the outcome is known. A quantile the curve never crosses inside
-the timeout is reported as *beyond the horizon*: quantiles are claimed
-only inside the timeout, the curve carries every observed step, and the
-fraction still outstanding is stated alongside it. In a window with
-errors the curve can plateau below one.
+observations are cut off before the outcome is known.
+
+A quantile the curve never crosses inside the timeout is refused, and the
+refusal names which of two cases holds. The decision rests on the
+window's *ceiling*: the final completion incidence plus the share of
+requests still outstanding at the timeout, which is the highest the curve
+could ever reach. Where the ceiling reaches the quantile, the refusal
+reports the quantile as *greater than* the timeout and prints the
+ceiling. Where the ceiling falls short of the quantile, the refusal
+reports it as *unattainable* and prints the final completion incidence
+with the ceiling. In a window with errors the curve can plateau below
+one.
+
+## The baseline stops before the fault
+
+The replica-loss study holds steady load on two serving replicas, takes
+one of them out at a moment fixed in advance, and watches what the
+survivor does. The last 30 seconds of the baseline, one full client
+timeout before the fault fires, are a guard window. Load through it is
+unchanged, but a
+request dispatched there can still be unresolved when the fault lands,
+and its outcome would be caused by the fault while counted in the
+baseline. The guard window is reported on its own and feeds no
+baseline-derived number, so the pre-fault figures come from the roughly
+270 seconds before it.
+
+## Two recovery baselines
+
+Recovery is reported against two baselines, kept apart because they
+answer different questions: the degraded plateau the surviving replica
+settles into (the single-replica equilibrium), and the two-replica
+performance from before the fault. The plateau is a measured operating
+point inside one run, held there by the offered load and by the 30-second
+timeout shedding work, so it is not a steady state in the queueing-theory
+sense. Its window also ends at the same run's recovery to the pre-fault
+baseline, so the plateau estimate is not independent of that detection.
+Where a run has no estimable plateau, the report marks the equilibrium
+baseline *not estimable* with the reason, and the time to equilibrium is
+reported N/A. The run still appears in the published table. Under the
+black-hole variant, which cuts the node running one replica off the
+network for a pinned 120 seconds, the two-replica baseline is reached
+when the partition expires and the same pod comes back; that time cannot
+be shorter than the partition itself, so it is labelled partition heal
+and carries no claim about recovery from node loss.
 
 ## The client must pass its own gates
 
@@ -54,9 +94,8 @@ Every run carries run-failing self-checks, with the thresholds pinned in
 the specification: send-skew against the intended schedule at p99 ≤ 5 ms
 and max ≤ 50 ms, zero scheduled-but-never-dispatched requests, host CPU
 at most 70% sustained over any 5-second window, and Go garbage-collection
-pauses at p99 under 1 ms during the measurement windows. If any check
-fails, the harness fails the run and nothing from a failed run is
-published. The
+pauses at p99 under 1 ms during the measurement windows. If any of the
+four fails, the harness fails the run and publishes nothing from it. The
 four checks bound the send path. The same refusal applies to the
 statistics: tail confidence intervals are computed from order statistics
 only where the sample budget supports them, and refused otherwise. A
