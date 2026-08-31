@@ -21,8 +21,9 @@ over every scheduled request, so the ones that never finish still count.
 And the client must pass four pinned self-checks before any number
 counts.
 
-Current status, plainly: the instrument is certified against a mock
-serving stack; no provider or real-GPU measurements are published yet.
+Current status, plainly: the instrument runs against a mock serving stack,
+with its acceptance-criteria re-run pending against the revised
+specification; no provider or real-GPU measurements are published yet.
 
 Percentes is built and run by Varun Mahadkar. The instrument is open
 source, and the methodology was pre-registered before any measurement
