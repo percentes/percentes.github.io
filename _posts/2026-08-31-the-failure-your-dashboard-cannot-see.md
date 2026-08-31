@@ -114,15 +114,15 @@ other three.
    your metrics agree, while your user is looking at an empty box.
 
 I have not caught one. My own run of 300 requests was checked for empty
-200s and found none, and the instrument below can score only the empty
-half of it. So
-take the evidence from someone with more traffic than me. OpenRouter
+200s and found none, and of the drop's two shapes, the empty response
+and the unexplained truncation, the instrument below can score only the
+first. So take the evidence from someone with more traffic than me. OpenRouter
 operates
 [automatic billing protection](https://openrouter.ai/docs/guides/features/zero-completion-insurance)
 for one half of this, applied to every account automatically and without
 configuration: you are not charged when a response has "zero completion
 tokens AND a blank/null finish reason". Their
-[error documentation](https://openrouter.ai/docs/api_reference/errors-and-debugging)
+[error documentation](https://openrouter.ai/docs/api_reference/errors-and-debugging#when-no-content-is-generated)
 says "Occasionally, the model may not generate any content", and lists two
 causes: "The model is warming up from a cold start" and "The system is
 scaling up to handle more requests". A separate section of the same page,
@@ -163,7 +163,7 @@ them as failures.
 Several people already count failures.
 
 **OpenRouter publishes a genuinely failure-inclusive uptime metric.**
-[Their documentation](https://openrouter.ai/docs/guides/community/for-providers)
+[Their documentation](https://openrouter.ai/docs/guides/community/for-providers#10-uptime-monitoring-and-traffic-routing)
 defines it for providers as "successful requests ÷ total requests
 (excluding user errors)", and the list of what counts against you is
 unusually specific. It takes in 401s, 402s,
@@ -180,8 +180,9 @@ uptime. A blank stop reason is not an error
 stop reason, so the case they detect well enough not to bill is the case
 their reliability figure does not count.
 
-429s sit on the other list, annotated "Rate limiting (429) - tracked
-separately".
+429s sit on [the other
+list](https://openrouter.ai/docs/guides/community/for-providers#10-uptime-monitoring-and-traffic-routing),
+annotated "Rate limiting (429) - tracked separately".
 
 Excluding them is defensible. In the opening run the 429s were the caller's:
 300 requests in 3.0 seconds into a tier that meters by the minute.
@@ -446,7 +447,7 @@ reader can check directly:
    failure, or timeout metric, and its TTFT definition is silent on requests
    that never return a token.
 2. OpenRouter [excludes 429s from
-   uptime](https://openrouter.ai/docs/guides/community/for-providers), which is right for the ones the
+   uptime](https://openrouter.ai/docs/guides/community/for-providers#10-uptime-monitoring-and-traffic-routing), which is right for the ones the
    caller earned. Where capacity exhaustion arrives as a 429, which is how
    OpenRouter's own guidance tells providers to respond under load, the
    exclusion also throws away the refusals that were not the caller's
