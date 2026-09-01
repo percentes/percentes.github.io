@@ -8,6 +8,10 @@ baseurl: ""
 author: Varun Mahadkar
 
 markdown: kramdown
+# Straight apostrophes render byte-true against quoted provider docs;
+# double quotes stay typographic.
+kramdown:
+  smart_quotes: ["apos", "apos", "ldquo", "rdquo"]
 permalink: /writing/:year/:title/
 plugins:
   - jekyll-feed
