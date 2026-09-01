@@ -432,8 +432,9 @@ instrument collected anything from a provider. A published run is
 re-runnable by design: a repeat against a live endpoint measures a
 different moment, so what carries over is the method and the rules for
 refusing to publish an invalid run. So far the
-instrument has been built and run against a mock server on a local cluster,
-with its acceptance-criteria certification pending a re-run;
+instrument has been built and run against a mock server on a local
+cluster, its acceptance criteria passing against the revised
+specification on 1 September 2026;
 no characterization of a hosted endpoint or a real GPU is published.
 The first pre-registered publication is a replica-loss study of
 self-hosted vLLM; provider measurements follow under a separate hosted
