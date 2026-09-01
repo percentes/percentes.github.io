@@ -50,10 +50,11 @@ and 29 of them take 357.94 seconds, matching the printed 5m57.942s.
 The second budget was nearly gone. Only 53 of the minute's 6,000 tokens
 remained, too few for another real request.
 
-This tier also has a third limit, and it appears in no header: 30
-requests a minute. I know that figure only from an earlier session, on 22
-August, when I sent single requests one at a time until one was refused;
-the 31st failed. The published limits table does not cover this model, and
+This tier also has a third limit, and it appears in no header: a
+per-minute request ceiling. Its value is an inference from an earlier
+session, on 22 August, when I sent single requests one at a time until
+one was refused. The 31st failed, which fits a ceiling of 30; that
+refusal, too, named no meter. The published limits table does not cover this model, and
 exact limits are set per organization, so probing was the only way to
 learn the ceiling. What that meter counts is also unpublished: nothing says
 whether a refused attempt spends it. If only accepted requests count, the
@@ -116,7 +117,7 @@ other three.
 I have not caught one. My own run of 300 requests was checked for empty
 200s and found none, and of the drop's two shapes, the empty response
 and the unexplained truncation, the instrument below can score only the
-first. So take the evidence from someone with more traffic than me. OpenRouter
+first. So take the evidence from OpenRouter's own documentation. OpenRouter
 operates
 [automatic billing protection](https://openrouter.ai/docs/guides/features/zero-completion-insurance)
 for one half of this, applied to every account automatically and without
@@ -254,17 +255,18 @@ a guard in the code. It prints the successful and failed
 request counts at the head of the same results block, and warns outright
 when every request failed. The exclusion is disclosed. That is the minimum bar, and it clears it.
 
-Its success test is where the same boundary shows up a third time. A request
-counts as successful on the completions path only if a chunk arrived, so a
-stream that opens and delivers nothing is a failure there. On the
-chat-completions path the same empty stream is marked successful, with no
-such test. Either way, a
+Its success test is where the boundary shows up again, drawn looser. On
+the completions path a request counts as successful if any `choices`
+event arrived, and the code's own comment notes the text may be empty, so
+a stream of empty-text events passes and only a stream with no `choices`
+event at all fails. On the chat-completions path even that test is
+absent: any 200 stream that ends without an exception is marked
+successful. Either way, a
 stream that delivers a fifth of the requested budget, say 200 tokens of
 a requested 1,000, and stops is a success with a healthy latency: a stream that ends
 early finishes fast. OpenRouter declines to bill the
-empty case and still bills the truncated one. Where these systems test at
-all, the line falls in the same place: the empty case is caught, and the
-truncated case is not.
+empty case and still bills the truncated one. None of these systems
+catches the truncated case, and only some of them catch the empty one.
 
 A newer class publishes per-provider reliability directly. LLM-Stats, an
 independent evaluations lab funded by Y Combinator in Summer 2025, carries a
@@ -303,10 +305,11 @@ ten-parallel-request test daily.
 
 Their published methodology does not say what happens to a request that
 never returns, and their published numbers contain no failure metric of
-any kind, so a provider that times out more and drops more can look
-identical to one that does neither. The measurement
-is conditioned on survival by construction, and any failures that occur
-are invisible in it.
+any kind, so the published numbers cannot show the difference between a
+provider that times out and drops and one that does neither. The TTFT
+definition exists only for a request that produced a token, so the metric
+is conditioned on survival by its own wording, and how failed requests
+affect what is published is not stated.
 
 One piece of this picture changed on 4 August 2026. Artificial Analysis launched an
 [Endpoint Accuracy Index](https://artificialanalysis.ai/articles/endpoint-accuracy-index):
@@ -457,9 +460,9 @@ reader can check directly:
    exclusion also throws away the refusals that were not the caller's
    fault. Nothing in the published figure separates the two.
 3. The free tier I tested meters three ways: 7,000 requests a day, 6,000
-   tokens a minute, and 30 requests a minute. Only the first two appear
-   in any response header, and the one 429 I captured carries no token
-   field. Immediately
+   tokens a minute, and a per-minute request ceiling that probing puts at
+   30. Only the first two appear in any response header, and the one 429
+   I captured carries no token field. Immediately
    after my burst, 6,971 of 7,000 daily requests were unspent and 53 of
    6,000 tokens remained for that minute; the third meter is invisible,
    and whether refused attempts spend it is unpublished, so if only
@@ -467,7 +470,8 @@ reader can check directly:
    quota had barely moved, the token budget was nearly empty, and nothing
    in a refusal says which limit applied. The first two limits are my own
    account's, read from response headers on 26 August 2026. The third
-   limit I established by sending single requests until one was refused.
+   I probed: single requests until one was refused, the 31st, which fits
+   30 a minute though no refusal named the meter.
    The provider publishes a limits table that does not cover the model I
    ran, and states that exact limits are set per organization, so reading
    it would not have told me the ceiling either. My account is not
