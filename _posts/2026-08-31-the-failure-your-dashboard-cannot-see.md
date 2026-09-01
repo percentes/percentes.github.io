@@ -460,8 +460,8 @@ reader can check directly:
    exclusion also throws away the refusals that were not the caller's
    fault. Nothing in the published figure separates the two.
 3. The free tier I tested meters three ways: 7,000 requests a day, 6,000
-   tokens a minute, and a per-minute request ceiling that probing puts at
-   30. Only the first two appear in any response header, and the one 429
+   tokens a minute, and a per-minute request ceiling that probing puts
+   at 30. Only the first two appear in any response header, and the one 429
    I captured carries no token field. Immediately
    after my burst, 6,971 of 7,000 daily requests were unspent and 53 of
    6,000 tokens remained for that minute; the third meter is invisible,
