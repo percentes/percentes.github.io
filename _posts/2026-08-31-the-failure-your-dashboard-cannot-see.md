@@ -25,7 +25,7 @@ seconds: 28 requests completed, and 272 came back `429 Too Many
 Requests`.
 
 A refusal does not say which budget ran out. So the moment the run
-finished I sent one more request, a single tiny one, to read the
+finished, I sent one more request, a single tiny one, to read the
 account's rate-limit headers. Call it the header check. It succeeded, and
 the headers came back:
 
@@ -53,7 +53,7 @@ remained, too few for another real request.
 This tier also has a third limit, and it appears in no header: 30
 requests a minute. I know that figure only from an earlier session, on 22
 August, when I sent single requests one at a time until one was refused;
-the 31st failed. The published limits table does not cover this model and
+the 31st failed. The published limits table does not cover this model, and
 exact limits are set per organization, so probing was the only way to
 learn the ceiling. What that meter counts is also unpublished: nothing says
 whether a refused attempt spends it. If only accepted requests count, the
@@ -73,7 +73,7 @@ say whether its refusals looked the same. Everything I know about my own
 run, I know from requests that succeeded.
 
 The rest of this piece argues for two measurement disciplines: count
-every scheduled request, and send on a schedule fixed before the run
+every scheduled request, and send on a schedule fixed before the run,
 with latency measured from each request's scheduled time, which is Gil
 Tene's correction for coordinated omission, the measurement error a
 waiting client commits by not sending while the server stalls.
@@ -110,7 +110,7 @@ other three.
    stream, a `[DONE]` (the marker that ends the response stream), and no
    usable content. Or content truncated far below the budget you asked
    for, with nothing in `finish_reason`, the field that names why
-   generation stopped, to explain why. The status line says success and
+   generation stopped, to explain why. The status line says success, and
    your metrics agree, while your user is looking at an empty box.
 
 I have not caught one. My own run of 300 requests was checked for empty
@@ -148,7 +148,7 @@ output under load with nothing in the stop reason to explain it.
 Censored requests and silent drops are where measurement quietly
 breaks. Censored requests fall out
 of latency statistics by construction: a request that never returned has no
-latency to contribute, so unless someone deliberately imputes a value it is
+latency to contribute, so unless someone deliberately imputes a value, it is
 absent from the percentile. And since censored requests are, by construction,
 the slowest ones, deleting them removes only the worst observations and
 can only flatter the percentile: as more requests time out, the reported
@@ -231,9 +231,10 @@ end will show up in your throughput metrics". Elsewhere, more plainly, they are
 told to return rate-limit errors "so we can retry with another provider and
 your metrics stay healthy".
 
-429s are listed under "Errors that DON’T affect uptime". A request in the
-denominator with no matching success would pull the ratio down, so a refusal
-that leaves uptime untouched sits outside both halves of the fraction.
+429s are listed under "Errors that DON’T affect uptime". Recall the
+fraction: successful requests over total requests. A 429 left in the
+total with no success to match would drag the figure down, so for a
+refusal to leave uptime untouched, it has to sit outside both halves.
 
 Shedding is not costless elsewhere, though. Consistent rate limiting "can reduce
 the volume of successful requests available for evaluation", which counts
@@ -257,8 +258,10 @@ Its success test is where the same boundary shows up a third time. A request
 counts as successful on the completions path only if a chunk arrived, so a
 stream that opens and delivers nothing is a failure there. On the
 chat-completions path the same empty stream is marked successful, with no
-such test. Either way, one that delivers a fifth of the budget and stops is
-a success with a healthy latency. OpenRouter declines to bill the
+such test. Either way, a
+stream that delivers a fifth of the requested budget, say 200 tokens of
+a requested 1,000, and stops is a success with a healthy latency: a stream that ends
+early finishes fast. OpenRouter declines to bill the
 empty case and still bills the truncated one. Where these systems test at
 all, the line falls in the same place: the empty case is caught, and the
 truncated case is not.
@@ -315,8 +318,8 @@ some endpoints might fail" for one of its three evaluations. The Index is a publ
 that touches this failure family, and evidence that the axis matters. It does not publish a
 failure rate. Every scoring line on the methodology page is a mean accuracy,
 and errored tasks appear only as a run-selection tie-break, never as a
-published rate, so an empty response still lands as a non-match inside the
-mean. They do
+published rate, so as written, an empty response lands as a non-match
+inside the mean. They do
 attach a free-text note to an endpoint showing "certain characteristics or
 shortcomings that affected the result", which is commentary, with no
 classified rate behind it; and there is no load axis or timeout semantics, and no
@@ -373,7 +376,7 @@ logged out.
 I am building a measurement instrument that reports failures with the
 same standing as latency. Today, against a mock OpenAI-compatible server
 on a local Kubernetes cluster, it classifies every scheduled request as
-completed, errored, or censored. As of this writing the client records
+completed, errored, or censored. As of this writing, the client records
 any non-200 status, 429 included, as a generic error; a separately
 labelled throttling class comes with the hosted protocol before any
 provider number is published. The empty case it does catch: a stream
@@ -397,9 +400,9 @@ failure classification and a published, gated, per-provider rate. And before it 
 number, it must prove that the measuring client itself was not the
 bottleneck: send-skew (the gap between a request's scheduled and actual
 send time), undispatched requests, CPU, and garbage-collection pauses
-all gated, with the run declared invalid otherwise (the thresholds, and
-whether each binds on the worst request or a percentile, are pinned in
-the methodology). Those gates cover the send path; receive-side delay
+all gated, with the run declared invalid otherwise. The thresholds are
+pinned in the methodology, down to whether each gate binds on the single
+worst request or on a percentile of them. Those gates cover the send path; receive-side delay
 from kernel buffering, event coalescing, and the client runtime's own
 scheduling of the read loop sits outside them, and the spec says so.
 
@@ -436,7 +439,7 @@ The first pre-registered publication is a replica-loss study of
 self-hosted vLLM; provider measurements follow under a separate hosted
 protocol, registered before the first measurement run against a provider.
 
-The claim that carries this piece is the gap above: none of the
+The claim that carries this piece is the gap: none of the
 measurements above publishes failure under load continuously, per
 provider, with the failures classified. Beneath it sit three claims a
 reader can check directly:
