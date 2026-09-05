@@ -195,11 +195,12 @@ because you exceeded your quota is your fault. A 429 because the provider
 ran out of capacity while you were inside your limits is theirs.
 
 Providers agree the second case is real and do not agree on how to report
-it. Amazon Bedrock gives capacity its own code and says so: a 503 means
+it. Amazon Bedrock gives capacity its own codes and says so: a 503 means
 "high demand or temporary capacity constraints" and "is not related to your
-account-level quotas or rate limits (which return 429 ThrottlingException)".
-OpenAI sends its own saturation to 503, "The engine is currently overloaded,
-please try again later". Anthropic sends it to 529. Groq uses a custom 498
+account-level quotas or rate limits (which return 429 ThrottlingException)",
+and a 529 means "high demand or insufficient serving capacity". OpenAI
+sends its own saturation to 503, "Model temporarily overloaded". Anthropic
+also sends it to 529. Groq uses a custom 498
 for flex-tier capacity. DeepInfra keeps it on 429: "You may occasionally
 receive 429 errors when a model becomes very busy, even if you’re under the
 limit." Fireworks documents both codes on serverless, 429 for its adaptive
