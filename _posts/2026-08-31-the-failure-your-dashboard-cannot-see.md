@@ -216,7 +216,8 @@ subscription and resources aren't available to your application, then an
 error code 429 is returned." Buy standard Provisioned Throughput and the shortfall
 changes code: "errors that might otherwise be 429 are returned as 5XX and
 count toward the SLA error rate". Vertex and Bedrock were read on
-26 August 2026, the remaining pages on 24 August 2026.
+26 August 2026, the remaining pages on 24 August 2026; the OpenAI
+wording and the Bedrock 529 entry are from a 5 September 2026 read.
 
 So one event carries four different status codes across seven providers,
 plus a 5XX class where capacity is bought. At DeepInfra and Vertex the
