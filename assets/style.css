@@ -96,6 +96,11 @@ table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.95r
 th, td { text-align: left; padding: 0.45rem 0.8rem 0.45rem 0; border-bottom: 1px solid var(--rule); }
 th { color: var(--muted); font-weight: 600; }
 
+figure.fig { margin: 1.6rem 0; }
+.fig-scroll { overflow-x: auto; }
+.fig-scroll svg { display: block; width: 100%; min-width: 36rem; height: auto; color: var(--ink); }
+figcaption { color: var(--muted); font-size: 0.92rem; margin-top: 0.5rem; }
+
 blockquote {
   margin: 1rem 0;
   padding-left: 1rem;

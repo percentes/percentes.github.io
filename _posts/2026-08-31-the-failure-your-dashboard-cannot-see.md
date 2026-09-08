@@ -114,7 +114,9 @@ other three.
    generation stopped, to explain why. The status line says success, and
    your metrics agree, while your user is looking at an empty box.
 
-I have not caught one. My own run of 300 requests was checked for empty
+{% include fig-outcomes.html %}
+
+I have not caught a silent drop. My own run of 300 requests was checked for empty
 200s and found none, and of the drop's two shapes, the empty response
 and the unexplained truncation, the instrument below can score only the
 first. So take the evidence from OpenRouter's own documentation. OpenRouter
@@ -131,7 +133,7 @@ on mid-stream errors, gives the mechanism that keeps a broken response
 looking successful: once streaming has started, "The HTTP status remains 200
 OK since headers were already sent".
 
-What that covers is the empty case with a stop reason that explains
+OpenRouter's documentation covers the empty case with a stop reason that explains
 nothing, which is half the definition above. It does not reach output that arrives,
 falls short of the budget and ends cleanly. OpenRouter's nearest category to
 that is a mid-stream error after partial output, which is a visible failure
@@ -381,10 +383,10 @@ logged out.
 I am building a measurement instrument that reports failures with the
 same standing as latency. Today, against a mock OpenAI-compatible server
 on a local Kubernetes cluster, it classifies every scheduled request as
-completed, errored, or censored. As of this writing, the client records
-any non-200 status, 429 included, as a generic error; a separately
-labelled throttling class comes with the hosted protocol before any
-provider number is published. The empty case it does catch: a stream
+completed, errored, or censored. The client records a 429 under its own class,
+`status_429`, and every other non-200 status as `status_other`; how a
+refusal is treated beyond that classification is settled by the hosted
+protocol before any provider number is published. The empty case it does catch: a stream
 that reaches `[DONE]` with no content event is errored, under its own
 error label. What it cannot catch is the truncated case, output that
 arrives, falls short of the budget, and stops with nothing explaining why.
