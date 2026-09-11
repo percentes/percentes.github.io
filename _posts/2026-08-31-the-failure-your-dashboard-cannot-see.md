@@ -251,9 +251,9 @@ throws that away. OpenRouter excludes a 429 from uptime whether the provider
 issued it because you overshot your quota or because it had run out of
 capacity.
 
-**[vLLM's benchmark](https://github.com/vllm-project/vllm/blob/main/vllm/benchmarks/serve.py)**,
-from the open-source inference server of the same name, **is honest in a
-different way.** Its percentiles are
+**[vLLM's benchmark](https://github.com/vllm-project/vllm/blob/704f12aa1ed6/vllm/benchmarks/serve.py)**,
+from the open-source inference server of the same name, read on 23 and
+26 August 2026 at the commit linked, **is honest in a different way.** Its percentiles are
 computed over successful completions only, and the exclusion is enforced by
 a guard in the code. It prints the successful and failed
 request counts at the head of the same results block, and warns outright
@@ -263,9 +263,14 @@ Its success test is where the boundary shows up again, drawn looser. On
 the completions path a request counts as successful if any `choices`
 event arrived, and the code's own comment notes the text may be empty, so
 a stream of empty-text events passes and only a stream with no `choices`
-event at all fails. On the chat-completions path even that test is
-absent: any 200 stream that ends without an exception is marked
-successful. Either way, a
+event at all fails. On the chat-completions path even that test was
+absent at the commit read: any 200 stream that ended without an exception
+was marked successful. A
+[change merged on 1 September 2026](https://github.com/vllm-project/vllm/commit/d9eb4e344f91838ef718c0f2123c836a58e49f08),
+the day after this piece was published, gives the chat path the same
+first-chunk test as the completions path, so a stream with no `choices`
+event now fails there too, and a stream of empty-text events still
+passes on both. Either way, a
 stream that delivers a fifth of the requested budget, say 200 tokens of
 a requested 1,000, and stops is a success with a healthy latency: a stream that ends
 early finishes fast. OpenRouter declines to bill the
