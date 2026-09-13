@@ -222,7 +222,10 @@ count toward the SLA error rate". Vertex and Bedrock were read on
 wording and the Bedrock 529 entry are from a 5 September 2026 read.
 
 So one event carries four different status codes across seven providers,
-plus a 5XX class where capacity is bought. At DeepInfra and Vertex the
+plus a 5XX class where capacity is bought; a 13 September 2026 read of
+further pages adds a fifth, Google's 500, in
+[One event, five status codes and a class](/writing/2026/one-event-five-status-codes-and-a-class/).
+At DeepInfra and Vertex the
 code is shared with the customer's own quota breach on the same endpoint;
 at Fireworks the two meanings sit on the one code across its deployment
 types. A 429
