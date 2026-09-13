@@ -30,6 +30,6 @@ source, and the methodology was pre-registered before any measurement
 data was collected. A number is published only with the commit and
 configuration that produced it.
 
-- **[Writing](/writing/)**: measurement notes and teardowns
+- **[Writing](/writing/)**: measurement notes and teardowns, so far [The failure your dashboard can't see](/writing/2026/the-failure-your-dashboard-cannot-see/) and [One event, five status codes and a class](/writing/2026/one-event-five-status-codes-and-a-class/)
 - **[Methodology](/methodology/)**: what the numbers mean and what would invalidate them
 - **[The instrument](https://github.com/percentes/percentes)**: Go, Apache-2.0
