@@ -1,0 +1,38 @@
+# GPU host pins, percentes-gpu 10.0.0.122 / [public address redacted], captured 2026-09-16T19:19:42Z
+== nvidia-smi --query ==
+name, driver_version, persistence_mode, clocks.current.sm [MHz], clocks.current.memory [MHz], clocks.max.sm [MHz], power.limit [W], power.max_limit [W], pstate
+NVIDIA L40, 570.195.03, Enabled, 210 MHz, 405 MHz, 2490 MHz, 300.00 W, 300.00 W, P8
+== cuda version.json ==
+{
+   "cuda" : {
+      "name" : "CUDA SDK",
+      "version" : "12.8.1"
+   },
+   "cuda_cccl" : {
+      "name" : "CUDA C++ Core Compute Libraries",
+      "version" : "12.8.90"
+   },
+   "cuda_cudart" : {
+      "name" : "CUDA Runtime (cudart)",
+      "version" : "12.8.90"
+   },
+   "cuda_cuobjdump" : {
+      "name" : "cuobjdump",
+      "version" : "12.8.90"
+   },
+   "cuda_cupti" : {
+      "name" : "CUPTI",
+      "version" : "12.8.90"
+== docker ==
+Docker version 29.1.3, build f52814d
+== lsblk ==
+NAME     SIZE ROTA MODEL
+vda      100G    1 
+├─vda1    99G    1 
+├─vda14    4M    1 
+├─vda15  106M    1 
+└─vda16  913M    1 
+vdb      725G    1 
+== persistence mode attempt ==
+Persistence mode is already Enabled for GPU 00000000:00:07.0.
+All done.

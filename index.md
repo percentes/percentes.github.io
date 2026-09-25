@@ -22,14 +22,15 @@ And the client must pass four pinned self-checks before any number
 counts.
 
 Current status, plainly: the instrument is certified against a mock
-serving stack, the §8 acceptance suite passing on 1 September 2026; no
-provider or real-GPU measurements are published yet.
+serving stack, and the first run on real hardware is the 16 September
+2026 single-replica calibration, published under Writing. No provider
+measurements are published.
 
 Percentes is built and run by Varun Mahadkar. The instrument is open
 source, and the methodology was pre-registered before any measurement
 data was collected. A number is published only with the commit and
 configuration that produced it.
 
-- **[Writing](/writing/)**: measurement notes and teardowns, so far [The failure your dashboard can't see](/writing/2026/the-failure-your-dashboard-cannot-see/) and [One event, five status codes and a class](/writing/2026/one-event-five-status-codes-and-a-class/)
+- **[Writing](/writing/)**: measurement notes and teardowns, so far [The failure your dashboard can't see](/writing/2026/the-failure-your-dashboard-cannot-see/), [One event, five status codes and a class](/writing/2026/one-event-five-status-codes-and-a-class/) and [Calibrating one L40 configuration](/writing/2026/calibrating-one-l40-configuration/)
 - **[Methodology](/methodology/)**: what the numbers mean and what would invalidate them
 - **[The instrument](https://github.com/percentes/percentes)**: Go, Apache-2.0

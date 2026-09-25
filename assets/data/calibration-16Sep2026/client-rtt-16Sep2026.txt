@@ -1,0 +1,12 @@
+# client to GPU path, 2026-09-16T19:24:16Z
+--- 10.0.0.122 ping statistics ---
+50 packets transmitted, 0 received, 100% packet loss, time 10187ms
+
+0.002254 200
+0.000617 200
+0.001190 200
+0.000498 200
+0.000474 200
+waiting gauge lines: 3
+
+ICMP is not permitted by the scoped security rules (TCP 22 and TCP 8000 only), so the path is measured by TCP connect time above: 0.474 to 2.254 ms over five probes. The instrument records per-request RTT itself (client.placement.record_rtt: true).
