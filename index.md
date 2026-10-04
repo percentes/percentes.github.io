@@ -22,15 +22,16 @@ And the client must pass four pinned self-checks before any number
 counts.
 
 Current status, plainly: the instrument is certified against a mock
-serving stack, and the first run on real hardware is the 16 September
-2026 single-replica calibration, published under Writing. No provider
-measurements are published.
+serving stack. Two measurements on real hardware are published under
+Writing: the 16 September 2026 single-replica calibration, and a
+2 October 2026 campaign that killed that replica five times under load
+and timed Docker's restart of it. No provider measurements are published.
 
 Percentes is built and run by Varun Mahadkar. The instrument is open
 source, and the methodology was pre-registered before any measurement
 data was collected. A number is published only with the commit and
 configuration that produced it.
 
-- **[Writing](/writing/)**: measurement notes and teardowns, so far [The failure your dashboard can't see](/writing/2026/the-failure-your-dashboard-cannot-see/), [One event, five status codes and a class](/writing/2026/one-event-five-status-codes-and-a-class/) and [What one vLLM replica on an L40 can carry and how it fails](/writing/2026/calibrating-one-l40-configuration/)
+- **[Writing](/writing/)**: measurement notes and teardowns, so far [The failure your dashboard can't see](/writing/2026/the-failure-your-dashboard-cannot-see/), [One event, five status codes and a class](/writing/2026/one-event-five-status-codes-and-a-class/), [What one vLLM replica on an L40 can carry and how it fails](/writing/2026/calibrating-one-l40-configuration/) and [I SIGKILLed vLLM on an NVIDIA L40 under load; it served again after 42 seconds](/writing/2026/i-sigkilled-vllm-on-an-l40-under-load-it-served-again-after-42-seconds/)
 - **[Methodology](/methodology/)**: what the numbers mean and what would invalidate them
 - **[The instrument](https://github.com/percentes/percentes)**: Go, Apache-2.0
