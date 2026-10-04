@@ -1,0 +1,254 @@
+Percentes campaign report: percentes-process-kill (variant process_kill)
+instrument commit: bce0628868ca6c4a231a5b398c169aaf586ac8a8
+config sha256: 9ebb9245d33d3f89fe0a21bdb8cfd432a3718f31fcf1eac7b6fb2e64776750b5
+override: target.base_url=http://10.0.0.249:8000
+override: target.metrics_urls=http://10.0.0.249:8000/metrics
+
+CAVEAT: one vLLM replica on one GPU, killed and restarted in place; no two-replica or Kubernetes claim. N=5 runs on rented hardware; the acceptance criteria (§8) certified the instrument against the mock; injected-fault-versus-reality gaps are named in the report.
+
+repetitions: 5, valid runs: 5/5
+primary endpoint (§7): outage_s: fire to replica_ready (process_kill)
+Single-stack study: no MDE/power claim, no bootstrap (§7). Per-run values published verbatim; TTR scalars lead with median and range.
+
+== Per-run scalars (all values verbatim, §5) ==
+run  valid  outage     ttr_equil    ttr_prefault loss_frac  survivor_p95 deficit   
+1    true   41.68      n/a          41.00        1.00       n/a          39.00     
+2    true   41.69      n/a          41.00        1.00       n/a          39.00     
+3    true   43.69      n/a          43.00        1.00       n/a          40.00     
+4    true   42.19      n/a          41.00        1.00       n/a          39.00     
+5    true   43.17      n/a          42.00        1.00       n/a          41.00     
+
+== Run 1: recovery decomposition (§5) ==
+reschedule           [api] N/A: no scheduler: the container runtime restarts in place
+container_start      [api] measured: 0.66s
+log_bringup          [log] measured: 28.77s
+engine_init          [log] measured: 22.97s
+weight_download      [log] N/A: no download line after the fire: weights served from the mounted cache
+weight_load          [log] measured: 3.30s
+torch_compile        [log] measured: 0.90s
+profile_kv_capture   [log] measured: 5.86s
+engine_ready         [log] measured: 39.93s
+server_ready         [log] measured: 41.60s
+replica_ready        [probe] measured: 41.68s
+traffic_restored     [probe] N/A: one replica addressed directly: no Service
+routing_propagation  [probe] N/A: one replica addressed directly: no Service
+goodput_restored     [client] measured: 40.96s
+figures printed in the server log: graph_capture_gib=0.52 graph_capture_s=5 init_engine_compilation_s=0.19 init_engine_s=8.28 model_loaded_gib=14.29 model_loaded_s=4.823372 torch_compile_s=0.19 weights_loaded_s=2.8
+in-flight errored by class: malformed_stream=15
+in flight at fire, indeterminate (terminal time within the fire uncertainty plus the delivery allowance after the fire): 15
+in flight at fire, determinate: total=0 completed=0 errored=0 censored=0
+scheduled in the outage: total=144 completed=2 errored=142 censored=0
+outage errored by class: connect=142
+fire uncertainty: 13.7ms
+single-replica equilibrium: no service during the degraded plateau; single-replica equilibrium undefined for this run
+
+== Run 2: recovery decomposition (§5) ==
+reschedule           [api] N/A: no scheduler: the container runtime restarts in place
+container_start      [api] measured: 0.69s
+log_bringup          [log] measured: 28.67s
+engine_init          [log] measured: 22.72s
+weight_download      [log] N/A: no download line after the fire: weights served from the mounted cache
+weight_load          [log] measured: 3.33s
+torch_compile        [log] measured: 0.88s
+profile_kv_capture   [log] measured: 5.76s
+engine_ready         [log] measured: 39.64s
+server_ready         [log] measured: 41.35s
+replica_ready        [probe] measured: 41.69s
+traffic_restored     [probe] N/A: one replica addressed directly: no Service
+routing_propagation  [probe] N/A: one replica addressed directly: no Service
+goodput_restored     [client] measured: 40.96s
+figures printed in the server log: graph_capture_gib=0.52 graph_capture_s=5 init_engine_compilation_s=0.18 init_engine_s=8.17 model_loaded_gib=14.29 model_loaded_s=4.807834 torch_compile_s=0.18 weights_loaded_s=2.81
+in-flight errored by class: malformed_stream=25
+in flight at fire, indeterminate (terminal time within the fire uncertainty plus the delivery allowance after the fire): 25
+in flight at fire, determinate: total=0 completed=0 errored=0 censored=0
+scheduled in the outage: total=144 completed=1 errored=143 censored=0
+outage errored by class: connect=143
+fire uncertainty: 14.3ms
+single-replica equilibrium: no service during the degraded plateau; single-replica equilibrium undefined for this run
+
+== Run 3: recovery decomposition (§5) ==
+reschedule           [api] N/A: no scheduler: the container runtime restarts in place
+container_start      [api] measured: 0.63s
+log_bringup          [log] measured: 29.55s
+engine_init          [log] measured: 24.56s
+weight_download      [log] N/A: no download line after the fire: weights served from the mounted cache
+weight_load          [log] measured: 3.52s
+torch_compile        [log] measured: 0.81s
+profile_kv_capture   [log] measured: 5.85s
+engine_ready         [log] measured: 41.36s
+server_ready         [log] measured: 43.28s
+replica_ready        [probe] measured: 43.69s
+traffic_restored     [probe] N/A: one replica addressed directly: no Service
+routing_propagation  [probe] N/A: one replica addressed directly: no Service
+goodput_restored     [client] measured: 42.94s
+figures printed in the server log: graph_capture_gib=0.52 graph_capture_s=5 init_engine_compilation_s=0.2 init_engine_s=8.1 model_loaded_gib=14.29 model_loaded_s=4.793753 torch_compile_s=0.2 weights_loaded_s=2.95
+in-flight errored by class: malformed_stream=19
+in flight at fire, indeterminate (terminal time within the fire uncertainty plus the delivery allowance after the fire): 19
+in flight at fire, determinate: total=0 completed=0 errored=0 censored=0
+scheduled in the outage: total=124 completed=1 errored=123 censored=0
+outage errored by class: connect=123
+fire uncertainty: 13.6ms
+single-replica equilibrium: no service during the degraded plateau; single-replica equilibrium undefined for this run
+
+== Run 4: recovery decomposition (§5) ==
+reschedule           [api] N/A: no scheduler: the container runtime restarts in place
+container_start      [api] measured: 0.74s
+log_bringup          [log] measured: 28.05s
+engine_init          [log] measured: 24.32s
+weight_download      [log] N/A: no download line after the fire: weights served from the mounted cache
+weight_load          [log] measured: 3.10s
+torch_compile        [log] measured: 0.82s
+profile_kv_capture   [log] measured: 5.73s
+engine_ready         [log] measured: 39.93s
+server_ready         [log] measured: 41.80s
+replica_ready        [probe] measured: 42.19s
+traffic_restored     [probe] N/A: one replica addressed directly: no Service
+routing_propagation  [probe] N/A: one replica addressed directly: no Service
+goodput_restored     [client] measured: 40.96s
+figures printed in the server log: graph_capture_gib=0.52 graph_capture_s=5 init_engine_compilation_s=0.18 init_engine_s=7.98 model_loaded_gib=14.29 model_loaded_s=4.049787 torch_compile_s=0.18 weights_loaded_s=2.57
+in-flight errored by class: malformed_stream=29
+in flight at fire, indeterminate (terminal time within the fire uncertainty plus the delivery allowance after the fire): 29
+in flight at fire, determinate: total=0 completed=0 errored=0 censored=0
+scheduled in the outage: total=136 completed=1 errored=135 censored=0
+outage errored by class: connect=135
+fire uncertainty: 12.3ms
+single-replica equilibrium: no service during the degraded plateau; single-replica equilibrium undefined for this run
+
+== Run 5: recovery decomposition (§5) ==
+reschedule           [api] N/A: no scheduler: the container runtime restarts in place
+container_start      [api] measured: 0.80s
+log_bringup          [log] measured: 28.68s
+engine_init          [log] measured: 24.85s
+weight_download      [log] N/A: no download line after the fire: weights served from the mounted cache
+weight_load          [log] measured: 3.17s
+torch_compile        [log] measured: 0.87s
+profile_kv_capture   [log] measured: 5.93s
+engine_ready         [log] measured: 40.88s
+server_ready         [log] measured: 42.75s
+replica_ready        [probe] measured: 43.17s
+traffic_restored     [probe] N/A: one replica addressed directly: no Service
+routing_propagation  [probe] N/A: one replica addressed directly: no Service
+goodput_restored     [client] measured: 41.96s
+figures printed in the server log: graph_capture_gib=0.52 graph_capture_s=5 init_engine_compilation_s=0.19 init_engine_s=8.33 model_loaded_gib=14.29 model_loaded_s=4.162729 torch_compile_s=0.19 weights_loaded_s=2.66
+in-flight errored by class: malformed_stream=23
+in flight at fire, indeterminate (terminal time within the fire uncertainty plus the delivery allowance after the fire): 23
+in flight at fire, determinate: total=0 completed=0 errored=0 censored=0
+scheduled in the outage: total=142 completed=1 errored=141 censored=0
+outage errored by class: connect=141
+fire uncertainty: 12.1ms
+single-replica equilibrium: no service during the degraded plateau; single-replica equilibrium undefined for this run
+
+== Run 1: receive path and server side per window (§2) ==
+baseline: client TTFT mean 148.6ms over 879; no server histogram named; loopback canary (626 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.88ms max 5.22ms; TTFT deviation p50 1.26ms max 5.22ms, ITL deviation p50 0.18ms p99 0.84ms max 2.23ms
+fault: client TTFT mean 148.4ms over 1771; no server histogram named; loopback canary (1389 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.83ms max 2.77ms; TTFT deviation p50 1.25ms max 2.17ms, ITL deviation p50 0.20ms p99 0.83ms max 1.48ms
+fault_degraded: client TTFT mean 0.0ms over 0; no server histogram named; loopback canary (95 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.74ms max 1.91ms; TTFT deviation p50 1.05ms max 1.91ms, ITL deviation p50 0.29ms p99 0.58ms max 0.96ms
+fault_recovered: client TTFT mean 148.4ms over 1771; no server histogram named; loopback canary (1294 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.83ms max 2.77ms; TTFT deviation p50 1.27ms max 2.17ms, ITL deviation p50 0.17ms p99 0.84ms max 1.48ms
+guard: client TTFT mean 147.8ms over 75; no server histogram named; loopback canary (69 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.93ms max 4.33ms; TTFT deviation p50 1.31ms max 2.10ms, ITL deviation p50 0.07ms p99 0.92ms max 2.69ms
+outage: client TTFT mean 128.8ms over 2; no server histogram named; loopback canary (97 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.74ms max 1.91ms; TTFT deviation p50 1.05ms max 1.91ms, ITL deviation p50 0.29ms p99 0.58ms max 0.96ms
+
+== Run 2: receive path and server side per window (§2) ==
+baseline: client TTFT mean 147.9ms over 851; no server histogram named; loopback canary (626 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.85ms max 9.66ms; TTFT deviation p50 1.29ms max 2.14ms, ITL deviation p50 0.13ms p99 0.85ms max 8.42ms
+fault: client TTFT mean 141.7ms over 1689; no server histogram named; loopback canary (1389 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.84ms max 5.31ms; TTFT deviation p50 1.28ms max 2.16ms, ITL deviation p50 0.19ms p99 0.84ms max 4.15ms
+fault_degraded: client TTFT mean 0.0ms over 0; no server histogram named; loopback canary (95 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 1.96ms; TTFT deviation p50 1.12ms max 1.80ms, ITL deviation p50 0.30ms p99 0.62ms max 1.06ms
+fault_recovered: client TTFT mean 141.7ms over 1689; no server histogram named; loopback canary (1294 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.84ms max 5.31ms; TTFT deviation p50 1.31ms max 2.16ms, ITL deviation p50 0.16ms p99 0.85ms max 4.15ms
+guard: client TTFT mean 125.8ms over 67; no server histogram named; loopback canary (69 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 2.13ms; TTFT deviation p50 1.38ms max 1.99ms, ITL deviation p50 0.11ms p99 0.84ms max 1.12ms
+outage: client TTFT mean 100.7ms over 1; no server histogram named; loopback canary (97 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 1.96ms; TTFT deviation p50 1.13ms max 1.84ms, ITL deviation p50 0.30ms p99 0.62ms max 1.06ms
+
+== Run 3: receive path and server side per window (§2) ==
+baseline: client TTFT mean 149.3ms over 805; no server histogram named; loopback canary (626 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 7.01ms; TTFT deviation p50 1.28ms max 2.13ms, ITL deviation p50 0.14ms p99 0.85ms max 5.95ms
+fault: client TTFT mean 146.9ms over 1693; no server histogram named; loopback canary (1389 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.84ms max 5.98ms; TTFT deviation p50 1.26ms max 2.12ms, ITL deviation p50 0.18ms p99 0.83ms max 4.72ms
+fault_degraded: client TTFT mean 0.0ms over 0; no server histogram named; loopback canary (100 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.85ms max 3.94ms; TTFT deviation p50 1.10ms max 1.90ms, ITL deviation p50 0.30ms p99 0.65ms max 3.28ms
+fault_recovered: client TTFT mean 146.9ms over 1693; no server histogram named; loopback canary (1289 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.84ms max 5.98ms; TTFT deviation p50 1.27ms max 2.12ms, ITL deviation p50 0.16ms p99 0.84ms max 4.72ms
+guard: client TTFT mean 133.6ms over 60; no server histogram named; loopback canary (69 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.75ms max 1.89ms; TTFT deviation p50 1.29ms max 1.85ms, ITL deviation p50 0.17ms p99 0.86ms max 1.10ms
+outage: client TTFT mean 101.4ms over 1; no server histogram named; loopback canary (102 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.85ms max 3.94ms; TTFT deviation p50 1.10ms max 1.90ms, ITL deviation p50 0.30ms p99 0.65ms max 3.28ms
+
+== Run 4: receive path and server side per window (§2) ==
+baseline: client TTFT mean 146.2ms over 835; no server histogram named; loopback canary (626 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.80ms max 4.33ms; TTFT deviation p50 1.25ms max 2.47ms, ITL deviation p50 0.16ms p99 0.85ms max 2.64ms
+fault: client TTFT mean 147.4ms over 1771; no server histogram named; loopback canary (1390 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 3.11ms; TTFT deviation p50 1.25ms max 2.09ms, ITL deviation p50 0.21ms p99 0.84ms max 1.87ms
+fault_degraded: client TTFT mean 0.0ms over 0; no server histogram named; loopback canary (95 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.83ms max 2.06ms; TTFT deviation p50 1.15ms max 1.72ms, ITL deviation p50 0.29ms p99 0.64ms max 1.07ms
+fault_recovered: client TTFT mean 147.4ms over 1771; no server histogram named; loopback canary (1295 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 3.11ms; TTFT deviation p50 1.27ms max 2.09ms, ITL deviation p50 0.19ms p99 0.85ms max 1.87ms
+guard: client TTFT mean 135.5ms over 68; no server histogram named; loopback canary (69 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.83ms max 2.56ms; TTFT deviation p50 1.15ms max 2.56ms, ITL deviation p50 0.21ms p99 0.80ms max 1.06ms
+outage: client TTFT mean 113.2ms over 1; no server histogram named; loopback canary (98 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.83ms max 2.06ms; TTFT deviation p50 1.15ms max 1.72ms, ITL deviation p50 0.29ms p99 0.65ms max 1.07ms
+
+== Run 5: receive path and server side per window (§2) ==
+baseline: client TTFT mean 141.9ms over 772; no server histogram named; loopback canary (626 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.78ms max 2.13ms; TTFT deviation p50 1.26ms max 2.05ms, ITL deviation p50 0.16ms p99 0.85ms max 1.34ms
+fault: client TTFT mean 147.3ms over 1753; no server histogram named; loopback canary (1389 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.82ms max 5.17ms; TTFT deviation p50 1.22ms max 3.04ms, ITL deviation p50 0.21ms p99 0.83ms max 4.29ms
+fault_degraded: client TTFT mean 0.0ms over 0; no server histogram named; loopback canary (97 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.78ms max 1.91ms; TTFT deviation p50 1.05ms max 1.86ms, ITL deviation p50 0.29ms p99 0.60ms max 1.07ms
+fault_recovered: client TTFT mean 147.3ms over 1753; no server histogram named; loopback canary (1292 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.82ms max 5.17ms; TTFT deviation p50 1.24ms max 3.04ms, ITL deviation p50 0.19ms p99 0.83ms max 4.29ms
+guard: client TTFT mean 163.4ms over 80; no server histogram named; loopback canary (69 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.77ms max 1.99ms; TTFT deviation p50 1.29ms max 1.87ms, ITL deviation p50 0.19ms p99 0.83ms max 1.11ms
+outage: client TTFT mean 101.4ms over 1; no server histogram named; loopback canary (100 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.78ms max 1.91ms; TTFT deviation p50 1.05ms max 1.86ms, ITL deviation p50 0.29ms p99 0.61ms max 1.07ms
+
+== Endpoint summaries (§7) ==
+outage_s [primary]
+  median 42.190 (range 41.685–43.695, N=5); t-interval [41.359, 43.614] reported with normality caveat
+  values: [41.684718265 41.688766755 43.694688812 42.190360069 43.173493495]
+  t-interval [41.36, 43.61] at t=2.776 df=4
+  CoV=0.0214
+container_start_s [secondary]
+  median 0.685 (range 0.628–0.802, N=5); t-interval [0.617, 0.788] reported with normality caveat
+  values: [0.658928746 0.685344644 0.628110149 0.738374517 0.802317237]
+  t-interval [0.62, 0.79] at t=2.776 df=4
+  CoV=0.0980
+ttr_equilibrium_s [not_applicable]
+  no contributing runs: one replica: the single-replica equilibrium is a survivor quantity (§5)
+ttr_pre_fault_s [secondary]
+  median 41.000 (range 41.000–43.000, N=5); t-interval [40.490, 42.710] reported with normality caveat
+  values: [41 41 43 41 42]
+  t-interval [40.49, 42.71] at t=2.776 df=4
+  CoV=0.0215
+in_flight_loss_fraction [secondary]
+  mean 1.000 (95% t-interval [1.000, 1.000], t=2.776 df=4), median 1.000
+  values: [1 1 1 1 1]
+  t-interval [1.00, 1.00] at t=2.776 df=4
+  CoV=0.0000
+survivor_p95_ms [not_applicable]
+  no contributing runs: one replica: no survivor cohort (§3)
+integrated_goodput_deficit [exploratory]
+  mean 39.600 (95% t-interval [38.490, 40.710], t=2.776 df=4), median 39.000
+  values: [39 39 40 39 41]
+  t-interval [38.49, 40.71] at t=2.776 df=4
+  CoV=0.0226
+
+== Run-validity gates (§10 G1-G7) ==
+run 1 (variant process_kill): all_pass=true
+  G1 per-replica share 45-55% pre-fault            n/a              single-replica target: share gate not applicable
+  G2 client-validity gate clean                    pass             skew p99=17us/max=790us; undispatched=0; cpu_measured=true worst=8.2%; gc pause p99 in [0.655, 0.786) ms, runtime bucket edges, gate on the upper edge
+  G3 zero errored outcomes among victim-attributed in-flight requests n/a              not the black-hole variant: client-silence assertion not applicable
+  G4 endpoint-staleness window >= 20s with victim-bound traffic observed n/a              not the black-hole variant: staleness assertion not applicable
+  G5 GPU clock/power fingerprints equal across replicas and runs n/a              fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable
+  G6 baseline goodput >= 0.99                      pass             baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)
+  G7 baseline queue stability: per-replica waiting-queue mean <= 1.0 pass             vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 41 scrape errors)
+run 2 (variant process_kill): all_pass=true
+  G1 per-replica share 45-55% pre-fault            n/a              single-replica target: share gate not applicable
+  G2 client-validity gate clean                    pass             skew p99=16us/max=106us; undispatched=0; cpu_measured=true worst=3.1%; gc pause p99 in [0.393, 0.459) ms, runtime bucket edges, gate on the upper edge
+  G3 zero errored outcomes among victim-attributed in-flight requests n/a              not the black-hole variant: client-silence assertion not applicable
+  G4 endpoint-staleness window >= 20s with victim-bound traffic observed n/a              not the black-hole variant: staleness assertion not applicable
+  G5 GPU clock/power fingerprints equal across replicas and runs n/a              fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable
+  G6 baseline goodput >= 0.99                      pass             baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)
+  G7 baseline queue stability: per-replica waiting-queue mean <= 1.0 pass             vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 41 scrape errors)
+run 3 (variant process_kill): all_pass=true
+  G1 per-replica share 45-55% pre-fault            n/a              single-replica target: share gate not applicable
+  G2 client-validity gate clean                    pass             skew p99=14us/max=44us; undispatched=0; cpu_measured=true worst=3.5%; gc pause p99 in [0.393, 0.459) ms, runtime bucket edges, gate on the upper edge
+  G3 zero errored outcomes among victim-attributed in-flight requests n/a              not the black-hole variant: client-silence assertion not applicable
+  G4 endpoint-staleness window >= 20s with victim-bound traffic observed n/a              not the black-hole variant: staleness assertion not applicable
+  G5 GPU clock/power fingerprints equal across replicas and runs n/a              fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable
+  G6 baseline goodput >= 0.99                      pass             baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)
+  G7 baseline queue stability: per-replica waiting-queue mean <= 1.0 pass             vllm:num_requests_waiting baseline means r0=0.004/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 43 scrape errors)
+run 4 (variant process_kill): all_pass=true
+  G1 per-replica share 45-55% pre-fault            n/a              single-replica target: share gate not applicable
+  G2 client-validity gate clean                    pass             skew p99=16us/max=683us; undispatched=0; cpu_measured=true worst=3.1%; gc pause p99 in [0.459, 0.524) ms, runtime bucket edges, gate on the upper edge
+  G3 zero errored outcomes among victim-attributed in-flight requests n/a              not the black-hole variant: client-silence assertion not applicable
+  G4 endpoint-staleness window >= 20s with victim-bound traffic observed n/a              not the black-hole variant: staleness assertion not applicable
+  G5 GPU clock/power fingerprints equal across replicas and runs n/a              fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable
+  G6 baseline goodput >= 0.99                      pass             baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)
+  G7 baseline queue stability: per-replica waiting-queue mean <= 1.0 pass             vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 41 scrape errors)
+run 5 (variant process_kill): all_pass=true
+  G1 per-replica share 45-55% pre-fault            n/a              single-replica target: share gate not applicable
+  G2 client-validity gate clean                    pass             skew p99=13us/max=122us; undispatched=0; cpu_measured=true worst=3.2%; gc pause p99 in [0.786, 0.918) ms, runtime bucket edges, gate on the upper edge
+  G3 zero errored outcomes among victim-attributed in-flight requests n/a              not the black-hole variant: client-silence assertion not applicable
+  G4 endpoint-staleness window >= 20s with victim-bound traffic observed n/a              not the black-hole variant: staleness assertion not applicable
+  G5 GPU clock/power fingerprints equal across replicas and runs n/a              fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable
+  G6 baseline goodput >= 0.99                      pass             baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)
+  G7 baseline queue stability: per-replica waiting-queue mean <= 1.0 pass             vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 42 scrape errors)
+
+CAVEAT: one vLLM replica on one GPU, killed and restarted in place; no two-replica or Kubernetes claim. N=5 runs on rented hardware; the acceptance criteria (§8) certified the instrument against the mock; injected-fault-versus-reality gaps are named in the report.

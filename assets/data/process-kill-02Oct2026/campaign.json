@@ -1,0 +1,2641 @@
+{
+  "schema_version": 1,
+  "instrument_commit": "bce0628868ca6c4a231a5b398c169aaf586ac8a8",
+  "config_sha256": "9ebb9245d33d3f89fe0a21bdb8cfd432a3718f31fcf1eac7b6fb2e64776750b5",
+  "overrides": [
+    "target.base_url=http://10.0.0.249:8000",
+    "target.metrics_urls=http://10.0.0.249:8000/metrics"
+  ],
+  "caveat": "CAVEAT: one vLLM replica on one GPU, killed and restarted in place; no two-replica or Kubernetes claim. N=5 runs on rented hardware; the acceptance criteria (§8) certified the instrument against the mock; injected-fault-versus-reality gaps are named in the report.",
+  "campaign": {
+    "variant": "process_kill",
+    "config_name": "percentes-process-kill",
+    "repetitions": 5,
+    "per_run": [
+      {
+        "run": 1,
+        "valid": true,
+        "ttr_pre_fault_s": 41,
+        "in_flight_loss_fraction": 1,
+        "fault_window_e2e_p95_ms": 8011.775,
+        "survivor_cohort_absent": true,
+        "integrated_goodput_deficit": 39,
+        "receive_path": {
+          "baseline": {
+            "client_ttft_mean_ms": 148.58929351535835,
+            "client_ttft_count": 879,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 626,
+              "completed": 626,
+              "ttft_dev_p50_us": 1263,
+              "ttft_dev_max_us": 5218,
+              "itl_dev_p50_us": 180,
+              "itl_dev_p99_us": 839,
+              "itl_dev_max_us": 2229,
+              "event_lag_p99_us": 1878,
+              "event_lag_max_us": 5218
+            }
+          },
+          "fault": {
+            "client_ttft_mean_ms": 148.44036533032187,
+            "client_ttft_count": 1771,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1389,
+              "completed": 1389,
+              "ttft_dev_p50_us": 1247,
+              "ttft_dev_max_us": 2174,
+              "itl_dev_p50_us": 204,
+              "itl_dev_p99_us": 829,
+              "itl_dev_max_us": 1482,
+              "event_lag_p99_us": 1830,
+              "event_lag_max_us": 2766
+            }
+          },
+          "fault_degraded": {
+            "client_ttft_mean_ms": 0,
+            "client_ttft_count": 0,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 95,
+              "completed": 95,
+              "ttft_dev_p50_us": 1049,
+              "ttft_dev_max_us": 1912,
+              "itl_dev_p50_us": 286,
+              "itl_dev_p99_us": 585,
+              "itl_dev_max_us": 962,
+              "event_lag_p99_us": 1742,
+              "event_lag_max_us": 1912
+            }
+          },
+          "fault_recovered": {
+            "client_ttft_mean_ms": 148.44036533032187,
+            "client_ttft_count": 1771,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1294,
+              "completed": 1294,
+              "ttft_dev_p50_us": 1268,
+              "ttft_dev_max_us": 2174,
+              "itl_dev_p50_us": 175,
+              "itl_dev_p99_us": 836,
+              "itl_dev_max_us": 1482,
+              "event_lag_p99_us": 1835,
+              "event_lag_max_us": 2766
+            }
+          },
+          "guard": {
+            "client_ttft_mean_ms": 147.81358666666668,
+            "client_ttft_count": 75,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 69,
+              "completed": 69,
+              "ttft_dev_p50_us": 1308,
+              "ttft_dev_max_us": 2099,
+              "itl_dev_p50_us": 71,
+              "itl_dev_p99_us": 916,
+              "itl_dev_max_us": 2685,
+              "event_lag_p99_us": 1925,
+              "event_lag_max_us": 4330
+            }
+          },
+          "outage": {
+            "client_ttft_mean_ms": 128.8215,
+            "client_ttft_count": 2,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 97,
+              "completed": 97,
+              "ttft_dev_p50_us": 1049,
+              "ttft_dev_max_us": 1912,
+              "itl_dev_p50_us": 286,
+              "itl_dev_p99_us": 585,
+              "itl_dev_max_us": 962,
+              "event_lag_p99_us": 1742,
+              "event_lag_max_us": 1912
+            }
+          }
+        },
+        "outage_s": 41.684718265,
+        "container_start_s": 0.658928746,
+        "fire_uncertainty_s": 0.013728801,
+        "equilibrium_note": "no service during the degraded plateau; single-replica equilibrium undefined for this run",
+        "in_flight_errored_by_class": {
+          "malformed_stream": 15
+        },
+        "in_flight_indeterminate": 15,
+        "in_flight_determinate": {
+          "total": 0,
+          "completed": 0,
+          "errored": 0,
+          "censored": 0
+        },
+        "outage_outcomes": {
+          "total": 144,
+          "completed": 2,
+          "errored": 142,
+          "censored": 0,
+          "errored_by_class": {
+            "connect": 142
+          }
+        },
+        "decomposition": {
+          "segments": [
+            {
+              "name": "reschedule",
+              "source": "api",
+              "measured": false,
+              "note": "no scheduler: the container runtime restarts in place"
+            },
+            {
+              "name": "container_start",
+              "source": "api",
+              "measured": true,
+              "start_at": "2026-10-02T16:15:31.344250405Z",
+              "end_at": "2026-10-02T16:15:32.003179151Z"
+            },
+            {
+              "name": "log_bringup",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:15:43.853033Z",
+              "end_at": "2026-10-02T16:16:12.62184585Z"
+            },
+            {
+              "name": "engine_init",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:15:31.344250405Z",
+              "end_at": "2026-10-02T16:15:54.312076069Z"
+            },
+            {
+              "name": "weight_download",
+              "source": "log",
+              "measured": false,
+              "note": "no download line after the fire: weights served from the mounted cache"
+            },
+            {
+              "name": "weight_load",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:15:58.87204483Z",
+              "end_at": "2026-10-02T16:16:02.167444429Z"
+            },
+            {
+              "name": "torch_compile",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:16:02.987826871Z",
+              "end_at": "2026-10-02T16:16:03.890632881Z"
+            },
+            {
+              "name": "profile_kv_capture",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:16:03.890632881Z",
+              "end_at": "2026-10-02T16:16:09.747014369Z"
+            },
+            {
+              "name": "engine_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:15:31.344250405Z",
+              "end_at": "2026-10-02T16:16:11.276199743Z"
+            },
+            {
+              "name": "server_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:15:31.344250405Z",
+              "end_at": "2026-10-02T16:16:12.939291441Z"
+            },
+            {
+              "name": "replica_ready",
+              "source": "probe",
+              "measured": true,
+              "start_at": "2026-10-02T16:15:31.344250401Z",
+              "end_at": "2026-10-02T16:16:13.028968648Z",
+              "note": "first successful inference against the replica directly, after the fault was visible on that path"
+            },
+            {
+              "name": "traffic_restored",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "routing_propagation",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "goodput_restored",
+              "source": "client",
+              "measured": true,
+              "start_at": "2026-10-02T16:15:31.344250401Z",
+              "end_at": "2026-10-02T16:16:12.302588776Z",
+              "note": "from the client stream per the detector"
+            }
+          ],
+          "log_figures": {
+            "graph_capture_gib": 0.52,
+            "graph_capture_s": 5,
+            "init_engine_compilation_s": 0.19,
+            "init_engine_s": 8.28,
+            "model_loaded_gib": 14.29,
+            "model_loaded_s": 4.823372,
+            "torch_compile_s": 0.19,
+            "weights_loaded_s": 2.8
+          }
+        },
+        "container": {
+          "before": {
+            "running": true,
+            "pid": 4451,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T16:08:14.215990487Z",
+            "finished_at": "2026-10-02T16:08:14.201078322Z",
+            "restart_count": 1,
+            "restart_policy": "on-failure"
+          },
+          "after": {
+            "running": true,
+            "pid": 5293,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T16:15:32.011696336Z",
+            "finished_at": "2026-10-02T16:15:31.990718383Z",
+            "restart_count": 2,
+            "restart_policy": "on-failure"
+          },
+          "offset_at_arm": {
+            "offset_ns": 8517185,
+            "bound_ns": 7669101,
+            "samples": 5,
+            "at": "2026-10-02T16:09:31.299260319Z"
+          },
+          "offset_after": {
+            "offset_ns": 12412942,
+            "bound_ns": 8412769,
+            "samples": 5,
+            "at": "2026-10-02T16:26:36.758512098Z"
+          },
+          "kill": {
+            "pid": 4451,
+            "signal": 9,
+            "sent_at": "2026-10-02T16:15:31.302748494Z",
+            "returned_at": "2026-10-02T16:15:31.353776439Z",
+            "remote_before_ns": 1790957731351347315,
+            "remote_after_ns": 1790957731354187865
+          },
+          "fire_uncertainty_ns": 13728801,
+          "indeterminate_zone_ns": 22141570,
+          "events": [
+            {
+              "action": "die",
+              "at": "2026-10-02T16:15:32.000922512Z"
+            },
+            {
+              "action": "start",
+              "at": "2026-10-02T16:15:32.272015049Z"
+            }
+          ],
+          "die_to_start_s": 0.271092537,
+          "boundaries": {
+            "matches": {
+              "banner": {
+                "key": "banner",
+                "line": 19,
+                "at": "2026-10-02T16:15:43.861550185Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:15:43.861550185Z (APIServer pid=1) INFO 10-02 16:15:43 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.29.0"
+              },
+              "engine_init": {
+                "key": "engine_init",
+                "line": 27,
+                "at": "2026-10-02T16:15:54.320593254Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:15:54.320593254Z (EngineCore pid=72) INFO 10-02 16:15:54 [core.py:123] Initializing a V1 LLM engine (v0.29.0) with config: model='Qwen/Qwen2.5-7B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-7B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=a09a35458c702b33eeacc393d103063234e8bc28, tokenizer_revision=a09a35458c702b33eeacc393d103063234e8bc28, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=1024, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=True, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=Qwen/Qwen2.5-7B-Instruct, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': \u003cCompilationMode.VLLM_COMPILE: 3\u003e, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_compute_ple_ngram_ids', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': \u003cCUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)\u003e, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': \u003cDynamicShapesType.BACKED: 'backed'\u003e, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, enable_bf16x3_router_gemm=False, moe_backend='auto', linear_backend='auto')"
+              },
+              "engine_ready": {
+                "key": "engine_ready",
+                "line": 62,
+                "at": "2026-10-02T16:16:11.284716928Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "init_engine_compilation_s": 0.19,
+                  "init_engine_s": 8.28
+                },
+                "text": "2026-10-02T16:16:11.284716928Z (EngineCore pid=72) INFO 10-02 16:16:11 [core.py:361] init engine (profile, create kv cache, warmup model) took 8.28 s (compilation: 0.19 s)"
+              },
+              "graph_capture": {
+                "key": "graph_capture",
+                "line": 59,
+                "at": "2026-10-02T16:16:09.755531554Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "graph_capture_gib": 0.52,
+                  "graph_capture_s": 5
+                },
+                "text": "2026-10-02T16:16:09.755531554Z (EngineCore pid=72) INFO 10-02 16:16:09 [model_runner.py:960] Graph capturing finished in 5 secs, took 0.52 GiB"
+              },
+              "model_load_start": {
+                "key": "model_load_start",
+                "line": 33,
+                "at": "2026-10-02T16:15:58.880562015Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:15:58.880562015Z (EngineCore pid=72) INFO 10-02 16:15:58 [model_runner.py:382] Loading model from scratch..."
+              },
+              "model_loaded": {
+                "key": "model_loaded",
+                "line": 46,
+                "at": "2026-10-02T16:16:02.996344056Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "model_loaded_gib": 14.29,
+                  "model_loaded_s": 4.823372
+                },
+                "text": "2026-10-02T16:16:02.996344056Z (EngineCore pid=72) INFO 10-02 16:16:02 [model_runner.py:404] Model loading took 14.29 GiB memory and 4.823372 seconds"
+              },
+              "server_start": {
+                "key": "server_start",
+                "line": 69,
+                "at": "2026-10-02T16:16:12.630363035Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:16:12.630363035Z (APIServer pid=1) INFO 10-02 16:16:12 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000"
+              },
+              "startup_complete": {
+                "key": "startup_complete",
+                "line": 124,
+                "at": "2026-10-02T16:16:12.947808626Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:16:12.947808626Z (APIServer pid=1) INFO:     Application startup complete."
+              },
+              "torch_compile": {
+                "key": "torch_compile",
+                "line": 51,
+                "at": "2026-10-02T16:16:03.899150066Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "torch_compile_s": 0.19
+                },
+                "text": "2026-10-02T16:16:03.899150066Z (EngineCore pid=72) INFO 10-02 16:16:03 [monitor.py:53] torch.compile took 0.19 s in total"
+              },
+              "weights_loaded": {
+                "key": "weights_loaded",
+                "line": 45,
+                "at": "2026-10-02T16:16:02.175961614Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "weights_loaded_s": 2.8
+                },
+                "text": "2026-10-02T16:16:02.175961614Z (EngineCore pid=72) INFO 10-02 16:16:02 [default_loader.py:430] Loading weights took 2.80 seconds"
+              }
+            },
+            "lines": 2759
+          },
+          "log_path": "results/pk-20261002T1609Z/run-1-server.log",
+          "log_bytes": 347630,
+          "fingerprint_before_path": "results/pk-20261002T1609Z/run-1-fingerprint-before.txt",
+          "fingerprint_after_path": "results/pk-20261002T1609Z/run-1-fingerprint-after.txt"
+        }
+      },
+      {
+        "run": 2,
+        "valid": true,
+        "ttr_pre_fault_s": 41,
+        "in_flight_loss_fraction": 1,
+        "fault_window_e2e_p95_ms": 7548.927,
+        "survivor_cohort_absent": true,
+        "integrated_goodput_deficit": 39,
+        "receive_path": {
+          "baseline": {
+            "client_ttft_mean_ms": 147.88320211515864,
+            "client_ttft_count": 851,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 626,
+              "completed": 626,
+              "ttft_dev_p50_us": 1289,
+              "ttft_dev_max_us": 2141,
+              "itl_dev_p50_us": 130,
+              "itl_dev_p99_us": 855,
+              "itl_dev_max_us": 8423,
+              "event_lag_p99_us": 1855,
+              "event_lag_max_us": 9663
+            }
+          },
+          "fault": {
+            "client_ttft_mean_ms": 141.65120544701006,
+            "client_ttft_count": 1689,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1389,
+              "completed": 1389,
+              "ttft_dev_p50_us": 1277,
+              "ttft_dev_max_us": 2158,
+              "itl_dev_p50_us": 189,
+              "itl_dev_p99_us": 842,
+              "itl_dev_max_us": 4153,
+              "event_lag_p99_us": 1839,
+              "event_lag_max_us": 5306
+            }
+          },
+          "fault_degraded": {
+            "client_ttft_mean_ms": 0,
+            "client_ttft_count": 0,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 95,
+              "completed": 95,
+              "ttft_dev_p50_us": 1125,
+              "ttft_dev_max_us": 1805,
+              "itl_dev_p50_us": 302,
+              "itl_dev_p99_us": 624,
+              "itl_dev_max_us": 1058,
+              "event_lag_p99_us": 1812,
+              "event_lag_max_us": 1962
+            }
+          },
+          "fault_recovered": {
+            "client_ttft_mean_ms": 141.65120544701006,
+            "client_ttft_count": 1689,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1294,
+              "completed": 1294,
+              "ttft_dev_p50_us": 1308,
+              "ttft_dev_max_us": 2158,
+              "itl_dev_p50_us": 160,
+              "itl_dev_p99_us": 850,
+              "itl_dev_max_us": 4153,
+              "event_lag_p99_us": 1841,
+              "event_lag_max_us": 5306
+            }
+          },
+          "guard": {
+            "client_ttft_mean_ms": 125.81405970149254,
+            "client_ttft_count": 67,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 69,
+              "completed": 69,
+              "ttft_dev_p50_us": 1375,
+              "ttft_dev_max_us": 1994,
+              "itl_dev_p50_us": 108,
+              "itl_dev_p99_us": 844,
+              "itl_dev_max_us": 1122,
+              "event_lag_p99_us": 1808,
+              "event_lag_max_us": 2135
+            }
+          },
+          "outage": {
+            "client_ttft_mean_ms": 100.656,
+            "client_ttft_count": 1,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 97,
+              "completed": 97,
+              "ttft_dev_p50_us": 1126,
+              "ttft_dev_max_us": 1844,
+              "itl_dev_p50_us": 302,
+              "itl_dev_p99_us": 624,
+              "itl_dev_max_us": 1058,
+              "event_lag_p99_us": 1813,
+              "event_lag_max_us": 1962
+            }
+          }
+        },
+        "outage_s": 41.688766755,
+        "container_start_s": 0.685344644,
+        "fire_uncertainty_s": 0.014349391,
+        "equilibrium_note": "no service during the degraded plateau; single-replica equilibrium undefined for this run",
+        "in_flight_errored_by_class": {
+          "malformed_stream": 25
+        },
+        "in_flight_indeterminate": 25,
+        "in_flight_determinate": {
+          "total": 0,
+          "completed": 0,
+          "errored": 0,
+          "censored": 0
+        },
+        "outage_outcomes": {
+          "total": 144,
+          "completed": 1,
+          "errored": 143,
+          "censored": 0,
+          "errored_by_class": {
+            "connect": 143
+          }
+        },
+        "decomposition": {
+          "segments": [
+            {
+              "name": "reschedule",
+              "source": "api",
+              "measured": false,
+              "note": "no scheduler: the container runtime restarts in place"
+            },
+            {
+              "name": "container_start",
+              "source": "api",
+              "measured": true,
+              "start_at": "2026-10-02T16:32:40.049156442Z",
+              "end_at": "2026-10-02T16:32:40.734501086Z"
+            },
+            {
+              "name": "log_bringup",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:32:52.387432241Z",
+              "end_at": "2026-10-02T16:33:21.056311987Z"
+            },
+            {
+              "name": "engine_init",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:32:40.049156442Z",
+              "end_at": "2026-10-02T16:33:02.77340496Z"
+            },
+            {
+              "name": "weight_download",
+              "source": "log",
+              "measured": false,
+              "note": "no download line after the fire: weights served from the mounted cache"
+            },
+            {
+              "name": "weight_load",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:33:07.372209011Z",
+              "end_at": "2026-10-02T16:33:10.702251419Z"
+            },
+            {
+              "name": "torch_compile",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:33:11.503935701Z",
+              "end_at": "2026-10-02T16:33:12.385520339Z"
+            },
+            {
+              "name": "profile_kv_capture",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:33:12.385520339Z",
+              "end_at": "2026-10-02T16:33:18.141989889Z"
+            },
+            {
+              "name": "engine_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:32:40.049156442Z",
+              "end_at": "2026-10-02T16:33:19.684789246Z"
+            },
+            {
+              "name": "server_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:32:40.049156442Z",
+              "end_at": "2026-10-02T16:33:21.400553997Z"
+            },
+            {
+              "name": "replica_ready",
+              "source": "probe",
+              "measured": true,
+              "start_at": "2026-10-02T16:32:40.049156537Z",
+              "end_at": "2026-10-02T16:33:21.73792328Z",
+              "note": "first successful inference against the replica directly, after the fault was visible on that path"
+            },
+            {
+              "name": "traffic_restored",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "routing_propagation",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "goodput_restored",
+              "source": "client",
+              "measured": true,
+              "start_at": "2026-10-02T16:32:40.049156537Z",
+              "end_at": "2026-10-02T16:33:21.008492561Z",
+              "note": "from the client stream per the detector"
+            }
+          ],
+          "log_figures": {
+            "graph_capture_gib": 0.52,
+            "graph_capture_s": 5,
+            "init_engine_compilation_s": 0.18,
+            "init_engine_s": 8.17,
+            "model_loaded_gib": 14.29,
+            "model_loaded_s": 4.807834,
+            "torch_compile_s": 0.18,
+            "weights_loaded_s": 2.81
+          }
+        },
+        "container": {
+          "before": {
+            "running": true,
+            "pid": 5293,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T16:15:32.011696336Z",
+            "finished_at": "2026-10-02T16:15:31.990718383Z",
+            "restart_count": 2,
+            "restart_policy": "on-failure"
+          },
+          "after": {
+            "running": true,
+            "pid": 6095,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T16:32:40.746920346Z",
+            "finished_at": "2026-10-02T16:32:40.729250582Z",
+            "restart_count": 3,
+            "restart_policy": "on-failure"
+          },
+          "offset_at_arm": {
+            "offset_ns": 12419260,
+            "bound_ns": 8786960,
+            "samples": 5,
+            "at": "2026-10-02T16:26:40.007932674Z"
+          },
+          "offset_after": {
+            "offset_ns": 8471484,
+            "bound_ns": 7747173,
+            "samples": 5,
+            "at": "2026-10-02T16:43:45.432886315Z"
+          },
+          "kill": {
+            "pid": 5293,
+            "signal": 9,
+            "sent_at": "2026-10-02T16:32:40.009593764Z",
+            "returned_at": "2026-10-02T16:32:40.060698011Z",
+            "remote_before_ns": 1790958760059961047,
+            "remote_after_ns": 1790958760063190357
+          },
+          "fire_uncertainty_ns": 14349391,
+          "indeterminate_zone_ns": 23136351,
+          "events": [
+            {
+              "action": "die",
+              "at": "2026-10-02T16:32:40.732115686Z"
+            },
+            {
+              "action": "start",
+              "at": "2026-10-02T16:32:41.018511944Z"
+            }
+          ],
+          "die_to_start_s": 0.286396258,
+          "boundaries": {
+            "matches": {
+              "banner": {
+                "key": "banner",
+                "line": 28,
+                "at": "2026-10-02T16:32:52.399851501Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:32:52.399851501Z (APIServer pid=1) INFO 10-02 16:32:52 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.29.0"
+              },
+              "engine_init": {
+                "key": "engine_init",
+                "line": 36,
+                "at": "2026-10-02T16:33:02.78582422Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:33:02.785824220Z (EngineCore pid=72) INFO 10-02 16:33:02 [core.py:123] Initializing a V1 LLM engine (v0.29.0) with config: model='Qwen/Qwen2.5-7B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-7B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=a09a35458c702b33eeacc393d103063234e8bc28, tokenizer_revision=a09a35458c702b33eeacc393d103063234e8bc28, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=1024, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=True, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=Qwen/Qwen2.5-7B-Instruct, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': \u003cCompilationMode.VLLM_COMPILE: 3\u003e, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_compute_ple_ngram_ids', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': \u003cCUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)\u003e, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': \u003cDynamicShapesType.BACKED: 'backed'\u003e, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, enable_bf16x3_router_gemm=False, moe_backend='auto', linear_backend='auto')"
+              },
+              "engine_ready": {
+                "key": "engine_ready",
+                "line": 71,
+                "at": "2026-10-02T16:33:19.697208506Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "init_engine_compilation_s": 0.18,
+                  "init_engine_s": 8.17
+                },
+                "text": "2026-10-02T16:33:19.697208506Z (EngineCore pid=72) INFO 10-02 16:33:19 [core.py:361] init engine (profile, create kv cache, warmup model) took 8.17 s (compilation: 0.18 s)"
+              },
+              "graph_capture": {
+                "key": "graph_capture",
+                "line": 68,
+                "at": "2026-10-02T16:33:18.154409149Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "graph_capture_gib": 0.52,
+                  "graph_capture_s": 5
+                },
+                "text": "2026-10-02T16:33:18.154409149Z (EngineCore pid=72) INFO 10-02 16:33:18 [model_runner.py:960] Graph capturing finished in 5 secs, took 0.52 GiB"
+              },
+              "model_load_start": {
+                "key": "model_load_start",
+                "line": 42,
+                "at": "2026-10-02T16:33:07.384628271Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:33:07.384628271Z (EngineCore pid=72) INFO 10-02 16:33:07 [model_runner.py:382] Loading model from scratch..."
+              },
+              "model_loaded": {
+                "key": "model_loaded",
+                "line": 55,
+                "at": "2026-10-02T16:33:11.516354961Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "model_loaded_gib": 14.29,
+                  "model_loaded_s": 4.807834
+                },
+                "text": "2026-10-02T16:33:11.516354961Z (EngineCore pid=72) INFO 10-02 16:33:11 [model_runner.py:404] Model loading took 14.29 GiB memory and 4.807834 seconds"
+              },
+              "server_start": {
+                "key": "server_start",
+                "line": 78,
+                "at": "2026-10-02T16:33:21.068731247Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:33:21.068731247Z (APIServer pid=1) INFO 10-02 16:33:21 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000"
+              },
+              "startup_complete": {
+                "key": "startup_complete",
+                "line": 133,
+                "at": "2026-10-02T16:33:21.412973257Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:33:21.412973257Z (APIServer pid=1) INFO:     Application startup complete."
+              },
+              "torch_compile": {
+                "key": "torch_compile",
+                "line": 60,
+                "at": "2026-10-02T16:33:12.397939599Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "torch_compile_s": 0.18
+                },
+                "text": "2026-10-02T16:33:12.397939599Z (EngineCore pid=72) INFO 10-02 16:33:12 [monitor.py:53] torch.compile took 0.18 s in total"
+              },
+              "weights_loaded": {
+                "key": "weights_loaded",
+                "line": 54,
+                "at": "2026-10-02T16:33:10.714670679Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "weights_loaded_s": 2.81
+                },
+                "text": "2026-10-02T16:33:10.714670679Z (EngineCore pid=72) INFO 10-02 16:33:10 [default_loader.py:430] Loading weights took 2.81 seconds"
+              }
+            },
+            "lines": 2704
+          },
+          "log_path": "results/pk-20261002T1609Z/run-2-server.log",
+          "log_bytes": 340917,
+          "fingerprint_before_path": "results/pk-20261002T1609Z/run-2-fingerprint-before.txt",
+          "fingerprint_after_path": "results/pk-20261002T1609Z/run-2-fingerprint-after.txt"
+        }
+      },
+      {
+        "run": 3,
+        "valid": true,
+        "ttr_pre_fault_s": 43,
+        "in_flight_loss_fraction": 1,
+        "fault_window_e2e_p95_ms": 7839.743,
+        "survivor_cohort_absent": true,
+        "integrated_goodput_deficit": 40,
+        "receive_path": {
+          "baseline": {
+            "client_ttft_mean_ms": 149.32263105590062,
+            "client_ttft_count": 805,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 626,
+              "completed": 626,
+              "ttft_dev_p50_us": 1281,
+              "ttft_dev_max_us": 2133,
+              "itl_dev_p50_us": 141,
+              "itl_dev_p99_us": 846,
+              "itl_dev_max_us": 5945,
+              "event_lag_p99_us": 1811,
+              "event_lag_max_us": 7013
+            }
+          },
+          "fault": {
+            "client_ttft_mean_ms": 146.90018606024807,
+            "client_ttft_count": 1693,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1389,
+              "completed": 1389,
+              "ttft_dev_p50_us": 1257,
+              "ttft_dev_max_us": 2119,
+              "itl_dev_p50_us": 185,
+              "itl_dev_p99_us": 835,
+              "itl_dev_max_us": 4722,
+              "event_lag_p99_us": 1843,
+              "event_lag_max_us": 5979
+            }
+          },
+          "fault_degraded": {
+            "client_ttft_mean_ms": 0,
+            "client_ttft_count": 0,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 100,
+              "completed": 100,
+              "ttft_dev_p50_us": 1101,
+              "ttft_dev_max_us": 1895,
+              "itl_dev_p50_us": 300,
+              "itl_dev_p99_us": 648,
+              "itl_dev_max_us": 3282,
+              "event_lag_p99_us": 1849,
+              "event_lag_max_us": 3938
+            }
+          },
+          "fault_recovered": {
+            "client_ttft_mean_ms": 146.90018606024807,
+            "client_ttft_count": 1693,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1289,
+              "completed": 1289,
+              "ttft_dev_p50_us": 1274,
+              "ttft_dev_max_us": 2119,
+              "itl_dev_p50_us": 156,
+              "itl_dev_p99_us": 844,
+              "itl_dev_max_us": 4722,
+              "event_lag_p99_us": 1842,
+              "event_lag_max_us": 5979
+            }
+          },
+          "guard": {
+            "client_ttft_mean_ms": 133.63106666666667,
+            "client_ttft_count": 60,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 69,
+              "completed": 69,
+              "ttft_dev_p50_us": 1289,
+              "ttft_dev_max_us": 1851,
+              "itl_dev_p50_us": 172,
+              "itl_dev_p99_us": 861,
+              "itl_dev_max_us": 1102,
+              "event_lag_p99_us": 1749,
+              "event_lag_max_us": 1892
+            }
+          },
+          "outage": {
+            "client_ttft_mean_ms": 101.442,
+            "client_ttft_count": 1,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 102,
+              "completed": 102,
+              "ttft_dev_p50_us": 1101,
+              "ttft_dev_max_us": 1895,
+              "itl_dev_p50_us": 299,
+              "itl_dev_p99_us": 650,
+              "itl_dev_max_us": 3282,
+              "event_lag_p99_us": 1849,
+              "event_lag_max_us": 3938
+            }
+          }
+        },
+        "outage_s": 43.694688812,
+        "container_start_s": 0.628110149,
+        "fire_uncertainty_s": 0.013561076,
+        "equilibrium_note": "no service during the degraded plateau; single-replica equilibrium undefined for this run",
+        "in_flight_errored_by_class": {
+          "malformed_stream": 19
+        },
+        "in_flight_indeterminate": 19,
+        "in_flight_determinate": {
+          "total": 0,
+          "completed": 0,
+          "errored": 0,
+          "censored": 0
+        },
+        "outage_outcomes": {
+          "total": 124,
+          "completed": 1,
+          "errored": 123,
+          "censored": 0,
+          "errored_by_class": {
+            "connect": 123
+          }
+        },
+        "decomposition": {
+          "segments": [
+            {
+              "name": "reschedule",
+              "source": "api",
+              "measured": false,
+              "note": "no scheduler: the container runtime restarts in place"
+            },
+            {
+              "name": "container_start",
+              "source": "api",
+              "measured": true,
+              "start_at": "2026-10-02T16:49:48.682817045Z",
+              "end_at": "2026-10-02T16:49:49.310927194Z"
+            },
+            {
+              "name": "log_bringup",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:50:02.002870774Z",
+              "end_at": "2026-10-02T16:50:31.55254766Z"
+            },
+            {
+              "name": "engine_init",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:49:48.682817045Z",
+              "end_at": "2026-10-02T16:50:13.241701165Z"
+            },
+            {
+              "name": "weight_download",
+              "source": "log",
+              "measured": false,
+              "note": "no download line after the fire: weights served from the mounted cache"
+            },
+            {
+              "name": "weight_load",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:50:17.652643577Z",
+              "end_at": "2026-10-02T16:50:21.172701372Z"
+            },
+            {
+              "name": "torch_compile",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:50:21.937501575Z",
+              "end_at": "2026-10-02T16:50:22.749459334Z"
+            },
+            {
+              "name": "profile_kv_capture",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:50:22.749459334Z",
+              "end_at": "2026-10-02T16:50:28.59517077Z"
+            },
+            {
+              "name": "engine_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:49:48.682817045Z",
+              "end_at": "2026-10-02T16:50:30.04476688Z"
+            },
+            {
+              "name": "server_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T16:49:48.682817045Z",
+              "end_at": "2026-10-02T16:50:31.964939523Z"
+            },
+            {
+              "name": "replica_ready",
+              "source": "probe",
+              "measured": true,
+              "start_at": "2026-10-02T16:49:48.682817027Z",
+              "end_at": "2026-10-02T16:50:32.377505862Z",
+              "note": "first successful inference against the replica directly, after the fault was visible on that path"
+            },
+            {
+              "name": "traffic_restored",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "routing_propagation",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "goodput_restored",
+              "source": "client",
+              "measured": true,
+              "start_at": "2026-10-02T16:49:48.682817027Z",
+              "end_at": "2026-10-02T16:50:31.619472952Z",
+              "note": "from the client stream per the detector"
+            }
+          ],
+          "log_figures": {
+            "graph_capture_gib": 0.52,
+            "graph_capture_s": 5,
+            "init_engine_compilation_s": 0.2,
+            "init_engine_s": 8.1,
+            "model_loaded_gib": 14.29,
+            "model_loaded_s": 4.793753,
+            "torch_compile_s": 0.2,
+            "weights_loaded_s": 2.95
+          }
+        },
+        "container": {
+          "before": {
+            "running": true,
+            "pid": 6095,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T16:32:40.746920346Z",
+            "finished_at": "2026-10-02T16:32:40.729250582Z",
+            "restart_count": 3,
+            "restart_policy": "on-failure"
+          },
+          "after": {
+            "running": true,
+            "pid": 7006,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T16:49:49.319086715Z",
+            "finished_at": "2026-10-02T16:49:49.306525818Z",
+            "restart_count": 4,
+            "restart_policy": "on-failure"
+          },
+          "offset_at_arm": {
+            "offset_ns": 8159521,
+            "bound_ns": 7687984,
+            "samples": 5,
+            "at": "2026-10-02T16:43:48.619137225Z"
+          },
+          "offset_after": {
+            "offset_ns": 4144933,
+            "bound_ns": 7771496,
+            "samples": 5,
+            "at": "2026-10-02T17:00:55.077910785Z"
+          },
+          "kill": {
+            "pid": 6095,
+            "signal": 9,
+            "sent_at": "2026-10-02T16:49:48.620441943Z",
+            "returned_at": "2026-10-02T16:49:48.695339389Z",
+            "remote_before_ns": 1790959788689201574,
+            "remote_after_ns": 1790959788692751558
+          },
+          "fire_uncertainty_ns": 13561076,
+          "indeterminate_zone_ns": 21332572,
+          "events": [
+            {
+              "action": "die",
+              "at": "2026-10-02T16:49:49.30923321Z"
+            },
+            {
+              "action": "start",
+              "at": "2026-10-02T16:49:49.578067669Z"
+            }
+          ],
+          "die_to_start_s": 0.268834459,
+          "boundaries": {
+            "matches": {
+              "banner": {
+                "key": "banner",
+                "line": 28,
+                "at": "2026-10-02T16:50:02.011030295Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:50:02.011030295Z (APIServer pid=1) INFO 10-02 16:50:02 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.29.0"
+              },
+              "engine_init": {
+                "key": "engine_init",
+                "line": 36,
+                "at": "2026-10-02T16:50:13.249860686Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:50:13.249860686Z (EngineCore pid=72) INFO 10-02 16:50:13 [core.py:123] Initializing a V1 LLM engine (v0.29.0) with config: model='Qwen/Qwen2.5-7B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-7B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=a09a35458c702b33eeacc393d103063234e8bc28, tokenizer_revision=a09a35458c702b33eeacc393d103063234e8bc28, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=1024, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=True, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=Qwen/Qwen2.5-7B-Instruct, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': \u003cCompilationMode.VLLM_COMPILE: 3\u003e, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_compute_ple_ngram_ids', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': \u003cCUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)\u003e, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': \u003cDynamicShapesType.BACKED: 'backed'\u003e, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, enable_bf16x3_router_gemm=False, moe_backend='auto', linear_backend='auto')"
+              },
+              "engine_ready": {
+                "key": "engine_ready",
+                "line": 71,
+                "at": "2026-10-02T16:50:30.052926401Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "init_engine_compilation_s": 0.2,
+                  "init_engine_s": 8.1
+                },
+                "text": "2026-10-02T16:50:30.052926401Z (EngineCore pid=72) INFO 10-02 16:50:30 [core.py:361] init engine (profile, create kv cache, warmup model) took 8.10 s (compilation: 0.20 s)"
+              },
+              "graph_capture": {
+                "key": "graph_capture",
+                "line": 68,
+                "at": "2026-10-02T16:50:28.603330291Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "graph_capture_gib": 0.52,
+                  "graph_capture_s": 5
+                },
+                "text": "2026-10-02T16:50:28.603330291Z (EngineCore pid=72) INFO 10-02 16:50:28 [model_runner.py:960] Graph capturing finished in 5 secs, took 0.52 GiB"
+              },
+              "model_load_start": {
+                "key": "model_load_start",
+                "line": 42,
+                "at": "2026-10-02T16:50:17.660803098Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:50:17.660803098Z (EngineCore pid=72) INFO 10-02 16:50:17 [model_runner.py:382] Loading model from scratch..."
+              },
+              "model_loaded": {
+                "key": "model_loaded",
+                "line": 55,
+                "at": "2026-10-02T16:50:21.945661096Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "model_loaded_gib": 14.29,
+                  "model_loaded_s": 4.793753
+                },
+                "text": "2026-10-02T16:50:21.945661096Z (EngineCore pid=72) INFO 10-02 16:50:21 [model_runner.py:404] Model loading took 14.29 GiB memory and 4.793753 seconds"
+              },
+              "server_start": {
+                "key": "server_start",
+                "line": 78,
+                "at": "2026-10-02T16:50:31.560707181Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:50:31.560707181Z (APIServer pid=1) INFO 10-02 16:50:31 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000"
+              },
+              "startup_complete": {
+                "key": "startup_complete",
+                "line": 133,
+                "at": "2026-10-02T16:50:31.973099044Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T16:50:31.973099044Z (APIServer pid=1) INFO:     Application startup complete."
+              },
+              "torch_compile": {
+                "key": "torch_compile",
+                "line": 60,
+                "at": "2026-10-02T16:50:22.757618855Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "torch_compile_s": 0.2
+                },
+                "text": "2026-10-02T16:50:22.757618855Z (EngineCore pid=72) INFO 10-02 16:50:22 [monitor.py:53] torch.compile took 0.20 s in total"
+              },
+              "weights_loaded": {
+                "key": "weights_loaded",
+                "line": 54,
+                "at": "2026-10-02T16:50:21.180860893Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "weights_loaded_s": 2.95
+                },
+                "text": "2026-10-02T16:50:21.180860893Z (EngineCore pid=72) INFO 10-02 16:50:21 [default_loader.py:430] Loading weights took 2.95 seconds"
+              }
+            },
+            "lines": 2704
+          },
+          "log_path": "results/pk-20261002T1609Z/run-3-server.log",
+          "log_bytes": 340931,
+          "fingerprint_before_path": "results/pk-20261002T1609Z/run-3-fingerprint-before.txt",
+          "fingerprint_after_path": "results/pk-20261002T1609Z/run-3-fingerprint-after.txt"
+        }
+      },
+      {
+        "run": 4,
+        "valid": true,
+        "ttr_pre_fault_s": 41,
+        "in_flight_loss_fraction": 1,
+        "fault_window_e2e_p95_ms": 7774.207,
+        "survivor_cohort_absent": true,
+        "integrated_goodput_deficit": 39,
+        "receive_path": {
+          "baseline": {
+            "client_ttft_mean_ms": 146.1583856287425,
+            "client_ttft_count": 835,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 626,
+              "completed": 626,
+              "ttft_dev_p50_us": 1253,
+              "ttft_dev_max_us": 2467,
+              "itl_dev_p50_us": 161,
+              "itl_dev_p99_us": 848,
+              "itl_dev_max_us": 2637,
+              "event_lag_p99_us": 1802,
+              "event_lag_max_us": 4329
+            }
+          },
+          "fault": {
+            "client_ttft_mean_ms": 147.4448944099379,
+            "client_ttft_count": 1771,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1390,
+              "completed": 1390,
+              "ttft_dev_p50_us": 1251,
+              "ttft_dev_max_us": 2090,
+              "itl_dev_p50_us": 215,
+              "itl_dev_p99_us": 842,
+              "itl_dev_max_us": 1866,
+              "event_lag_p99_us": 1808,
+              "event_lag_max_us": 3106
+            }
+          },
+          "fault_degraded": {
+            "client_ttft_mean_ms": 0,
+            "client_ttft_count": 0,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 95,
+              "completed": 95,
+              "ttft_dev_p50_us": 1150,
+              "ttft_dev_max_us": 1716,
+              "itl_dev_p50_us": 293,
+              "itl_dev_p99_us": 635,
+              "itl_dev_max_us": 1071,
+              "event_lag_p99_us": 1834,
+              "event_lag_max_us": 2056
+            }
+          },
+          "fault_recovered": {
+            "client_ttft_mean_ms": 147.4448944099379,
+            "client_ttft_count": 1771,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1295,
+              "completed": 1295,
+              "ttft_dev_p50_us": 1268,
+              "ttft_dev_max_us": 2090,
+              "itl_dev_p50_us": 194,
+              "itl_dev_p99_us": 847,
+              "itl_dev_max_us": 1866,
+              "event_lag_p99_us": 1806,
+              "event_lag_max_us": 3106
+            }
+          },
+          "guard": {
+            "client_ttft_mean_ms": 135.48083823529413,
+            "client_ttft_count": 68,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 69,
+              "completed": 69,
+              "ttft_dev_p50_us": 1152,
+              "ttft_dev_max_us": 2560,
+              "itl_dev_p50_us": 211,
+              "itl_dev_p99_us": 795,
+              "itl_dev_max_us": 1059,
+              "event_lag_p99_us": 1828,
+              "event_lag_max_us": 2560
+            }
+          },
+          "outage": {
+            "client_ttft_mean_ms": 113.244,
+            "client_ttft_count": 1,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 98,
+              "completed": 98,
+              "ttft_dev_p50_us": 1146,
+              "ttft_dev_max_us": 1716,
+              "itl_dev_p50_us": 293,
+              "itl_dev_p99_us": 651,
+              "itl_dev_max_us": 1071,
+              "event_lag_p99_us": 1834,
+              "event_lag_max_us": 2056
+            }
+          }
+        },
+        "outage_s": 42.190360069,
+        "container_start_s": 0.738374517,
+        "fire_uncertainty_s": 0.012303712,
+        "equilibrium_note": "no service during the degraded plateau; single-replica equilibrium undefined for this run",
+        "in_flight_errored_by_class": {
+          "malformed_stream": 29
+        },
+        "in_flight_indeterminate": 29,
+        "in_flight_determinate": {
+          "total": 0,
+          "completed": 0,
+          "errored": 0,
+          "censored": 0
+        },
+        "outage_outcomes": {
+          "total": 136,
+          "completed": 1,
+          "errored": 135,
+          "censored": 0,
+          "errored_by_class": {
+            "connect": 135
+          }
+        },
+        "decomposition": {
+          "segments": [
+            {
+              "name": "reschedule",
+              "source": "api",
+              "measured": false,
+              "note": "no scheduler: the container runtime restarts in place"
+            },
+            {
+              "name": "container_start",
+              "source": "api",
+              "measured": true,
+              "start_at": "2026-10-02T17:06:58.57150807Z",
+              "end_at": "2026-10-02T17:06:59.309882587Z"
+            },
+            {
+              "name": "log_bringup",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:07:11.92793743Z",
+              "end_at": "2026-10-02T17:07:39.981619142Z"
+            },
+            {
+              "name": "engine_init",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:06:58.57150807Z",
+              "end_at": "2026-10-02T17:07:22.892744537Z"
+            },
+            {
+              "name": "weight_download",
+              "source": "log",
+              "measured": false,
+              "note": "no download line after the fire: weights served from the mounted cache"
+            },
+            {
+              "name": "weight_load",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:07:26.774701192Z",
+              "end_at": "2026-10-02T17:07:29.87277202Z"
+            },
+            {
+              "name": "torch_compile",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:07:30.504290075Z",
+              "end_at": "2026-10-02T17:07:31.325947185Z"
+            },
+            {
+              "name": "profile_kv_capture",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:07:31.325947185Z",
+              "end_at": "2026-10-02T17:07:37.058165802Z"
+            },
+            {
+              "name": "engine_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:06:58.57150807Z",
+              "end_at": "2026-10-02T17:07:38.496669308Z"
+            },
+            {
+              "name": "server_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:06:58.57150807Z",
+              "end_at": "2026-10-02T17:07:40.368917777Z"
+            },
+            {
+              "name": "replica_ready",
+              "source": "probe",
+              "measured": true,
+              "start_at": "2026-10-02T17:06:58.571508058Z",
+              "end_at": "2026-10-02T17:07:40.761868129Z",
+              "note": "first successful inference against the replica directly, after the fault was visible on that path"
+            },
+            {
+              "name": "traffic_restored",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "routing_propagation",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "goodput_restored",
+              "source": "client",
+              "measured": true,
+              "start_at": "2026-10-02T17:06:58.571508058Z",
+              "end_at": "2026-10-02T17:07:39.531242807Z",
+              "note": "from the client stream per the detector"
+            }
+          ],
+          "log_figures": {
+            "graph_capture_gib": 0.52,
+            "graph_capture_s": 5,
+            "init_engine_compilation_s": 0.18,
+            "init_engine_s": 7.98,
+            "model_loaded_gib": 14.29,
+            "model_loaded_s": 4.049787,
+            "torch_compile_s": 0.18,
+            "weights_loaded_s": 2.57
+          }
+        },
+        "container": {
+          "before": {
+            "running": true,
+            "pid": 7006,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T16:49:49.319086715Z",
+            "finished_at": "2026-10-02T16:49:49.306525818Z",
+            "restart_count": 4,
+            "restart_policy": "on-failure"
+          },
+          "after": {
+            "running": true,
+            "pid": 7801,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T17:06:59.313980738Z",
+            "finished_at": "2026-10-02T17:06:59.30132111Z",
+            "restart_count": 5,
+            "restart_policy": "on-failure"
+          },
+          "offset_at_arm": {
+            "offset_ns": 4098151,
+            "bound_ns": 8051992,
+            "samples": 5,
+            "at": "2026-10-02T17:00:58.530884662Z"
+          },
+          "offset_after": {
+            "offset_ns": 1140653,
+            "bound_ns": 7554478,
+            "samples": 5,
+            "at": "2026-10-02T17:18:04.975663299Z"
+          },
+          "kill": {
+            "pid": 7006,
+            "signal": 9,
+            "sent_at": "2026-10-02T17:06:58.531600931Z",
+            "returned_at": "2026-10-02T17:06:58.584449638Z",
+            "remote_before_ns": 1790960818574311999,
+            "remote_after_ns": 1790960818576900444
+          },
+          "fire_uncertainty_ns": 12303712,
+          "indeterminate_zone_ns": 20355704,
+          "events": [
+            {
+              "action": "die",
+              "at": "2026-10-02T17:06:59.304080607Z"
+            },
+            {
+              "action": "start",
+              "at": "2026-10-02T17:06:59.565123039Z"
+            }
+          ],
+          "die_to_start_s": 0.261042432,
+          "boundaries": {
+            "matches": {
+              "banner": {
+                "key": "banner",
+                "line": 27,
+                "at": "2026-10-02T17:07:11.932035581Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:07:11.932035581Z (APIServer pid=1) INFO 10-02 17:07:11 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.29.0"
+              },
+              "engine_init": {
+                "key": "engine_init",
+                "line": 35,
+                "at": "2026-10-02T17:07:22.896842688Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:07:22.896842688Z (EngineCore pid=72) INFO 10-02 17:07:22 [core.py:123] Initializing a V1 LLM engine (v0.29.0) with config: model='Qwen/Qwen2.5-7B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-7B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=a09a35458c702b33eeacc393d103063234e8bc28, tokenizer_revision=a09a35458c702b33eeacc393d103063234e8bc28, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=1024, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=True, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=Qwen/Qwen2.5-7B-Instruct, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': \u003cCompilationMode.VLLM_COMPILE: 3\u003e, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_compute_ple_ngram_ids', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': \u003cCUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)\u003e, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': \u003cDynamicShapesType.BACKED: 'backed'\u003e, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, enable_bf16x3_router_gemm=False, moe_backend='auto', linear_backend='auto')"
+              },
+              "engine_ready": {
+                "key": "engine_ready",
+                "line": 70,
+                "at": "2026-10-02T17:07:38.500767459Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "init_engine_compilation_s": 0.18,
+                  "init_engine_s": 7.98
+                },
+                "text": "2026-10-02T17:07:38.500767459Z (EngineCore pid=72) INFO 10-02 17:07:38 [core.py:361] init engine (profile, create kv cache, warmup model) took 7.98 s (compilation: 0.18 s)"
+              },
+              "graph_capture": {
+                "key": "graph_capture",
+                "line": 67,
+                "at": "2026-10-02T17:07:37.062263953Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "graph_capture_gib": 0.52,
+                  "graph_capture_s": 5
+                },
+                "text": "2026-10-02T17:07:37.062263953Z (EngineCore pid=72) INFO 10-02 17:07:37 [model_runner.py:960] Graph capturing finished in 5 secs, took 0.52 GiB"
+              },
+              "model_load_start": {
+                "key": "model_load_start",
+                "line": 41,
+                "at": "2026-10-02T17:07:26.778799343Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:07:26.778799343Z (EngineCore pid=72) INFO 10-02 17:07:26 [model_runner.py:382] Loading model from scratch..."
+              },
+              "model_loaded": {
+                "key": "model_loaded",
+                "line": 54,
+                "at": "2026-10-02T17:07:30.508388226Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "model_loaded_gib": 14.29,
+                  "model_loaded_s": 4.049787
+                },
+                "text": "2026-10-02T17:07:30.508388226Z (EngineCore pid=72) INFO 10-02 17:07:30 [model_runner.py:404] Model loading took 14.29 GiB memory and 4.049787 seconds"
+              },
+              "server_start": {
+                "key": "server_start",
+                "line": 77,
+                "at": "2026-10-02T17:07:39.985717293Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:07:39.985717293Z (APIServer pid=1) INFO 10-02 17:07:39 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000"
+              },
+              "startup_complete": {
+                "key": "startup_complete",
+                "line": 132,
+                "at": "2026-10-02T17:07:40.373015928Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:07:40.373015928Z (APIServer pid=1) INFO:     Application startup complete."
+              },
+              "torch_compile": {
+                "key": "torch_compile",
+                "line": 59,
+                "at": "2026-10-02T17:07:31.330045336Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "torch_compile_s": 0.18
+                },
+                "text": "2026-10-02T17:07:31.330045336Z (EngineCore pid=72) INFO 10-02 17:07:31 [monitor.py:53] torch.compile took 0.18 s in total"
+              },
+              "weights_loaded": {
+                "key": "weights_loaded",
+                "line": 53,
+                "at": "2026-10-02T17:07:29.876870171Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "weights_loaded_s": 2.57
+                },
+                "text": "2026-10-02T17:07:29.876870171Z (EngineCore pid=72) INFO 10-02 17:07:29 [default_loader.py:430] Loading weights took 2.57 seconds"
+              }
+            },
+            "lines": 2818
+          },
+          "log_path": "results/pk-20261002T1609Z/run-4-server.log",
+          "log_bytes": 354916,
+          "fingerprint_before_path": "results/pk-20261002T1609Z/run-4-fingerprint-before.txt",
+          "fingerprint_after_path": "results/pk-20261002T1609Z/run-4-fingerprint-after.txt"
+        }
+      },
+      {
+        "run": 5,
+        "valid": true,
+        "ttr_pre_fault_s": 42,
+        "in_flight_loss_fraction": 1,
+        "fault_window_e2e_p95_ms": 7921.663,
+        "survivor_cohort_absent": true,
+        "integrated_goodput_deficit": 41,
+        "receive_path": {
+          "baseline": {
+            "client_ttft_mean_ms": 141.89451943005182,
+            "client_ttft_count": 772,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 626,
+              "completed": 626,
+              "ttft_dev_p50_us": 1259,
+              "ttft_dev_max_us": 2051,
+              "itl_dev_p50_us": 162,
+              "itl_dev_p99_us": 846,
+              "itl_dev_max_us": 1342,
+              "event_lag_p99_us": 1779,
+              "event_lag_max_us": 2128
+            }
+          },
+          "fault": {
+            "client_ttft_mean_ms": 147.25471762692527,
+            "client_ttft_count": 1753,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1389,
+              "completed": 1389,
+              "ttft_dev_p50_us": 1220,
+              "ttft_dev_max_us": 3036,
+              "itl_dev_p50_us": 212,
+              "itl_dev_p99_us": 829,
+              "itl_dev_max_us": 4295,
+              "event_lag_p99_us": 1821,
+              "event_lag_max_us": 5165
+            }
+          },
+          "fault_degraded": {
+            "client_ttft_mean_ms": 0,
+            "client_ttft_count": 0,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 97,
+              "completed": 97,
+              "ttft_dev_p50_us": 1047,
+              "ttft_dev_max_us": 1864,
+              "itl_dev_p50_us": 288,
+              "itl_dev_p99_us": 598,
+              "itl_dev_max_us": 1069,
+              "event_lag_p99_us": 1785,
+              "event_lag_max_us": 1911
+            }
+          },
+          "fault_recovered": {
+            "client_ttft_mean_ms": 147.25471762692527,
+            "client_ttft_count": 1753,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 1292,
+              "completed": 1292,
+              "ttft_dev_p50_us": 1243,
+              "ttft_dev_max_us": 3036,
+              "itl_dev_p50_us": 186,
+              "itl_dev_p99_us": 835,
+              "itl_dev_max_us": 4295,
+              "event_lag_p99_us": 1825,
+              "event_lag_max_us": 5165
+            }
+          },
+          "guard": {
+            "client_ttft_mean_ms": 163.383525,
+            "client_ttft_count": 80,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 69,
+              "completed": 69,
+              "ttft_dev_p50_us": 1286,
+              "ttft_dev_max_us": 1868,
+              "itl_dev_p50_us": 194,
+              "itl_dev_p99_us": 827,
+              "itl_dev_max_us": 1108,
+              "event_lag_p99_us": 1771,
+              "event_lag_max_us": 1990
+            }
+          },
+          "outage": {
+            "client_ttft_mean_ms": 101.431,
+            "client_ttft_count": 1,
+            "canary": {
+              "ttft_ms": 20,
+              "itl_ms": 10,
+              "tokens": 32,
+              "streams": 100,
+              "completed": 100,
+              "ttft_dev_p50_us": 1047,
+              "ttft_dev_max_us": 1864,
+              "itl_dev_p50_us": 288,
+              "itl_dev_p99_us": 614,
+              "itl_dev_max_us": 1069,
+              "event_lag_p99_us": 1781,
+              "event_lag_max_us": 1911
+            }
+          }
+        },
+        "outage_s": 43.173493495,
+        "container_start_s": 0.802317237,
+        "fire_uncertainty_s": 0.012070098,
+        "equilibrium_note": "no service during the degraded plateau; single-replica equilibrium undefined for this run",
+        "in_flight_errored_by_class": {
+          "malformed_stream": 23
+        },
+        "in_flight_indeterminate": 23,
+        "in_flight_determinate": {
+          "total": 0,
+          "completed": 0,
+          "errored": 0,
+          "censored": 0
+        },
+        "outage_outcomes": {
+          "total": 142,
+          "completed": 1,
+          "errored": 141,
+          "censored": 0,
+          "errored_by_class": {
+            "connect": 141
+          }
+        },
+        "decomposition": {
+          "segments": [
+            {
+              "name": "reschedule",
+              "source": "api",
+              "measured": false,
+              "note": "no scheduler: the container runtime restarts in place"
+            },
+            {
+              "name": "container_start",
+              "source": "api",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:08.556343405Z",
+              "end_at": "2026-10-02T17:24:09.358660642Z"
+            },
+            {
+              "name": "log_bringup",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:22.250857378Z",
+              "end_at": "2026-10-02T17:24:50.928904626Z"
+            },
+            {
+              "name": "engine_init",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:08.556343405Z",
+              "end_at": "2026-10-02T17:24:33.402379909Z"
+            },
+            {
+              "name": "weight_download",
+              "source": "log",
+              "measured": false,
+              "note": "no download line after the fire: weights served from the mounted cache"
+            },
+            {
+              "name": "weight_load",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:37.263218903Z",
+              "end_at": "2026-10-02T17:24:40.436210951Z"
+            },
+            {
+              "name": "torch_compile",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:41.09947745Z",
+              "end_at": "2026-10-02T17:24:41.972477802Z"
+            },
+            {
+              "name": "profile_kv_capture",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:41.972477802Z",
+              "end_at": "2026-10-02T17:24:47.90063215Z"
+            },
+            {
+              "name": "engine_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:08.556343405Z",
+              "end_at": "2026-10-02T17:24:49.43766103Z"
+            },
+            {
+              "name": "server_ready",
+              "source": "log",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:08.556343405Z",
+              "end_at": "2026-10-02T17:24:51.311310709Z"
+            },
+            {
+              "name": "replica_ready",
+              "source": "probe",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:08.556343357Z",
+              "end_at": "2026-10-02T17:24:51.729836888Z",
+              "note": "first successful inference against the replica directly, after the fault was visible on that path"
+            },
+            {
+              "name": "traffic_restored",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "routing_propagation",
+              "source": "probe",
+              "measured": false,
+              "note": "one replica addressed directly: no Service"
+            },
+            {
+              "name": "goodput_restored",
+              "source": "client",
+              "measured": true,
+              "start_at": "2026-10-02T17:24:08.556343357Z",
+              "end_at": "2026-10-02T17:24:50.516946566Z",
+              "note": "from the client stream per the detector"
+            }
+          ],
+          "log_figures": {
+            "graph_capture_gib": 0.52,
+            "graph_capture_s": 5,
+            "init_engine_compilation_s": 0.19,
+            "init_engine_s": 8.33,
+            "model_loaded_gib": 14.29,
+            "model_loaded_s": 4.162729,
+            "torch_compile_s": 0.19,
+            "weights_loaded_s": 2.66
+          }
+        },
+        "container": {
+          "before": {
+            "running": true,
+            "pid": 7801,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T17:06:59.313980738Z",
+            "finished_at": "2026-10-02T17:06:59.30132111Z",
+            "restart_count": 5,
+            "restart_policy": "on-failure"
+          },
+          "after": {
+            "running": true,
+            "pid": 8598,
+            "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+            "started_at": "2026-10-02T17:24:09.359924334Z",
+            "finished_at": "2026-10-02T17:24:09.34503887Z",
+            "restart_count": 6,
+            "restart_policy": "on-failure"
+          },
+          "offset_at_arm": {
+            "offset_ns": 1263692,
+            "bound_ns": 8088393,
+            "samples": 5,
+            "at": "2026-10-02T17:18:08.516563609Z"
+          },
+          "offset_after": {
+            "offset_ns": -844865,
+            "bound_ns": 8453296,
+            "samples": 5,
+            "at": "2026-10-02T17:35:13.979369334Z"
+          },
+          "kill": {
+            "pid": 7801,
+            "signal": 9,
+            "sent_at": "2026-10-02T17:24:08.517993637Z",
+            "returned_at": "2026-10-02T17:24:08.568656952Z",
+            "remote_before_ns": 1790961848556098852,
+            "remote_after_ns": 1790961848559115343
+          },
+          "fire_uncertainty_ns": 12070098,
+          "indeterminate_zone_ns": 20523394,
+          "events": [
+            {
+              "action": "die",
+              "at": "2026-10-02T17:24:09.347446262Z"
+            },
+            {
+              "action": "start",
+              "at": "2026-10-02T17:24:09.6366497Z"
+            }
+          ],
+          "die_to_start_s": 0.289203438,
+          "boundaries": {
+            "matches": {
+              "banner": {
+                "key": "banner",
+                "line": 24,
+                "at": "2026-10-02T17:24:22.25212107Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:24:22.252121070Z (APIServer pid=1) INFO 10-02 17:24:22 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.29.0"
+              },
+              "engine_init": {
+                "key": "engine_init",
+                "line": 32,
+                "at": "2026-10-02T17:24:33.403643601Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:24:33.403643601Z (EngineCore pid=72) INFO 10-02 17:24:33 [core.py:123] Initializing a V1 LLM engine (v0.29.0) with config: model='Qwen/Qwen2.5-7B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-7B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=a09a35458c702b33eeacc393d103063234e8bc28, tokenizer_revision=a09a35458c702b33eeacc393d103063234e8bc28, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=1024, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=True, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=Qwen/Qwen2.5-7B-Instruct, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': \u003cCompilationMode.VLLM_COMPILE: 3\u003e, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_compute_ple_ngram_ids', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': \u003cCUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)\u003e, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': \u003cDynamicShapesType.BACKED: 'backed'\u003e, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, enable_bf16x3_router_gemm=False, moe_backend='auto', linear_backend='auto')"
+              },
+              "engine_ready": {
+                "key": "engine_ready",
+                "line": 67,
+                "at": "2026-10-02T17:24:49.438924722Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "init_engine_compilation_s": 0.19,
+                  "init_engine_s": 8.33
+                },
+                "text": "2026-10-02T17:24:49.438924722Z (EngineCore pid=72) INFO 10-02 17:24:49 [core.py:361] init engine (profile, create kv cache, warmup model) took 8.33 s (compilation: 0.19 s)"
+              },
+              "graph_capture": {
+                "key": "graph_capture",
+                "line": 64,
+                "at": "2026-10-02T17:24:47.901895842Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "graph_capture_gib": 0.52,
+                  "graph_capture_s": 5
+                },
+                "text": "2026-10-02T17:24:47.901895842Z (EngineCore pid=72) INFO 10-02 17:24:47 [model_runner.py:960] Graph capturing finished in 5 secs, took 0.52 GiB"
+              },
+              "model_load_start": {
+                "key": "model_load_start",
+                "line": 38,
+                "at": "2026-10-02T17:24:37.264482595Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:24:37.264482595Z (EngineCore pid=72) INFO 10-02 17:24:37 [model_runner.py:382] Loading model from scratch..."
+              },
+              "model_loaded": {
+                "key": "model_loaded",
+                "line": 51,
+                "at": "2026-10-02T17:24:41.100741142Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "model_loaded_gib": 14.29,
+                  "model_loaded_s": 4.162729
+                },
+                "text": "2026-10-02T17:24:41.100741142Z (EngineCore pid=72) INFO 10-02 17:24:41 [model_runner.py:404] Model loading took 14.29 GiB memory and 4.162729 seconds"
+              },
+              "server_start": {
+                "key": "server_start",
+                "line": 74,
+                "at": "2026-10-02T17:24:50.930168318Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:24:50.930168318Z (APIServer pid=1) INFO 10-02 17:24:50 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000"
+              },
+              "startup_complete": {
+                "key": "startup_complete",
+                "line": 129,
+                "at": "2026-10-02T17:24:51.312574401Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "text": "2026-10-02T17:24:51.312574401Z (APIServer pid=1) INFO:     Application startup complete."
+              },
+              "torch_compile": {
+                "key": "torch_compile",
+                "line": 56,
+                "at": "2026-10-02T17:24:41.973741494Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "torch_compile_s": 0.19
+                },
+                "text": "2026-10-02T17:24:41.973741494Z (EngineCore pid=72) INFO 10-02 17:24:41 [monitor.py:53] torch.compile took 0.19 s in total"
+              },
+              "weights_loaded": {
+                "key": "weights_loaded",
+                "line": 50,
+                "at": "2026-10-02T17:24:40.437474643Z",
+                "stamp": "docker",
+                "resolution_ns": 1,
+                "figures": {
+                  "weights_loaded_s": 2.66
+                },
+                "text": "2026-10-02T17:24:40.437474643Z (EngineCore pid=72) INFO 10-02 17:24:40 [default_loader.py:430] Loading weights took 2.66 seconds"
+              }
+            },
+            "lines": 2762
+          },
+          "log_path": "results/pk-20261002T1609Z/run-5-server.log",
+          "log_bytes": 348208,
+          "fingerprint_before_path": "results/pk-20261002T1609Z/run-5-fingerprint-before.txt",
+          "fingerprint_after_path": "results/pk-20261002T1609Z/run-5-fingerprint-after.txt"
+        }
+      }
+    ],
+    "endpoints": [
+      {
+        "name": "outage_s",
+        "endpoint": "primary",
+        "summary": {
+          "values": [
+            41.684718265,
+            41.688766755,
+            43.694688812,
+            42.190360069,
+            43.173493495
+          ],
+          "n": 5,
+          "median": 42.190360069,
+          "mean": 42.4864054792,
+          "min": 41.684718265,
+          "max": 43.694688812,
+          "sample_sd": 0.9081039811654151,
+          "sem": 0.4061164465048114,
+          "t_interval_lo": 41.35902622370264,
+          "t_interval_hi": 43.61378473469736,
+          "t_multiplier": 2.776,
+          "df": 4,
+          "at_pinned_df": true,
+          "coefficient_of_variation": 0.02137398941903885,
+          "cov_defined": true,
+          "heavy_tailed": true,
+          "headline": "median 42.190 (range 41.685–43.695, N=5); t-interval [41.359, 43.614] reported with normality caveat"
+        },
+        "contributing_n": 5,
+        "dropped_runs": 0
+      },
+      {
+        "name": "container_start_s",
+        "endpoint": "secondary",
+        "summary": {
+          "values": [
+            0.658928746,
+            0.685344644,
+            0.628110149,
+            0.738374517,
+            0.802317237
+          ],
+          "n": 5,
+          "median": 0.685344644,
+          "mean": 0.7026150586,
+          "min": 0.628110149,
+          "max": 0.802317237,
+          "sample_sd": 0.0688785269991885,
+          "sem": 0.03080341371204802,
+          "t_interval_lo": 0.6171047821353547,
+          "t_interval_hi": 0.7881253350646452,
+          "t_multiplier": 2.776,
+          "df": 4,
+          "at_pinned_df": true,
+          "coefficient_of_variation": 0.09803166919939468,
+          "cov_defined": true,
+          "heavy_tailed": true,
+          "headline": "median 0.685 (range 0.628–0.802, N=5); t-interval [0.617, 0.788] reported with normality caveat"
+        },
+        "contributing_n": 5,
+        "dropped_runs": 0
+      },
+      {
+        "name": "ttr_equilibrium_s",
+        "endpoint": "not_applicable",
+        "summary": {
+          "values": null,
+          "n": 0,
+          "median": 0,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "sample_sd": 0,
+          "sem": 0,
+          "t_interval_lo": 0,
+          "t_interval_hi": 0,
+          "t_multiplier": 0,
+          "df": 0,
+          "at_pinned_df": false,
+          "coefficient_of_variation": 0,
+          "cov_defined": false,
+          "heavy_tailed": false,
+          "headline": ""
+        },
+        "contributing_n": 0,
+        "dropped_runs": 0,
+        "dropped_reason": "one replica: the single-replica equilibrium is a survivor quantity (§5)"
+      },
+      {
+        "name": "ttr_pre_fault_s",
+        "endpoint": "secondary",
+        "summary": {
+          "values": [
+            41,
+            41,
+            43,
+            41,
+            42
+          ],
+          "n": 5,
+          "median": 41,
+          "mean": 41.6,
+          "min": 41,
+          "max": 43,
+          "sample_sd": 0.8944271909999159,
+          "sem": 0.39999999999999997,
+          "t_interval_lo": 40.4896,
+          "t_interval_hi": 42.7104,
+          "t_multiplier": 2.776,
+          "df": 4,
+          "at_pinned_df": true,
+          "coefficient_of_variation": 0.021500653629805667,
+          "cov_defined": true,
+          "heavy_tailed": true,
+          "headline": "median 41.000 (range 41.000–43.000, N=5); t-interval [40.490, 42.710] reported with normality caveat"
+        },
+        "contributing_n": 5,
+        "dropped_runs": 0
+      },
+      {
+        "name": "in_flight_loss_fraction",
+        "endpoint": "secondary",
+        "summary": {
+          "values": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "n": 5,
+          "median": 1,
+          "mean": 1,
+          "min": 1,
+          "max": 1,
+          "sample_sd": 0,
+          "sem": 0,
+          "t_interval_lo": 1,
+          "t_interval_hi": 1,
+          "t_multiplier": 2.776,
+          "df": 4,
+          "at_pinned_df": true,
+          "coefficient_of_variation": 0,
+          "cov_defined": true,
+          "heavy_tailed": false,
+          "headline": "mean 1.000 (95% t-interval [1.000, 1.000], t=2.776 df=4), median 1.000"
+        },
+        "contributing_n": 5,
+        "dropped_runs": 0
+      },
+      {
+        "name": "survivor_p95_ms",
+        "endpoint": "not_applicable",
+        "summary": {
+          "values": null,
+          "n": 0,
+          "median": 0,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "sample_sd": 0,
+          "sem": 0,
+          "t_interval_lo": 0,
+          "t_interval_hi": 0,
+          "t_multiplier": 0,
+          "df": 0,
+          "at_pinned_df": false,
+          "coefficient_of_variation": 0,
+          "cov_defined": false,
+          "heavy_tailed": false,
+          "headline": ""
+        },
+        "contributing_n": 0,
+        "dropped_runs": 0,
+        "dropped_reason": "one replica: no survivor cohort (§3)"
+      },
+      {
+        "name": "integrated_goodput_deficit",
+        "endpoint": "exploratory",
+        "summary": {
+          "values": [
+            39,
+            39,
+            40,
+            39,
+            41
+          ],
+          "n": 5,
+          "median": 39,
+          "mean": 39.6,
+          "min": 39,
+          "max": 41,
+          "sample_sd": 0.8944271909999159,
+          "sem": 0.39999999999999997,
+          "t_interval_lo": 38.4896,
+          "t_interval_hi": 40.7104,
+          "t_multiplier": 2.776,
+          "df": 4,
+          "at_pinned_df": true,
+          "coefficient_of_variation": 0.0225865452272706,
+          "cov_defined": true,
+          "heavy_tailed": false,
+          "headline": "mean 39.600 (95% t-interval [38.490, 40.710], t=2.776 df=4), median 39.000"
+        },
+        "contributing_n": 5,
+        "dropped_runs": 0
+      }
+    ],
+    "valid_runs": 5,
+    "invalid_runs": 0,
+    "caveat": "Single-stack study: no MDE/power claim, no bootstrap (§7). Per-run values published verbatim; TTR scalars lead with median and range."
+  },
+  "validity_gates": [
+    {
+      "gates": [
+        {
+          "id": "G1",
+          "name": "per-replica share 45-55% pre-fault",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "single-replica target: share gate not applicable"
+        },
+        {
+          "id": "G2",
+          "name": "client-validity gate clean",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "skew p99=17us/max=790us; undispatched=0; cpu_measured=true worst=8.2%; gc pause p99 in [0.655, 0.786) ms, runtime bucket edges, gate on the upper edge"
+        },
+        {
+          "id": "G3",
+          "name": "zero errored outcomes among victim-attributed in-flight requests",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: client-silence assertion not applicable"
+        },
+        {
+          "id": "G4",
+          "name": "endpoint-staleness window \u003e= 20s with victim-bound traffic observed",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: staleness assertion not applicable"
+        },
+        {
+          "id": "G5",
+          "name": "GPU clock/power fingerprints equal across replicas and runs",
+          "applicable": false,
+          "observed": false,
+          "pass": false,
+          "label_determining": false,
+          "detail": "fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable"
+        },
+        {
+          "id": "G6",
+          "name": "baseline goodput \u003e= 0.99",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)"
+        },
+        {
+          "id": "G7",
+          "name": "baseline queue stability: per-replica waiting-queue mean \u003c= 1.0",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 41 scrape errors)"
+        }
+      ],
+      "all_pass": true,
+      "variant": "process_kill",
+      "node_loss_representative": false
+    },
+    {
+      "gates": [
+        {
+          "id": "G1",
+          "name": "per-replica share 45-55% pre-fault",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "single-replica target: share gate not applicable"
+        },
+        {
+          "id": "G2",
+          "name": "client-validity gate clean",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "skew p99=16us/max=106us; undispatched=0; cpu_measured=true worst=3.1%; gc pause p99 in [0.393, 0.459) ms, runtime bucket edges, gate on the upper edge"
+        },
+        {
+          "id": "G3",
+          "name": "zero errored outcomes among victim-attributed in-flight requests",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: client-silence assertion not applicable"
+        },
+        {
+          "id": "G4",
+          "name": "endpoint-staleness window \u003e= 20s with victim-bound traffic observed",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: staleness assertion not applicable"
+        },
+        {
+          "id": "G5",
+          "name": "GPU clock/power fingerprints equal across replicas and runs",
+          "applicable": false,
+          "observed": false,
+          "pass": false,
+          "label_determining": false,
+          "detail": "fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable"
+        },
+        {
+          "id": "G6",
+          "name": "baseline goodput \u003e= 0.99",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)"
+        },
+        {
+          "id": "G7",
+          "name": "baseline queue stability: per-replica waiting-queue mean \u003c= 1.0",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 41 scrape errors)"
+        }
+      ],
+      "all_pass": true,
+      "variant": "process_kill",
+      "node_loss_representative": false
+    },
+    {
+      "gates": [
+        {
+          "id": "G1",
+          "name": "per-replica share 45-55% pre-fault",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "single-replica target: share gate not applicable"
+        },
+        {
+          "id": "G2",
+          "name": "client-validity gate clean",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "skew p99=14us/max=44us; undispatched=0; cpu_measured=true worst=3.5%; gc pause p99 in [0.393, 0.459) ms, runtime bucket edges, gate on the upper edge"
+        },
+        {
+          "id": "G3",
+          "name": "zero errored outcomes among victim-attributed in-flight requests",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: client-silence assertion not applicable"
+        },
+        {
+          "id": "G4",
+          "name": "endpoint-staleness window \u003e= 20s with victim-bound traffic observed",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: staleness assertion not applicable"
+        },
+        {
+          "id": "G5",
+          "name": "GPU clock/power fingerprints equal across replicas and runs",
+          "applicable": false,
+          "observed": false,
+          "pass": false,
+          "label_determining": false,
+          "detail": "fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable"
+        },
+        {
+          "id": "G6",
+          "name": "baseline goodput \u003e= 0.99",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)"
+        },
+        {
+          "id": "G7",
+          "name": "baseline queue stability: per-replica waiting-queue mean \u003c= 1.0",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "vllm:num_requests_waiting baseline means r0=0.004/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 43 scrape errors)"
+        }
+      ],
+      "all_pass": true,
+      "variant": "process_kill",
+      "node_loss_representative": false
+    },
+    {
+      "gates": [
+        {
+          "id": "G1",
+          "name": "per-replica share 45-55% pre-fault",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "single-replica target: share gate not applicable"
+        },
+        {
+          "id": "G2",
+          "name": "client-validity gate clean",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "skew p99=16us/max=683us; undispatched=0; cpu_measured=true worst=3.1%; gc pause p99 in [0.459, 0.524) ms, runtime bucket edges, gate on the upper edge"
+        },
+        {
+          "id": "G3",
+          "name": "zero errored outcomes among victim-attributed in-flight requests",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: client-silence assertion not applicable"
+        },
+        {
+          "id": "G4",
+          "name": "endpoint-staleness window \u003e= 20s with victim-bound traffic observed",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: staleness assertion not applicable"
+        },
+        {
+          "id": "G5",
+          "name": "GPU clock/power fingerprints equal across replicas and runs",
+          "applicable": false,
+          "observed": false,
+          "pass": false,
+          "label_determining": false,
+          "detail": "fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable"
+        },
+        {
+          "id": "G6",
+          "name": "baseline goodput \u003e= 0.99",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)"
+        },
+        {
+          "id": "G7",
+          "name": "baseline queue stability: per-replica waiting-queue mean \u003c= 1.0",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 41 scrape errors)"
+        }
+      ],
+      "all_pass": true,
+      "variant": "process_kill",
+      "node_loss_representative": false
+    },
+    {
+      "gates": [
+        {
+          "id": "G1",
+          "name": "per-replica share 45-55% pre-fault",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "single-replica target: share gate not applicable"
+        },
+        {
+          "id": "G2",
+          "name": "client-validity gate clean",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "skew p99=13us/max=122us; undispatched=0; cpu_measured=true worst=3.2%; gc pause p99 in [0.786, 0.918) ms, runtime bucket edges, gate on the upper edge"
+        },
+        {
+          "id": "G3",
+          "name": "zero errored outcomes among victim-attributed in-flight requests",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: client-silence assertion not applicable"
+        },
+        {
+          "id": "G4",
+          "name": "endpoint-staleness window \u003e= 20s with victim-bound traffic observed",
+          "applicable": false,
+          "observed": true,
+          "pass": true,
+          "label_determining": true,
+          "detail": "not the black-hole variant: staleness assertion not applicable"
+        },
+        {
+          "id": "G5",
+          "name": "GPU clock/power fingerprints equal across replicas and runs",
+          "applicable": false,
+          "observed": false,
+          "pass": false,
+          "label_determining": false,
+          "detail": "fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable"
+        },
+        {
+          "id": "G6",
+          "name": "baseline goodput \u003e= 0.99",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)"
+        },
+        {
+          "id": "G7",
+          "name": "baseline queue stability: per-replica waiting-queue mean \u003c= 1.0",
+          "applicable": true,
+          "observed": true,
+          "pass": true,
+          "label_determining": false,
+          "detail": "vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 42 scrape errors)"
+        }
+      ],
+      "all_pass": true,
+      "variant": "process_kill",
+      "node_loss_representative": false
+    }
+  ]
+}

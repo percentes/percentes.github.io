@@ -1,0 +1,310 @@
+Percentes run report: percentes-process-kill
+instrument commit: bce0628868ca6c4a231a5b398c169aaf586ac8a8
+config sha256: 9ebb9245d33d3f89fe0a21bdb8cfd432a3718f31fcf1eac7b6fb2e64776750b5
+
+CAVEAT: one vLLM replica on one GPU, killed and restarted in place; no two-replica or Kubernetes claim. N=5 runs on rented hardware; the acceptance criteria (§8) certified the instrument against the mock; injected-fault-versus-reality gaps are named in the report.
+
+== Conditional headline (appendix template) ==
+Under process_kill fault injection (single-replica process kill, restart in place): 100.0% of in-flight requests failed and 0.0% timed out at 30 s (25 in flight on the only replica at fire, 25 of them indeterminate); of the 144 requests scheduled in the 41.7 s outage, 1 completed, 143 errored and 0 were censored; the replica served again 41.7 s after the kill (replica_ready); decomposed segments: container_start 0.69s, log_bringup 28.67s, engine_init 22.72s, weight_load 3.33s, torch_compile 0.88s, profile_kv_capture 5.76s, engine_ready 39.64s, server_ready 41.35s, replica_ready 41.69s, goodput_restored 40.96s; recovery to the pre-fault baseline: 41.0 s; goodput deficit 39.0 goodput-seconds vs pre-fault. One replica on one GPU; no two-replica or Kubernetes claim.
+
+== Run validity ==
+valid: true
+client-validity gate: pass=true (skew p99=16us max=106us; undispatched=0; cpu worst 5s window=3.1%; gc pause p99 in [0.393, 0.459) ms, runtime bucket edges, gate on the upper edge)
+share gate: applicable=false pass=true shares=map[]
+injection timing: fire error +40.7ms (tolerance +-500ms); armed 16:26:40.008
+
+== Environment pins (§6) ==
+{"vllm":{"version":"0.29.0","image_digest":"vllm/vllm-openai@sha256:7ef5a35d1ef8ce2cf9d671dd91eec6e367c5849262e0362b4d3d4a26be0d87d2"},"model":{"name":"Qwen/Qwen2.5-7B-Instruct","revision":"a09a35458c702b33eeacc393d103063234e8bc28","quantization":"none"},"engine":{"kv_cache_gb":16,"max_num_seqs":256,"scheduler_settings":"max_num_seqs 256, max_num_batched_tokens 2048, chunked prefill on, policy fcfs, async scheduling on, cudagraph modes PIECEWISE and FULL (/server_info, 15 Sep 2026)","chunked_prefill":"on","cuda_graphs":"on","prefix_caching":"off","continuous_batching":"on"},"gpu":{"sku":"NVIDIA L40","driver":"570.195.03","cuda":"12.9 in the container (torch.version.cuda) on host driver 570.195.03 (CUDA 12.8 driver API)","cudnn":"9.20.0 (torch.backends.cudnn.version 92000)","nccl":"2.29.7","clock_power_policy":"persistence on, clocks at driver default, power limit 300 W of 300 W, not settable in guest"},"kubernetes":{"version":"none","cni":"none","dataplane_mode":"none","kube_proxy_mode":"none","node_monitor_grace_period_s":0},"readiness_probe":{"path":"none","period_s":0,"timeout_s":0,"failure_threshold":0},"storage":{"weights_medium":"root block volume vda (virtio, 100 GB), Hugging Face cache under /home/ubuntu/.cache/huggingface"},"container":{"runtime":"docker (server version recorded in run-N-fingerprint-*.txt)","restart_policy":"on-failure","name":"vllm","compile_cache":"container writable layer, /root/.cache/vllm/torch_compile_cache","hf_hub_offline":"unset"}}
+
+== Window "baseline" [60.0s, 330.0s) ==
+scheduled=851 completed=851 errored=0 censored=0
+error rate=0.0000 censored rate=0.0000 (first-class)
+TTFT conditional on completion: n=851 p50=123.3ms p95=274.9ms p99=327.7ms | p99.9=418.6ms max=448.5ms (descriptive-only at fault-window sample sizes, §7) p95-CI [248.3, 280.4]ms p99-CI [302.9, 404.9]ms
+e2e  conditional on completion: n=851 p50=6709.2ms p95=7880.7ms p99=8519.7ms | p99.9=8798.2ms max=8831.0ms (descriptive-only at fault-window sample sizes, §7) p95-CI [7750.7, 8025.8]ms p99-CI [8414.6, 8776.5]ms
+ITL pooled (per-window), inter-chunk (§3; §10 check: 19 of 851 matched): n=206773 p50=20.5ms p95=82.0ms p99=103.5ms | p99.9=184.4ms max=2906.1ms (descriptive-only at fault-window sample sizes, §7)
+completion length: content events n=851 mean=244.0 p50=247 p95=254 max=256; completion tokens from usage n=851 mean=256.0 p50=256 p95=256 max=256
+receive path (§2, not run-failing): client TTFT mean 147.9ms over 851; no server histogram named; loopback canary (626 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.85ms max 9.66ms; TTFT deviation p50 1.29ms max 2.14ms, ITL deviation p50 0.13ms p99 0.85ms max 8.42ms
+throughput=3.15 rps goodput=3.15 rps goodput-frac=1.0000
+goodput-versus-threshold sweep (§4):
+  TTFT<= 800ms & e2e<=12000ms: goodput 1.0000
+  TTFT<= 800ms & e2e<=14000ms: goodput 1.0000
+  TTFT<= 800ms & e2e<=18000ms: goodput 1.0000
+  TTFT<=1000ms & e2e<=12000ms: goodput 1.0000
+  TTFT<=1000ms & e2e<=14000ms: goodput 1.0000
+  TTFT<=1000ms & e2e<=18000ms: goodput 1.0000
+  TTFT<=1500ms & e2e<=12000ms: goodput 1.0000
+  TTFT<=1500ms & e2e<=14000ms: goodput 1.0000
+  TTFT<=1500ms & e2e<=18000ms: goodput 1.0000
+Completion incidence, Aalen-Johansen (n=851 over ALL scheduled; errors compete, timeouts censored; 0 outstanding at the horizon; horizon 30s):
+  p50   completion at 6.709s
+  p90   completion at 7.522s
+  p95   completion at 7.893s
+  p99   completion at 8.514s
+  t=   5.419s incidence=0.0012 (at risk 851)
+  t=   5.885s incidence=0.0846 (at risk 780)
+  t=   6.142s incidence=0.1680 (at risk 709)
+  t=   6.305s incidence=0.2515 (at risk 638)
+  t=   6.453s incidence=0.3349 (at risk 567)
+  t=   6.569s incidence=0.4183 (at risk 496)
+  t=   6.709s incidence=0.5018 (at risk 425)
+  t=   6.819s incidence=0.5852 (at risk 354)
+  t=   6.949s incidence=0.6686 (at risk 283)
+  t=   7.113s incidence=0.7521 (at risk 212)
+  t=   7.276s incidence=0.8355 (at risk 141)
+  t=   7.651s incidence=0.9189 (at risk 70)
+  t=   8.830s incidence=1.0000 (at risk 1)
+
+== Window "guard" [330.0s, 360.0s) ==
+PRE-FAULT GUARD WINDOW (§3): the last pinned client timeout before the fire anchor; the fault can terminate requests intended here, so this is not pre-fault degradation and it feeds no baseline-derived quantity.
+scheduled=92 completed=67 errored=25 censored=0
+error rate=0.2717 censored rate=0.0000 (first-class)
+error classes: map[malformed_stream:25]
+TTFT conditional on completion: n=67 p50=118.4ms p95=183.2ms p99=195.8ms | p99.9=196.1ms max=196.1ms (descriptive-only at fault-window sample sizes, §7) p95-CI omitted (sample budget insufficient, §7) p99-CI omitted (sample budget insufficient, §7)
+e2e  conditional on completion: n=67 p50=6418.4ms p95=6897.7ms p99=6897.7ms | p99.9=6963.2ms max=6963.2ms (descriptive-only at fault-window sample sizes, §7) p95-CI omitted (sample budget insufficient, §7) p99-CI omitted (sample budget insufficient, §7)
+ITL pooled (per-window), inter-chunk (§3; §10 check: 3 of 67 matched): n=16345 p50=20.2ms p95=78.5ms p99=93.6ms | p99.9=154.1ms max=265.7ms (descriptive-only at fault-window sample sizes, §7)
+completion length: content events n=67 mean=245.0 p50=247 p95=254 max=256; completion tokens from usage n=67 mean=256.0 p50=256 p95=256 max=256
+receive path (§2, not run-failing): client TTFT mean 125.8ms over 67; no server histogram named; loopback canary (69 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 2.13ms; TTFT deviation p50 1.38ms max 1.99ms, ITL deviation p50 0.11ms p99 0.84ms max 1.12ms
+throughput=2.23 rps goodput=2.23 rps goodput-frac=0.7283
+goodput-versus-threshold sweep (§4):
+  TTFT<= 800ms & e2e<=12000ms: goodput 0.7283
+  TTFT<= 800ms & e2e<=14000ms: goodput 0.7283
+  TTFT<= 800ms & e2e<=18000ms: goodput 0.7283
+  TTFT<=1000ms & e2e<=12000ms: goodput 0.7283
+  TTFT<=1000ms & e2e<=14000ms: goodput 0.7283
+  TTFT<=1000ms & e2e<=18000ms: goodput 0.7283
+  TTFT<=1500ms & e2e<=12000ms: goodput 0.7283
+  TTFT<=1500ms & e2e<=14000ms: goodput 0.7283
+  TTFT<=1500ms & e2e<=18000ms: goodput 0.7283
+CONDITIONAL CAVEAT: error+censored fraction exceeds 5%; read the completed-only percentiles against the completion-incidence curve below (§3).
+Completion incidence, Aalen-Johansen (n=92 over ALL scheduled; errors compete, timeouts censored; 0 outstanding at the horizon; horizon 30s):
+  p50   completion at 6.579s
+  p90   unattainable (final completion incidence 0.73; ceiling 0.73)
+  p95   unattainable (final completion incidence 0.73; ceiling 0.73)
+  p99   unattainable (final completion incidence 0.73; ceiling 0.73)
+  t=   5.929s incidence=0.0109 (at risk 72)
+  t=   6.037s incidence=0.0761 (at risk 66)
+  t=   6.102s incidence=0.1413 (at risk 59)
+  t=   6.153s incidence=0.2065 (at risk 53)
+  t=   6.272s incidence=0.2717 (at risk 45)
+  t=   6.391s incidence=0.3370 (at risk 38)
+  t=   6.421s incidence=0.4022 (at risk 31)
+  t=   6.501s incidence=0.4674 (at risk 25)
+  t=   6.634s incidence=0.5326 (at risk 19)
+  t=   6.752s incidence=0.5978 (at risk 13)
+  t=   6.844s incidence=0.6630 (at risk 7)
+  t=   6.961s incidence=0.7283 (at risk 1)
+
+== Window "fault_degraded" [360.0s, 401.0s) ==
+scheduled=141 completed=0 errored=141 censored=0
+error rate=1.0000 censored rate=0.0000 (first-class)
+error classes: map[connect:141]
+TTFT conditional on completion: no completed samples
+e2e  conditional on completion: no completed samples
+ITL pooled (per-window), inter-chunk (§3, no usage in the stream): no completed samples
+completion length: content events none; completion tokens from usage not verifiable (no completed request carried a usage object)
+receive path (§2, not run-failing): client TTFT mean 0.0ms over 0; no server histogram named; loopback canary (95 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 1.96ms; TTFT deviation p50 1.12ms max 1.80ms, ITL deviation p50 0.30ms p99 0.62ms max 1.06ms
+throughput=0.00 rps goodput=0.00 rps goodput-frac=0.0000
+goodput-versus-threshold sweep (§4):
+  TTFT<= 800ms & e2e<=12000ms: goodput 0.0000
+  TTFT<= 800ms & e2e<=14000ms: goodput 0.0000
+  TTFT<= 800ms & e2e<=18000ms: goodput 0.0000
+  TTFT<=1000ms & e2e<=12000ms: goodput 0.0000
+  TTFT<=1000ms & e2e<=14000ms: goodput 0.0000
+  TTFT<=1000ms & e2e<=18000ms: goodput 0.0000
+  TTFT<=1500ms & e2e<=12000ms: goodput 0.0000
+  TTFT<=1500ms & e2e<=14000ms: goodput 0.0000
+  TTFT<=1500ms & e2e<=18000ms: goodput 0.0000
+CONDITIONAL CAVEAT: error+censored fraction exceeds 5%; read the completed-only percentiles against the completion-incidence curve below (§3).
+Completion incidence, Aalen-Johansen (n=141 over ALL scheduled; errors compete, timeouts censored; 0 outstanding at the horizon; horizon 30s):
+  p50   unattainable (final completion incidence 0.00; ceiling 0.00)
+  p90   unattainable (final completion incidence 0.00; ceiling 0.00)
+  p95   unattainable (final completion incidence 0.00; ceiling 0.00)
+  p99   unattainable (final completion incidence 0.00; ceiling 0.00)
+
+== Window "fault" [360.0s, 960.0s) ==
+scheduled=1832 completed=1689 errored=143 censored=0
+error rate=0.0781 censored rate=0.0000 (first-class)
+error classes: map[connect:143]
+TTFT conditional on completion: n=1689 p50=120.9ms p95=237.4ms p99=310.0ms | p99.9=370.4ms max=501.8ms (descriptive-only at fault-window sample sizes, §7) p95-CI [223.5, 251.7]ms p99-CI [290.3, 335.2]ms
+e2e  conditional on completion: n=1689 p50=6492.2ms p95=7548.9ms p99=7798.8ms | p99.9=7913.5ms max=7970.8ms (descriptive-only at fault-window sample sizes, §7) p95-CI [7493.5, 7597.3]ms p99-CI [7759.8, 7841.9]ms
+ITL pooled (per-window), inter-chunk (§3; §10 check: 43 of 1689 matched): n=410395 p50=20.3ms p95=79.7ms p99=100.4ms | p99.9=178.6ms max=3135.5ms (descriptive-only at fault-window sample sizes, §7)
+completion length: content events n=1689 mean=244.0 p50=248 p95=254 max=256; completion tokens from usage n=1689 mean=256.0 p50=256 p95=256 max=256
+receive path (§2, not run-failing): client TTFT mean 141.7ms over 1689; no server histogram named; loopback canary (1389 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.84ms max 5.31ms; TTFT deviation p50 1.28ms max 2.16ms, ITL deviation p50 0.19ms p99 0.84ms max 4.15ms
+throughput=2.81 rps goodput=2.81 rps goodput-frac=0.9219
+goodput-versus-threshold sweep (§4):
+  TTFT<= 800ms & e2e<=12000ms: goodput 0.9219
+  TTFT<= 800ms & e2e<=14000ms: goodput 0.9219
+  TTFT<= 800ms & e2e<=18000ms: goodput 0.9219
+  TTFT<=1000ms & e2e<=12000ms: goodput 0.9219
+  TTFT<=1000ms & e2e<=14000ms: goodput 0.9219
+  TTFT<=1000ms & e2e<=18000ms: goodput 0.9219
+  TTFT<=1500ms & e2e<=12000ms: goodput 0.9219
+  TTFT<=1500ms & e2e<=14000ms: goodput 0.9219
+  TTFT<=1500ms & e2e<=18000ms: goodput 0.9219
+CONDITIONAL CAVEAT: error+censored fraction exceeds 5%; read the completed-only percentiles against the completion-incidence curve below (§3).
+Completion incidence, Aalen-Johansen (n=1832 over ALL scheduled; errors compete, timeouts censored; 0 outstanding at the horizon; horizon 30s):
+  p50   completion at 6.554s
+  p90   completion at 7.695s
+  p95   unattainable (final completion incidence 0.92; ceiling 0.92)
+  p99   unattainable (final completion incidence 0.92; ceiling 0.92)
+  t=   5.326s incidence=0.0005 (at risk 1689)
+  t=   5.870s incidence=0.0775 (at risk 1548)
+  t=   6.062s incidence=0.1545 (at risk 1407)
+  t=   6.185s incidence=0.2314 (at risk 1266)
+  t=   6.281s incidence=0.3084 (at risk 1125)
+  t=   6.377s incidence=0.3854 (at risk 984)
+  t=   6.493s incidence=0.4623 (at risk 843)
+  t=   6.632s incidence=0.5393 (at risk 702)
+  t=   6.777s incidence=0.6163 (at risk 561)
+  t=   6.916s incidence=0.6932 (at risk 420)
+  t=   7.085s incidence=0.7702 (at risk 279)
+  t=   7.399s incidence=0.8472 (at risk 138)
+  t=   7.968s incidence=0.9219 (at risk 1)
+
+== Window "outage" [360.0s, 401.7s) ==
+scheduled=144 completed=1 errored=143 censored=0
+error rate=0.9931 censored rate=0.0000 (first-class)
+error classes: map[connect:143]
+TTFT conditional on completion: n=1 p50=100.7ms p95=100.7ms p99=100.7ms | p99.9=100.7ms max=100.7ms (descriptive-only at fault-window sample sizes, §7) p95-CI omitted (sample budget insufficient, §7) p99-CI omitted (sample budget insufficient, §7)
+e2e  conditional on completion: n=1 p50=5328.9ms p95=5328.9ms p99=5328.9ms | p99.9=5328.9ms max=5328.9ms (descriptive-only at fault-window sample sizes, §7) p95-CI omitted (sample budget insufficient, §7) p99-CI omitted (sample budget insufficient, §7)
+ITL pooled (per-window), inter-chunk (§3; §10 check: 0 of 1 matched): n=164 p50=18.4ms p95=58.2ms p99=93.1ms | p99.9=114.3ms max=114.3ms (descriptive-only at fault-window sample sizes, §7)
+completion length: content events n=1 mean=165.0 p50=165 p95=165 max=165; completion tokens from usage n=1 mean=256.0 p50=256 p95=256 max=256
+receive path (§2, not run-failing): client TTFT mean 100.7ms over 1; no server histogram named; loopback canary (97 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.81ms max 1.96ms; TTFT deviation p50 1.13ms max 1.84ms, ITL deviation p50 0.30ms p99 0.62ms max 1.06ms
+throughput=0.02 rps goodput=0.02 rps goodput-frac=0.0069
+goodput-versus-threshold sweep (§4):
+  TTFT<= 800ms & e2e<=12000ms: goodput 0.0069
+  TTFT<= 800ms & e2e<=14000ms: goodput 0.0069
+  TTFT<= 800ms & e2e<=18000ms: goodput 0.0069
+  TTFT<=1000ms & e2e<=12000ms: goodput 0.0069
+  TTFT<=1000ms & e2e<=14000ms: goodput 0.0069
+  TTFT<=1000ms & e2e<=18000ms: goodput 0.0069
+  TTFT<=1500ms & e2e<=12000ms: goodput 0.0069
+  TTFT<=1500ms & e2e<=14000ms: goodput 0.0069
+  TTFT<=1500ms & e2e<=18000ms: goodput 0.0069
+CONDITIONAL CAVEAT: error+censored fraction exceeds 5%; read the completed-only percentiles against the completion-incidence curve below (§3).
+Completion incidence, Aalen-Johansen (n=144 over ALL scheduled; errors compete, timeouts censored; 0 outstanding at the horizon; horizon 30s):
+  p50   unattainable (final completion incidence 0.01; ceiling 0.01)
+  p90   unattainable (final completion incidence 0.01; ceiling 0.01)
+  p95   unattainable (final completion incidence 0.01; ceiling 0.01)
+  p99   unattainable (final completion incidence 0.01; ceiling 0.01)
+  t=   5.326s incidence=0.0069 (at risk 1)
+
+== Window "fault_recovered" [401.0s, 960.0s) ==
+scheduled=1691 completed=1689 errored=2 censored=0
+error rate=0.0012 censored rate=0.0000 (first-class)
+error classes: map[connect:2]
+TTFT conditional on completion: n=1689 p50=120.9ms p95=237.4ms p99=310.0ms | p99.9=370.4ms max=501.8ms (descriptive-only at fault-window sample sizes, §7) p95-CI [223.5, 251.7]ms p99-CI [290.3, 335.2]ms
+e2e  conditional on completion: n=1689 p50=6492.2ms p95=7548.9ms p99=7798.8ms | p99.9=7913.5ms max=7970.8ms (descriptive-only at fault-window sample sizes, §7) p95-CI [7493.5, 7597.3]ms p99-CI [7759.8, 7841.9]ms
+ITL pooled (per-window), inter-chunk (§3; §10 check: 43 of 1689 matched): n=410395 p50=20.3ms p95=79.7ms p99=100.4ms | p99.9=178.6ms max=3135.5ms (descriptive-only at fault-window sample sizes, §7)
+completion length: content events n=1689 mean=244.0 p50=248 p95=254 max=256; completion tokens from usage n=1689 mean=256.0 p50=256 p95=256 max=256
+receive path (§2, not run-failing): client TTFT mean 141.7ms over 1689; no server histogram named; loopback canary (1294 streams completed, 32 tokens at 20ms TTFT, 10ms ITL): event lag p99 1.84ms max 5.31ms; TTFT deviation p50 1.31ms max 2.16ms, ITL deviation p50 0.16ms p99 0.85ms max 4.15ms
+throughput=3.02 rps goodput=3.02 rps goodput-frac=0.9988
+goodput-versus-threshold sweep (§4):
+  TTFT<= 800ms & e2e<=12000ms: goodput 0.9988
+  TTFT<= 800ms & e2e<=14000ms: goodput 0.9988
+  TTFT<= 800ms & e2e<=18000ms: goodput 0.9988
+  TTFT<=1000ms & e2e<=12000ms: goodput 0.9988
+  TTFT<=1000ms & e2e<=14000ms: goodput 0.9988
+  TTFT<=1000ms & e2e<=18000ms: goodput 0.9988
+  TTFT<=1500ms & e2e<=12000ms: goodput 0.9988
+  TTFT<=1500ms & e2e<=14000ms: goodput 0.9988
+  TTFT<=1500ms & e2e<=18000ms: goodput 0.9988
+Completion incidence, Aalen-Johansen (n=1691 over ALL scheduled; errors compete, timeouts censored; 0 outstanding at the horizon; horizon 30s):
+  p50   completion at 6.492s
+  p90   completion at 7.322s
+  p95   completion at 7.558s
+  p99   completion at 7.810s
+  t=   5.326s incidence=0.0006 (at risk 1689)
+  t=   5.870s incidence=0.0840 (at risk 1548)
+  t=   6.062s incidence=0.1674 (at risk 1407)
+  t=   6.185s incidence=0.2507 (at risk 1266)
+  t=   6.281s incidence=0.3341 (at risk 1125)
+  t=   6.377s incidence=0.4175 (at risk 984)
+  t=   6.493s incidence=0.5009 (at risk 843)
+  t=   6.632s incidence=0.5843 (at risk 702)
+  t=   6.777s incidence=0.6677 (at risk 561)
+  t=   6.916s incidence=0.7510 (at risk 420)
+  t=   7.085s incidence=0.8344 (at risk 279)
+  t=   7.399s incidence=0.9178 (at risk 138)
+  t=   7.968s incidence=0.9988 (at risk 1)
+
+== In-flight loss accounting at fire ==
+total=25 completed=0 errored=25 censored=0 by-replica=map[:25]
+errored by class: malformed_stream=25
+indeterminate (in flight, terminal time within 23.1ms after the fire: the fire uncertainty 14.3ms plus the delivery allowance): 25
+determinate: total=0 completed=0 errored=0 censored=0
+
+== Modal during-fault latency vs thresholds (§4) ==
+baseline SD: TTFT 53.32ms, e2e 631.24ms; modal during-fault: TTFT 119.0ms, e2e 6199.6ms
+TTFT threshold distances (baseline SDs, signed modal-threshold): map[1000ms:-16.52213726276931 1500ms:-25.899414207695177 800ms:-12.771226484798962]
+e2e  threshold distances (baseline SDs, signed modal-threshold): map[12000ms:-9.188807642422665 14000ms:-12.35716814464889 18000ms:-18.69388914910134]
+
+== Recovery (two baselines, hysteresis; §5) ==
+pre-fault baseline goodput: 1.0000
+single-replica equilibrium baseline: NOT ESTIMABLE (no service during the degraded plateau; single-replica equilibrium undefined for this run)
+TTR to pre-fault baseline:    TTR 41.0s (baseline 1.0000, canceled entries 0, re-degradations 0)
+TTR to equilibrium baseline:  not applicable under process kill, which has no survivor (§5)
+integrated goodput deficit: 39.00 (vs pre-fault), n/a (vs equilibrium) goodput-seconds
+component e2e_slo:    TTR 41.0s (baseline 1.0000, canceled entries 0, re-degradations 0)
+component error_rate: TTR 41.0s (baseline 1.0000, canceled entries 0, re-degradations 0)
+component ttft_slo:   TTR 41.0s (baseline 1.0000, canceled entries 0, re-degradations 0)
+backlog drain: measured=false (no failed-request backlog exists in the Phase 0 mock (no queue); reported N/A per §5)
+
+== Sensitivity table (X x R x H; §5) ==
+entry  R    H    | TTR->prefault          TTR->equilibrium      
+85     5    15   | 42.0s                  n/a                   
+85     5    30   | 42.0s                  n/a                   
+85     5    60   | 42.0s                  n/a                   
+85     10   15   | 41.0s                  n/a                   
+85     10   30   | 41.0s                  n/a                   
+85     10   60   | 41.0s                  n/a                   
+85     20   15   | 39.0s                  n/a                   
+85     20   30   | 39.0s                  n/a                   
+85     20   60   | 39.0s                  n/a                   
+90     5    15   | 42.0s                  n/a                   
+90     5    30   | 42.0s                  n/a                   
+90     5    60   | 42.0s                  n/a                   
+90     10   15   | 41.0s                  n/a                   
+90     10   30   | 41.0s                  n/a                   
+90     10   60   | 41.0s                  n/a                   
+90     20   15   | 40.0s                  n/a                   
+90     20   30   | 40.0s                  n/a                   
+90     20   60   | 40.0s                  n/a                   
+95     5    15   | 42.0s                  n/a                   
+95     5    30   | 42.0s                  n/a                   
+95     5    60   | 42.0s                  n/a                   
+95     10   15   | 42.0s                  n/a                   
+95     10   30   | 42.0s                  n/a                   
+95     10   60   | 42.0s                  n/a                   
+95     20   15   | 41.0s                  n/a                   
+95     20   30   | 41.0s                  n/a                   
+95     20   60   | 41.0s                  n/a                   
+
+== Recovery decomposition (§5: only measured boundaries are claimed) ==
+reschedule           [api] N/A: no scheduler: the container runtime restarts in place
+container_start      [api] measured: 0.69s
+log_bringup          [log] measured: 28.67s
+engine_init          [log] measured: 22.72s
+weight_download      [log] N/A: no download line after the fire: weights served from the mounted cache
+weight_load          [log] measured: 3.33s
+torch_compile        [log] measured: 0.88s
+profile_kv_capture   [log] measured: 5.76s
+engine_ready         [log] measured: 39.64s
+server_ready         [log] measured: 41.35s
+replica_ready        [probe] measured: 41.69s
+traffic_restored     [probe] N/A: one replica addressed directly: no Service
+routing_propagation  [probe] N/A: one replica addressed directly: no Service
+goodput_restored     [client] measured: 40.96s
+figures printed in the server log: graph_capture_gib=0.52 graph_capture_s=5 init_engine_compilation_s=0.18 init_engine_s=8.17 model_loaded_gib=14.29 model_loaded_s=4.807834 torch_compile_s=0.18 weights_loaded_s=2.81
+
+== Run-validity gates (§10 G1-G7) ==
+  G1 per-replica share 45-55% pre-fault            n/a              single-replica target: share gate not applicable
+  G2 client-validity gate clean                    pass             skew p99=16us/max=106us; undispatched=0; cpu_measured=true worst=3.1%; gc pause p99 in [0.393, 0.459) ms, runtime bucket edges, gate on the upper edge
+  G3 zero errored outcomes among victim-attributed in-flight requests n/a              not the black-hole variant: client-silence assertion not applicable
+  G4 endpoint-staleness window >= 20s with victim-bound traffic observed n/a              not the black-hole variant: staleness assertion not applicable
+  G5 GPU clock/power fingerprints equal across replicas and runs n/a              fingerprints are not fed into the gate; percentes-campaign writes them per run under process kill; reported not applicable
+  G6 baseline goodput >= 0.99                      pass             baseline goodput 1.0000 (pinned minimum 0.99, §10 G6; below it the load calibration is wrong and is redone)
+  G7 baseline queue stability: per-replica waiting-queue mean <= 1.0 pass             vllm:num_requests_waiting baseline means r0=0.000/n270, sampled every 1 s, 270 expected (pinned maximum 1.0, §10 G7; 41 scrape errors)
+all pass: true; node-loss-representative: false
+
+CAVEAT: one vLLM replica on one GPU, killed and restarted in place; no two-replica or Kubernetes claim. N=5 runs on rented hardware; the acceptance criteria (§8) certified the instrument against the mock; injected-fault-versus-reality gaps are named in the report.

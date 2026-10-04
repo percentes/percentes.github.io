@@ -1,0 +1,235 @@
+{
+  "container": "vllm",
+  "before": {
+    "running": true,
+    "pid": 3174,
+    "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+    "started_at": "2026-10-02T16:05:25.701058951Z",
+    "finished_at": "0001-01-01T00:00:00Z",
+    "restart_count": 0,
+    "restart_policy": "on-failure"
+  },
+  "after": {
+    "running": true,
+    "pid": 4451,
+    "id": "8fa002d66b940e87ba57ccab24dbcf13d4e227905d8e016d2ef905005bd277d4",
+    "started_at": "2026-10-02T16:08:14.215990487Z",
+    "finished_at": "2026-10-02T16:08:14.201078322Z",
+    "restart_count": 1,
+    "restart_policy": "on-failure"
+  },
+  "offset_before": {
+    "offset_ns": 8443194,
+    "bound_ns": 7497245,
+    "samples": 5,
+    "at": "2026-10-02T16:08:08.004225121Z"
+  },
+  "offset_after": {
+    "offset_ns": 9070011,
+    "bound_ns": 7964125,
+    "samples": 5,
+    "at": "2026-10-02T16:08:55.697399105Z"
+  },
+  "signal_zero": [
+    {
+      "pid": 3174,
+      "signal": 0,
+      "sent_at": "2026-10-02T16:08:08.004241529Z",
+      "returned_at": "2026-10-02T16:08:08.048488501Z",
+      "remote_before_ns": 1790957288046558637,
+      "remote_after_ns": 1790957288048479317
+    },
+    {
+      "pid": 3174,
+      "signal": 0,
+      "sent_at": "2026-10-02T16:08:08.048515391Z",
+      "returned_at": "2026-10-02T16:08:08.09170707Z",
+      "remote_before_ns": 1790957288090415143,
+      "remote_after_ns": 1790957288091762992
+    },
+    {
+      "pid": 3174,
+      "signal": 0,
+      "sent_at": "2026-10-02T16:08:08.091736171Z",
+      "returned_at": "2026-10-02T16:08:08.132667579Z",
+      "remote_before_ns": 1790957288131441283,
+      "remote_after_ns": 1790957288132609865
+    },
+    {
+      "pid": 3174,
+      "signal": 0,
+      "sent_at": "2026-10-02T16:08:08.132679799Z",
+      "returned_at": "2026-10-02T16:08:08.176916277Z",
+      "remote_before_ns": 1790957288175560493,
+      "remote_after_ns": 1790957288176772337
+    },
+    {
+      "pid": 3174,
+      "signal": 0,
+      "sent_at": "2026-10-02T16:08:08.176924775Z",
+      "returned_at": "2026-10-02T16:08:08.222234497Z",
+      "remote_before_ns": 1790957288221122133,
+      "remote_after_ns": 1790957288222033070
+    }
+  ],
+  "signal_zero_round_trip_ms": [
+    44.246,
+    43.191,
+    40.931,
+    44.236,
+    45.309
+  ],
+  "signal_zero_bracket_ms": [
+    1.92068,
+    1.347849,
+    1.168582,
+    1.211844,
+    0.910937
+  ],
+  "orchestration": {
+    "armed_at": "2026-10-02T16:08:08.222256636Z",
+    "planned_fire_at": "2026-10-02T16:08:13.222246767Z",
+    "planned_expiry_at": "2026-10-02T16:08:23.222246767Z",
+    "observed_fire_at": "2026-10-02T16:08:13.261594593Z",
+    "observed_expiry_at": "2026-10-02T16:08:13.261594593Z"
+  },
+  "kill": {
+    "pid": 3174,
+    "signal": 9,
+    "sent_at": "2026-10-02T16:08:13.223249679Z",
+    "returned_at": "2026-10-02T16:08:13.271237595Z",
+    "remote_before_ns": 1790957293269189373,
+    "remote_after_ns": 1790957293270886201
+  },
+  "fire_error_ms": 39.347,
+  "fire_uncertainty_ns": 9439356,
+  "restart_count_advanced": 1,
+  "events": [
+    {
+      "action": "die",
+      "at": "2026-10-02T16:08:14.203768583Z"
+    },
+    {
+      "action": "start",
+      "at": "2026-10-02T16:08:14.476245614Z"
+    }
+  ],
+  "die_to_start_s": 0.272477031,
+  "health_calibration_started_at": "2026-10-02T16:08:13.341448143Z",
+  "health_calibration_lag_after_fire_s": 0.079853436,
+  "health_calibration": {
+    "health_ready_after_s": 42.159790706,
+    "inference_ready_after_s": 42.212637702,
+    "gap_s": 0.052846995999999535,
+    "health_ok": true,
+    "inference_ok": true,
+    "note": "health-ready and serve-ready coincide within 0.5s on this version"
+  },
+  "health_ready_after_fire_s": 42.239644142,
+  "inference_ready_after_fire_s": 42.292491138,
+  "boundaries": {
+    "matches": {
+      "banner": {
+        "key": "banner",
+        "line": 4,
+        "at": "2026-10-02T16:08:25.383087855Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "text": "2026-10-02T16:08:25.383087855Z (APIServer pid=1) INFO 10-02 16:08:25 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.29.0"
+      },
+      "engine_init": {
+        "key": "engine_init",
+        "line": 12,
+        "at": "2026-10-02T16:08:35.2721518Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "text": "2026-10-02T16:08:35.272151800Z (EngineCore pid=72) INFO 10-02 16:08:35 [core.py:123] Initializing a V1 LLM engine (v0.29.0) with config: model='Qwen/Qwen2.5-7B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-7B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=a09a35458c702b33eeacc393d103063234e8bc28, tokenizer_revision=a09a35458c702b33eeacc393d103063234e8bc28, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=1024, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=True, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=Qwen/Qwen2.5-7B-Instruct, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': \u003cCompilationMode.VLLM_COMPILE: 3\u003e, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_compute_ple_ngram_ids', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': \u003cCUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)\u003e, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': \u003cDynamicShapesType.BACKED: 'backed'\u003e, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, enable_bf16x3_router_gemm=False, moe_backend='auto', linear_backend='auto')"
+      },
+      "engine_ready": {
+        "key": "engine_ready",
+        "line": 47,
+        "at": "2026-10-02T16:08:53.43774163Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "figures": {
+          "init_engine_compilation_s": 0.17,
+          "init_engine_s": 10.18
+        },
+        "text": "2026-10-02T16:08:53.437741630Z (EngineCore pid=72) INFO 10-02 16:08:53 [core.py:361] init engine (profile, create kv cache, warmup model) took 10.18 s (compilation: 0.17 s)"
+      },
+      "graph_capture": {
+        "key": "graph_capture",
+        "line": 44,
+        "at": "2026-10-02T16:08:49.925018808Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "figures": {
+          "graph_capture_gib": 0.52,
+          "graph_capture_s": 5
+        },
+        "text": "2026-10-02T16:08:49.925018808Z (EngineCore pid=72) INFO 10-02 16:08:49 [model_runner.py:960] Graph capturing finished in 5 secs, took 0.52 GiB"
+      },
+      "model_load_start": {
+        "key": "model_load_start",
+        "line": 18,
+        "at": "2026-10-02T16:08:39.276849086Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "text": "2026-10-02T16:08:39.276849086Z (EngineCore pid=72) INFO 10-02 16:08:39 [model_runner.py:382] Loading model from scratch..."
+      },
+      "model_loaded": {
+        "key": "model_loaded",
+        "line": 31,
+        "at": "2026-10-02T16:08:43.249011218Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "figures": {
+          "model_loaded_gib": 14.29,
+          "model_loaded_s": 4.288191
+        },
+        "text": "2026-10-02T16:08:43.249011218Z (EngineCore pid=72) INFO 10-02 16:08:43 [model_runner.py:404] Model loading took 14.29 GiB memory and 4.288191 seconds"
+      },
+      "server_start": {
+        "key": "server_start",
+        "line": 54,
+        "at": "2026-10-02T16:08:54.877365997Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "text": "2026-10-02T16:08:54.877365997Z (APIServer pid=1) INFO 10-02 16:08:54 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000"
+      },
+      "startup_complete": {
+        "key": "startup_complete",
+        "line": 109,
+        "at": "2026-10-02T16:08:55.209821682Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "text": "2026-10-02T16:08:55.209821682Z (APIServer pid=1) INFO:     Application startup complete."
+      },
+      "torch_compile": {
+        "key": "torch_compile",
+        "line": 36,
+        "at": "2026-10-02T16:08:43.963258631Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "figures": {
+          "torch_compile_s": 0.17
+        },
+        "text": "2026-10-02T16:08:43.963258631Z (EngineCore pid=72) INFO 10-02 16:08:43 [monitor.py:53] torch.compile took 0.17 s in total"
+      },
+      "weights_loaded": {
+        "key": "weights_loaded",
+        "line": 30,
+        "at": "2026-10-02T16:08:42.578441936Z",
+        "stamp": "docker",
+        "resolution_ns": 1,
+        "figures": {
+          "weights_loaded_s": 2.76
+        },
+        "text": "2026-10-02T16:08:42.578441936Z (EngineCore pid=72) INFO 10-02 16:08:42 [default_loader.py:430] Loading weights took 2.76 seconds"
+      }
+    },
+    "lines": 111
+  },
+  "log_path": "results/dry-kill/dry-kill-server.log",
+  "log_bytes": 23700
+}
