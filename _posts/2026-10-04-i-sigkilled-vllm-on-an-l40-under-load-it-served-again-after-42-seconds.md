@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "I SIGKILLed vLLM on an NVIDIA L40 under load; it served again after 42 seconds"
+title: "I SIGKILLed vLLM on an NVIDIA L40 under load – it served again after 42 seconds"
 date: 2026-10-04 12:00:00 +0100
 ---
 
