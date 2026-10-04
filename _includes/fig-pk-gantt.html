@@ -1,0 +1,208 @@
+<figure class="fig">
+<div class="fig-scroll">
+<svg xmlns="http://www.w3.org/2000/svg" id="fig-pk-gantt" viewBox="0 0 720 541" width="720" height="541" role="img" aria-labelledby="fig-pk-gantt-title" aria-describedby="fig-pk-gantt-desc">
+<title id="fig-pk-gantt-title">F2. Restart stages per run beside the 16 September cold start</title>
+<desc id="fig-pk-gantt-desc">Horizontal stage bars for each restart and the 16 September cold start.</desc>
+<style>
+#fig-pk-gantt text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+#fig-pk-gantt .ink{fill:#1a1d21}
+#fig-pk-gantt .gapline{stroke:#ffffff}
+#fig-pk-gantt .muted{fill:#5c6570}
+#fig-pk-gantt .grid{stroke:#e3e6ea}
+#fig-pk-gantt .axis{stroke:#9aa3ad}
+#fig-pk-gantt .mark{stroke:#1a1d21}
+#fig-pk-gantt .neutral{fill:#b4bac1}
+#fig-pk-gantt .hatch{stroke:#1a1d21}
+#fig-pk-gantt .c0{fill:#2a78d6}
+#fig-pk-gantt .s0{stroke:#2a78d6}
+#fig-pk-gantt .c1{fill:#eb6834}
+#fig-pk-gantt .s1{stroke:#eb6834}
+#fig-pk-gantt .c2{fill:#1baf7a}
+#fig-pk-gantt .s2{stroke:#1baf7a}
+#fig-pk-gantt .c3{fill:#eda100}
+#fig-pk-gantt .s3{stroke:#eda100}
+#fig-pk-gantt .c4{fill:#e87ba4}
+#fig-pk-gantt .s4{stroke:#e87ba4}
+#fig-pk-gantt .c5{fill:#008300}
+#fig-pk-gantt .s5{stroke:#008300}
+#fig-pk-gantt .c6{fill:#4a3aa7}
+#fig-pk-gantt .s6{stroke:#4a3aa7}
+#fig-pk-gantt .c7{fill:#e34948}
+#fig-pk-gantt .s7{stroke:#e34948}
+@media (prefers-color-scheme: dark){
+#fig-pk-gantt .ink{fill:#e6e9ec}
+#fig-pk-gantt .gapline{stroke:#14171a}
+#fig-pk-gantt .muted{fill:#98a1ab}
+#fig-pk-gantt .grid{stroke:#2a2f35}
+#fig-pk-gantt .axis{stroke:#5c6570}
+#fig-pk-gantt .mark{stroke:#e6e9ec}
+#fig-pk-gantt .neutral{fill:#5f6872}
+#fig-pk-gantt .hatch{stroke:#e6e9ec}
+#fig-pk-gantt .c0{fill:#3987e5}
+#fig-pk-gantt .s0{stroke:#3987e5}
+#fig-pk-gantt .c1{fill:#d95926}
+#fig-pk-gantt .s1{stroke:#d95926}
+#fig-pk-gantt .c2{fill:#199e70}
+#fig-pk-gantt .s2{stroke:#199e70}
+#fig-pk-gantt .c3{fill:#c98500}
+#fig-pk-gantt .s3{stroke:#c98500}
+#fig-pk-gantt .c4{fill:#d55181}
+#fig-pk-gantt .s4{stroke:#d55181}
+#fig-pk-gantt .c5{fill:#008300}
+#fig-pk-gantt .s5{stroke:#008300}
+#fig-pk-gantt .c6{fill:#9085e9}
+#fig-pk-gantt .s6{stroke:#9085e9}
+#fig-pk-gantt .c7{fill:#e66767}
+#fig-pk-gantt .s7{stroke:#e66767}
+}
+</style>
+<text x="20.0" y="24.0" class="ink" font-size="15" text-anchor="start" font-weight="bold">F2. Restart stages per run beside the 16 September cold start</text>
+<text x="20.0" y="46.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">Seconds from each start's version banner. Restart bars begin at the kill; the cold bar begins at its</text>
+<text x="20.0" y="62.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">banner. The number after each restart bar is the outage, kill to the probe's answer; after the cold</text>
+<text x="20.0" y="78.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">bar, banner to Starting vLLM server. vLLM stamps lines to the second; a boundary drawn from a vLLM</text>
+<text x="20.0" y="94.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">stamp carries 1 s resolution, marked |. Hatched: the 21.7 s weight download (cold only).</text>
+<rect x="20" y="112" width="12" height="12" rx="2" class="c0"/>
+<text x="37.0" y="122.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">kill to container start</text>
+<rect x="206.56" y="112" width="12" height="12" rx="2" class="c1"/>
+<text x="223.6" y="122.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">container start to version banner</text>
+<rect x="460.32000000000005" y="112" width="12" height="12" rx="2" class="c2"/>
+<text x="477.3" y="122.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">banner to engine init</text>
+<rect x="20" y="131" width="12" height="12" rx="2" class="c3"/>
+<text x="37.0" y="141.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">engine init to model loaded</text>
+<rect x="233.44000000000003" y="131" width="12" height="12" rx="2" class="c4"/>
+<text x="250.4" y="141.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">model loaded to torch.compile took line</text>
+<rect x="20" y="150" width="12" height="12" rx="2" class="c5"/>
+<text x="37.0" y="160.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">compile end to capture end</text>
+<rect x="226.72000000000003" y="150" width="12" height="12" rx="2" class="c6"/>
+<text x="243.7" y="160.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">capture end to Starting vLLM server</text>
+<rect x="20" y="169" width="12" height="12" rx="2" class="c7"/>
+<text x="37.0" y="179.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">Starting vLLM server to the probe's answer</text>
+<rect x="334.24" y="169" width="12" height="12" rx="2" class="neutral"/>
+<text x="351.2" y="179.0" class="ink" font-size="12" text-anchor="start" font-weight="normal">boundary line absent</text>
+<line x1="198.5" x2="198.5" y1="215" y2="497" class="grid" stroke-width="1"/>
+<text x="198.5" y="512.0" class="muted" font-size="11.5" text-anchor="middle" font-weight="normal">0</text>
+<line x1="310.2" x2="310.2" y1="215" y2="497" class="grid" stroke-width="1"/>
+<text x="310.2" y="512.0" class="muted" font-size="11.5" text-anchor="middle" font-weight="normal">20</text>
+<line x1="421.9" x2="421.9" y1="215" y2="497" class="grid" stroke-width="1"/>
+<text x="421.9" y="512.0" class="muted" font-size="11.5" text-anchor="middle" font-weight="normal">40</text>
+<line x1="533.6" x2="533.6" y1="215" y2="497" class="grid" stroke-width="1"/>
+<text x="533.6" y="512.0" class="muted" font-size="11.5" text-anchor="middle" font-weight="normal">60</text>
+<line x1="645.2" x2="645.2" y1="215" y2="497" class="grid" stroke-width="1"/>
+<text x="645.2" y="512.0" class="muted" font-size="11.5" text-anchor="middle" font-weight="normal">80</text>
+<line x1="540.8" x2="540.8" y1="211" y2="497" class="mark" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="536.8" y="207.0" class="ink" font-size="12" text-anchor="end" font-weight="normal">predicted bound, 61.3 s after the banner</text>
+<defs><pattern id="fig-pk-gantt-hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="hatch" stroke-width="2" stroke-opacity="0.55"/></pattern></defs>
+<text x="114.0" y="235.0" class="ink" font-size="12" text-anchor="end" font-weight="normal">16 Sep cold start</text>
+<rect x="198.48" y="221" width="111.69" height="20" class="c2"/>
+<line x1="310.17" x2="310.17" y1="221" y2="241" class="gapline" stroke-width="2"/>
+<rect x="310.17" y="221" width="184.29" height="20" class="c3"/>
+<line x1="494.46" x2="494.46" y1="221" y2="241" class="gapline" stroke-width="2"/>
+<rect x="494.46" y="221" width="94.94" height="20" class="c4"/>
+<line x1="589.40" x2="589.40" y1="221" y2="241" class="gapline" stroke-width="2"/>
+<rect x="589.40" y="221" width="39.09" height="20" class="c5"/>
+<line x1="628.49" x2="628.49" y1="221" y2="241" class="gapline" stroke-width="2"/>
+<rect x="628.49" y="221" width="33.51" height="20" class="c6"/>
+<line x1="662.00" x2="662.00" y1="221" y2="241" class="gapline" stroke-width="2"/>
+<rect x="350.75" y="221" width="121.37" height="20" fill="url(#fig-pk-gantt-hatch)"/>
+<line x1="198.48" x2="198.48" y1="218" y2="244" class="mark" stroke-width="1"/>
+<line x1="310.17" x2="310.17" y1="218" y2="244" class="mark" stroke-width="1"/>
+<line x1="494.46" x2="494.46" y1="218" y2="244" class="mark" stroke-width="1"/>
+<line x1="589.40" x2="589.40" y1="218" y2="244" class="mark" stroke-width="1"/>
+<line x1="628.49" x2="628.49" y1="218" y2="244" class="mark" stroke-width="1"/>
+<line x1="662.00" x2="662.00" y1="218" y2="244" class="mark" stroke-width="1"/>
+<text x="668.0" y="235.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">83 s</text>
+<text x="114.0" y="281.0" class="ink" font-size="12" text-anchor="end" font-weight="normal">run 1</text>
+<rect x="128.62" y="267" width="3.68" height="20" class="c0"/>
+<line x1="132.30" x2="132.30" y1="267" y2="287" class="gapline" stroke-width="2"/>
+<rect x="132.30" y="267" width="66.18" height="20" class="c1"/>
+<line x1="198.48" x2="198.48" y1="267" y2="287" class="gapline" stroke-width="2"/>
+<rect x="198.48" y="267" width="58.41" height="20" class="c2"/>
+<line x1="256.89" x2="256.89" y1="267" y2="287" class="gapline" stroke-width="2"/>
+<rect x="256.89" y="267" width="48.45" height="20" class="c3"/>
+<line x1="305.34" x2="305.34" y1="267" y2="287" class="gapline" stroke-width="2"/>
+<rect x="305.34" y="267" width="5.04" height="20" class="c4"/>
+<line x1="310.38" x2="310.38" y1="267" y2="287" class="gapline" stroke-width="2"/>
+<rect x="310.38" y="267" width="32.71" height="20" class="c5"/>
+<line x1="343.09" x2="343.09" y1="267" y2="287" class="gapline" stroke-width="2"/>
+<rect x="343.09" y="267" width="16.05" height="20" class="c6"/>
+<line x1="359.14" x2="359.14" y1="267" y2="287" class="gapline" stroke-width="2"/>
+<rect x="359.14" y="267" width="2.27" height="20" class="c7"/>
+<line x1="361.41" x2="361.41" y1="267" y2="287" class="gapline" stroke-width="2"/>
+<text x="367.4" y="281.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">41.7 s</text>
+<text x="114.0" y="327.0" class="ink" font-size="12" text-anchor="end" font-weight="normal">run 2</text>
+<rect x="129.57" y="313" width="3.83" height="20" class="c0"/>
+<line x1="133.40" x2="133.40" y1="313" y2="333" class="gapline" stroke-width="2"/>
+<rect x="133.40" y="313" width="65.08" height="20" class="c1"/>
+<line x1="198.48" x2="198.48" y1="313" y2="333" class="gapline" stroke-width="2"/>
+<rect x="198.48" y="313" width="58.00" height="20" class="c2"/>
+<line x1="256.48" x2="256.48" y1="313" y2="333" class="gapline" stroke-width="2"/>
+<rect x="256.48" y="313" width="48.76" height="20" class="c3"/>
+<line x1="305.24" x2="305.24" y1="313" y2="333" class="gapline" stroke-width="2"/>
+<rect x="305.24" y="313" width="4.92" height="20" class="c4"/>
+<line x1="310.16" x2="310.16" y1="313" y2="333" class="gapline" stroke-width="2"/>
+<rect x="310.16" y="313" width="32.15" height="20" class="c5"/>
+<line x1="342.31" x2="342.31" y1="313" y2="333" class="gapline" stroke-width="2"/>
+<rect x="342.31" y="313" width="16.28" height="20" class="c6"/>
+<line x1="358.58" x2="358.58" y1="313" y2="333" class="gapline" stroke-width="2"/>
+<rect x="358.58" y="313" width="3.81" height="20" class="c7"/>
+<line x1="362.39" x2="362.39" y1="313" y2="333" class="gapline" stroke-width="2"/>
+<text x="368.4" y="327.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">41.7 s</text>
+<text x="114.0" y="373.0" class="ink" font-size="12" text-anchor="end" font-weight="normal">run 3</text>
+<rect x="124.09" y="359" width="3.51" height="20" class="c0"/>
+<line x1="127.60" x2="127.60" y1="359" y2="379" class="gapline" stroke-width="2"/>
+<rect x="127.60" y="359" width="70.88" height="20" class="c1"/>
+<line x1="198.48" x2="198.48" y1="359" y2="379" class="gapline" stroke-width="2"/>
+<rect x="198.48" y="359" width="62.76" height="20" class="c2"/>
+<line x1="261.24" x2="261.24" y1="359" y2="379" class="gapline" stroke-width="2"/>
+<rect x="261.24" y="359" width="48.56" height="20" class="c3"/>
+<line x1="309.81" x2="309.81" y1="359" y2="379" class="gapline" stroke-width="2"/>
+<rect x="309.81" y="359" width="4.53" height="20" class="c4"/>
+<line x1="314.34" x2="314.34" y1="359" y2="379" class="gapline" stroke-width="2"/>
+<rect x="314.34" y="359" width="32.65" height="20" class="c5"/>
+<line x1="346.99" x2="346.99" y1="359" y2="379" class="gapline" stroke-width="2"/>
+<rect x="346.99" y="359" width="16.52" height="20" class="c6"/>
+<line x1="363.50" x2="363.50" y1="359" y2="379" class="gapline" stroke-width="2"/>
+<rect x="363.50" y="359" width="4.61" height="20" class="c7"/>
+<line x1="368.11" x2="368.11" y1="359" y2="379" class="gapline" stroke-width="2"/>
+<text x="374.1" y="373.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">43.7 s</text>
+<text x="114.0" y="419.0" class="ink" font-size="12" text-anchor="end" font-weight="normal">run 4</text>
+<rect x="123.89" y="405" width="4.12" height="20" class="c0"/>
+<line x1="128.01" x2="128.01" y1="405" y2="425" class="gapline" stroke-width="2"/>
+<rect x="128.01" y="405" width="70.47" height="20" class="c1"/>
+<line x1="198.48" x2="198.48" y1="405" y2="425" class="gapline" stroke-width="2"/>
+<rect x="198.48" y="405" width="61.23" height="20" class="c2"/>
+<line x1="259.71" x2="259.71" y1="405" y2="425" class="gapline" stroke-width="2"/>
+<rect x="259.71" y="405" width="42.51" height="20" class="c3"/>
+<line x1="302.22" x2="302.22" y1="405" y2="425" class="gapline" stroke-width="2"/>
+<rect x="302.22" y="405" width="4.59" height="20" class="c4"/>
+<line x1="306.81" x2="306.81" y1="405" y2="425" class="gapline" stroke-width="2"/>
+<rect x="306.81" y="405" width="32.01" height="20" class="c5"/>
+<line x1="338.82" x2="338.82" y1="405" y2="425" class="gapline" stroke-width="2"/>
+<rect x="338.82" y="405" width="16.33" height="20" class="c6"/>
+<line x1="355.15" x2="355.15" y1="405" y2="425" class="gapline" stroke-width="2"/>
+<rect x="355.15" y="405" width="4.36" height="20" class="c7"/>
+<line x1="359.50" x2="359.50" y1="405" y2="425" class="gapline" stroke-width="2"/>
+<text x="365.5" y="419.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">42.2 s</text>
+<text x="114.0" y="465.0" class="ink" font-size="12" text-anchor="end" font-weight="normal">run 5</text>
+<rect x="122.00" y="451" width="4.48" height="20" class="c0"/>
+<line x1="126.48" x2="126.48" y1="451" y2="471" class="gapline" stroke-width="2"/>
+<rect x="126.48" y="451" width="72.00" height="20" class="c1"/>
+<line x1="198.48" x2="198.48" y1="451" y2="471" class="gapline" stroke-width="2"/>
+<rect x="198.48" y="451" width="62.28" height="20" class="c2"/>
+<line x1="260.76" x2="260.76" y1="451" y2="471" class="gapline" stroke-width="2"/>
+<rect x="260.76" y="451" width="42.99" height="20" class="c3"/>
+<line x1="303.74" x2="303.74" y1="451" y2="471" class="gapline" stroke-width="2"/>
+<rect x="303.74" y="451" width="4.88" height="20" class="c4"/>
+<line x1="308.62" x2="308.62" y1="451" y2="471" class="gapline" stroke-width="2"/>
+<rect x="308.62" y="451" width="33.11" height="20" class="c5"/>
+<line x1="341.72" x2="341.72" y1="451" y2="471" class="gapline" stroke-width="2"/>
+<rect x="341.72" y="451" width="16.91" height="20" class="c6"/>
+<line x1="358.63" x2="358.63" y1="451" y2="471" class="gapline" stroke-width="2"/>
+<rect x="358.63" y="451" width="4.47" height="20" class="c7"/>
+<line x1="363.11" x2="363.11" y1="451" y2="471" class="gapline" stroke-width="2"/>
+<text x="369.1" y="465.0" class="muted" font-size="12" text-anchor="start" font-weight="normal">43.2 s</text>
+<text x="392.0" y="531.0" class="muted" font-size="12" text-anchor="middle" font-weight="normal">time from the version banner line (s)</text>
+</svg>
+</div>
+<figcaption>Figure 2: each start aligned at its version banner. Restart bars run from the kill to the probe's first answer, and the 16 September cold start's from its banner to <code>Starting vLLM server</code>. Ticks on the cold bar mark vLLM's whole-second timestamps.</figcaption>
+</figure>
