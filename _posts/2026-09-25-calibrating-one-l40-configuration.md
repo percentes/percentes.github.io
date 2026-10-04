@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What one vLLM replica on an L40 can carry and how it fails"
+title: "What one vLLM replica on an NVIDIA L40 can carry and how it fails"
 date: 2026-09-25 12:00:00 +0100
 ---
 

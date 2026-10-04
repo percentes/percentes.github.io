@@ -32,6 +32,6 @@ source, and the methodology was pre-registered before any measurement
 data was collected. A number is published only with the commit and
 configuration that produced it.
 
-- **[Writing](/writing/)**: measurement notes and teardowns, so far [The failure your dashboard can't see](/writing/2026/the-failure-your-dashboard-cannot-see/), [One event, five status codes and a class](/writing/2026/one-event-five-status-codes-and-a-class/), [What one vLLM replica on an L40 can carry and how it fails](/writing/2026/calibrating-one-l40-configuration/) and [I SIGKILLed vLLM on an NVIDIA L40 under load; it served again after 42 seconds](/writing/2026/i-sigkilled-vllm-on-an-l40-under-load-it-served-again-after-42-seconds/)
+- **[Writing](/writing/)**: measurement notes and teardowns, so far [The failure your dashboard can't see](/writing/2026/the-failure-your-dashboard-cannot-see/), [One event, five status codes and a class](/writing/2026/one-event-five-status-codes-and-a-class/), [What one vLLM replica on an NVIDIA L40 can carry and how it fails](/writing/2026/calibrating-one-l40-configuration/) and [I SIGKILLed vLLM on an NVIDIA L40 under load; it served again after 42 seconds](/writing/2026/i-sigkilled-vllm-on-an-l40-under-load-it-served-again-after-42-seconds/)
 - **[Methodology](/methodology/)**: what the numbers mean and what would invalidate them
 - **[The instrument](https://github.com/percentes/percentes)**: Go, Apache-2.0
